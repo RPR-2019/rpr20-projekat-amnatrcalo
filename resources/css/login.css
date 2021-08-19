@@ -14,3 +14,8 @@
  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
 }
 
+.loginFailed{
+-fx-background-color: white;
+-fx-border-color: black;
+}
+

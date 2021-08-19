@@ -41,7 +41,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField alignment="CENTER" prefHeight="25.0" prefWidth="150.0" promptText="Username" GridPane.rowIndex="4" />
+                <TextField alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="150.0" promptText="Username" GridPane.rowIndex="4" />
                 <Label text="Please fill in this form to create an account!" textFill="WHITE" GridPane.rowIndex="1" />
                 <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="Sign up" GridPane.rowIndex="7">
                     <font>
