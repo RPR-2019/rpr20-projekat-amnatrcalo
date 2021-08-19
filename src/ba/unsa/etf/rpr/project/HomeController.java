@@ -22,7 +22,7 @@ public class HomeController {
     public void registrationAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/register.fxml"));
         Stage registrationStage=new Stage();
-        registrationStage.setTitle("Registration");
+        registrationStage.setTitle("Sign Up");
         registrationStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         registrationStage.setResizable(false);
         registrationStage.show();
