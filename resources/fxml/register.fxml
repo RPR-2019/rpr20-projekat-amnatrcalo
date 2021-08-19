@@ -41,9 +41,14 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="150.0" promptText="Username" GridPane.rowIndex="4" />
+            <VBox GridPane.rowIndex="4">
+               <children>
+                      <TextField fx:id="fldUsername" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="150.0" promptText="Username" />
+                  <Label fx:id="errorUsername" textFill="WHITE" />
+               </children>
+            </VBox>
                 <Label text="Please fill in this form to create an account!" textFill="WHITE" GridPane.rowIndex="1" />
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="Sign up" GridPane.rowIndex="7">
+                <Button mnemonicParsing="false" onAction="#btnSignupAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="Sign up" GridPane.rowIndex="7">
                     <font>
                         <Font name="System Italic" size="12.0" />
                     </font></Button>
@@ -65,10 +70,30 @@
                         <Hyperlink onAction="#hyperlinkAction" text="Log in" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
-            <TextField alignment="CENTER" promptText="First Name" GridPane.rowIndex="2" />
-            <TextField alignment="CENTER" promptText="Last Name" GridPane.rowIndex="3" />
-            <PasswordField alignment="CENTER" promptText="Password" GridPane.rowIndex="5" />
-            <PasswordField alignment="CENTER" promptText="Confirm Password" GridPane.rowIndex="6" />
+            <VBox GridPane.rowIndex="2">
+               <children>
+                  <TextField fx:id="fldFirstName" alignment="CENTER" promptText="First Name" />
+                  <Label fx:id="errorFirstName" textFill="WHITE" />
+               </children>
+            </VBox>
+            <VBox GridPane.rowIndex="3">
+               <children>
+                  <TextField fx:id="fldLastName" alignment="CENTER" promptText="Last Name" />
+                  <Label fx:id="errorLastName" textFill="WHITE" />
+               </children>
+            </VBox>
+            <VBox GridPane.rowIndex="5">
+               <children>
+                  <PasswordField fx:id="fldPassword" alignment="CENTER" promptText="Password" />
+                  <Label fx:id="errorPassword" textFill="WHITE" />
+               </children>
+            </VBox>
+            <VBox GridPane.rowIndex="6">
+               <children>
+                  <PasswordField fx:id="fldConfirmPassword" alignment="CENTER" promptText="Confirm Password" />
+                  <Label fx:id="errorConfirmPassword" textFill="WHITE" />
+               </children>
+            </VBox>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
