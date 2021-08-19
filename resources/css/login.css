@@ -1,0 +1,16 @@
+.background{
+-fx-background-color: #f40b59;
+}
+
+.btn{
+-fx-background-color: #06cbe6;
+}
+
+.btn:hover{
+-fx-background-color: #ffceff;
+}
+
+.logo{
+ -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,1) , 5, 0.0 , 0 , 1 );
+}
+
