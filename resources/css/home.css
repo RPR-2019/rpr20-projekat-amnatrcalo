@@ -1,0 +1,23 @@
+.heading {
+
+
+}
+
+.logo {
+-fx-effect:  dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+
+}
+
+.background{
+-fx-background-image: url("/img/todo-list-background.png");
+}
+
+.btn{
+-fx-background-color: #f40b59;
+-fx-border-radius: 50;
+-fx-effect: dropshadow( three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+.btn:hover {
+  -fx-background-color: #8dddf3;
+}
