@@ -12,10 +12,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
-        primaryStage.setTitle("Prijava");
-        //use_computed_size da bi velicina prozora bila tacno velicine koja nam treba
+        primaryStage.setTitle("Welcome");
         primaryStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
-        //login prozor nema potrebe da se povecava ili smanjuje
         primaryStage.setResizable(false);
         primaryStage.show();
     }
