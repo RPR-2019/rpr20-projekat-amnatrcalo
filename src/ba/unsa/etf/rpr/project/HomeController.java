@@ -10,6 +10,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HomeController {
+    private AppDAO dao;
+
+    public HomeController(){
+        dao=AppDAO.getInstance();
+    }
     public void loginAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         Stage loginStage=new Stage();

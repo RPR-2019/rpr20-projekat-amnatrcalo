@@ -10,7 +10,7 @@
         <URL value="@/css/home.css" />
     </stylesheets>
    <children>
-      <Button layoutX="282.0" layoutY="281.0" mnemonicParsing="false" onAction="#loginAction" prefWidth="190.0" styleClass="btn" text="Login">
+      <Button layoutX="282.0" layoutY="281.0" mnemonicParsing="false" onAction="#loginAction" prefWidth="190.0" styleClass="btn" text="Log in">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>

@@ -39,7 +39,7 @@
                <children>
                   <TextField fx:id="fldUsername" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="150.0" promptText="Username" GridPane.rowIndex="2" />
                   <Label text="Please enter your username and password!" textFill="WHITE" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="Login" textFill="WHITE" GridPane.rowIndex="4">
+                  <Button mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="Log in" textFill="WHITE" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font></Button>

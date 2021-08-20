@@ -8,36 +8,36 @@ import java.util.Scanner;
 public class AppDAO {
     private Connection conn;
     private PreparedStatement ps;
-    private static AppDAO instance;
+    private static AppDAO instance=null;
 
-    public static AppDAO getInstance(){
-        if (instance == null) instance = new AppDAO();
-        return instance;
-    }
 
-    private AppDAO(){
-        //String url = "jdbc:sqlite:" + System.getProperty("user.home") + "\\.todoApp\\todoDatabase.db";
-        String url="jdbc:sqlite:todoDatabase.db";
+
+    private AppDAO()  {
+        //baza ce se napraviti u home folderu korisnika
+        String url = "jdbc:sqlite:" + System.getProperty("user.home") + "\\.todoApp\\todoDatabase.db";
+
+        //String url="jdbc:sqlite:todoDatabase.db";
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
 
-        try {
+        /*try {
             ps = conn.prepareStatement("SELECT *FROM users");
-
-        } catch (SQLException exception) {
+        } catch (SQLException e) {
             generateDatabase();
             try {
                 ps = conn.prepareStatement("SELECT *FROM users");
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
             }
-        }
+        }*/
+
+
     }
 
-    private void generateDatabase() {
+   /* private void generateDatabase() {
         Scanner input = null;
         try {
             input = new Scanner(new FileInputStream("todoDatabase.db.sql"));
@@ -58,6 +58,11 @@ public class AppDAO {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }*/
+
+    public static AppDAO getInstance()  {
+        if (instance == null) instance = new AppDAO();
+        return instance;
     }
 
     public static void removeInstance() {
