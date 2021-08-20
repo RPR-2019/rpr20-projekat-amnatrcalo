@@ -25,12 +25,27 @@ public class HomeController {
     }
 
     public void registrationAction(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/register.fxml"));
         Stage registrationStage=new Stage();
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
+        RegisterController registerController = new RegisterController(null, dao.users());
+        loader.setController(registerController);
+        root = loader.load();
+
         registrationStage.setTitle("Sign Up");
         registrationStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         registrationStage.setResizable(false);
         registrationStage.show();
+
+        registrationStage.setOnHiding( event -> {
+            User user = registerController.getUser();
+            if (user != null) {
+                System.out.println("Usao");
+                dao.addUser(user);
+
+            }
+
+        } );
 
     }
 }

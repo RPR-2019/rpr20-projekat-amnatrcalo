@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class RegisterController {
     public TextField fldUsername;
@@ -26,8 +28,17 @@ public class RegisterController {
     public Label errorPassword;
     public PasswordField fldConfirmPassword;
     public Label errorConfirmPassword;
+    private ArrayList<User> users=new ArrayList<>();
+    private User user;
 
+    public RegisterController(User user,ArrayList<User>users) {
+        this.user=user;
+        this.users=users;
+    }
 
+    public User getUser() {
+        return user;
+    }
 
     public void hyperlinkAction(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
@@ -38,46 +49,76 @@ public class RegisterController {
         loginStage.show();
     }
 
+    public boolean isUsernameFree(String username){
+        boolean free=true;
+        for(User user:users){
+            if(user.getUsername().equals(username)) free=false;
+        }
+        return free;
+    }
 
 
     public void btnSignupAction(ActionEvent actionEvent) {
+        boolean ok=true;
+
         if(fldFirstName.getText().trim().isEmpty()){
             errorFirstName.setText("The First name field is required.");
+            ok=false;
         } else{
             errorFirstName.setText(" ");
         }
 
         if(fldLastName.getText().trim().isEmpty()){
             errorLastName.setText("The Last name field is required.");
+            ok=false;
         }else{
             errorLastName.setText(" ");
         }
 
-        if(fldUsername.getText().trim().isEmpty()){
+        if(fldUsername.getText().trim().isEmpty()) {
             errorUsername.setText("The Username field is required.");
-        }else{
+            ok=false;
+        }else if(!fldUsername.getText().trim().isEmpty() && !isUsernameFree(fldUsername.getText())) {
+            errorUsername.setText("User with this Username already exists.");
+            ok=false;
+        }
+        else{
             errorUsername.setText(" ");
         }
 
         if(fldPassword.getText().trim().isEmpty()){
             errorPassword.setText("The Password field is required.");
-        } else{
+            ok=false;
+        } else if(!fldPassword.getText().isEmpty()&& fldPassword.getText().length()<4){
+            ok=false;
+            errorPassword.setText("Password must contain at least 4 characters.");
+        }else{
             errorPassword.setText(" ");
         }
 
        if(fldConfirmPassword.getText().trim().isEmpty() && !fldPassword.getText().isEmpty() ) {
-           System.out.println("treba se pojavit");
            errorConfirmPassword.setText("The Confirm password field is required.");
+           ok=false;
         } else if(!fldPassword.getText().isEmpty() && !fldConfirmPassword.getText().isEmpty() && !fldPassword.getText().equals(fldConfirmPassword.getText())){
-           System.out.println("mismatch");
            errorConfirmPassword.setText("Passwords do not match.");
+           ok=false;
        } else if (fldConfirmPassword.getText().trim().isEmpty() && fldPassword.getText().trim().isEmpty()){
            errorConfirmPassword.setText("The Confirm password field is required.");
+           ok=false;
        } else{
            errorConfirmPassword.setText(" ");
        }
 
+       if(!ok) return;
 
+       if (user == null) user = new User();
+       user.setFirstName(fldFirstName.getText());
+       user.setLastName(fldLastName.getText());
+       user.setUsername(fldUsername.getText());
+       user.setPassword(fldPassword.getText());
+
+        Stage stage = (Stage) fldUsername.getScene().getWindow();
+        stage.close();
 
     }
 }

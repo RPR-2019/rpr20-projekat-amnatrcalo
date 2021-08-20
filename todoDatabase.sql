@@ -7,4 +7,5 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"password"	TEXT,
 	PRIMARY KEY("id")
 );
+INSERT INTO "users" VALUES (1,"Amna", "Trcalo", "amna","12345");
 COMMIT;
