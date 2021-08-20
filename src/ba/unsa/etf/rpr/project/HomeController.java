@@ -16,12 +16,29 @@ public class HomeController {
         dao=AppDAO.getInstance();
     }
     public void loginAction(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         Stage loginStage=new Stage();
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        LoginController loginController = new LoginController(null, dao.users());
+        loader.setController(loginController);
+        root = loader.load();
+
         loginStage.setTitle("Login");
         loginStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         loginStage.setResizable(false);
         loginStage.show();
+
+        /*loginStage.setOnHiding( event -> {
+            User user = loginController.getUser();
+            if (user != null) {
+                User foundUser=dao.getUser(user.getUsername());
+                if(foundUser==null || !foundUser.getPassword().equals(user.getPassword())){
+                    System.out.println("Ne valja");
+                    loginStage.show();
+                    loginController.setOk(false);
+                }
+            }
+        } );*/
     }
 
     public void registrationAction(ActionEvent actionEvent) throws IOException {
@@ -40,11 +57,8 @@ public class HomeController {
         registrationStage.setOnHiding( event -> {
             User user = registerController.getUser();
             if (user != null) {
-                System.out.println("Usao");
                 dao.addUser(user);
-
             }
-
         } );
 
     }

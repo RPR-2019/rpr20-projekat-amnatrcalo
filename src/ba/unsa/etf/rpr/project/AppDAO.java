@@ -37,7 +37,7 @@ public class AppDAO {
         try {
             setNewIdStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM users");
             addNewUserStmt=conn.prepareStatement("INSERT INTO users VALUES(?,?,?,?,?)");
-            getUserStmt=conn.prepareStatement("SELECT *FROM users WHERE id=?");
+            getUserStmt=conn.prepareStatement("SELECT *FROM users WHERE username=?");
             deleteAllUsers=conn.prepareStatement("DELETE FROM users");
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -128,9 +128,9 @@ public class AppDAO {
 
     }
 
-    public User getUser(int id){
+    public User getUser(String username){
         try {
-            getUserStmt.setInt(1, id);
+            getUserStmt.setString(1, username);
             ResultSet rs = getUserStmt.executeQuery();
             if (!rs.next()) return null;
             return getUserFromResultSet(rs);
