@@ -15,6 +15,8 @@ public class HomeController {
     public HomeController(){
         dao=AppDAO.getInstance();
     }
+
+
     public void loginAction(ActionEvent actionEvent) throws IOException {
         Stage loginStage=new Stage();
         Parent root=null;
@@ -62,4 +64,6 @@ public class HomeController {
         } );
 
     }
+
+
 }

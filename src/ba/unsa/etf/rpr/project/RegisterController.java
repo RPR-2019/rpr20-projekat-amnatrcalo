@@ -41,8 +41,13 @@ public class RegisterController {
     }
 
     public void hyperlinkAction(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         Stage loginStage=new Stage();
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        LoginController loginController = new LoginController(null, users);
+        loader.setController(loginController);
+        root = loader.load();
+
         loginStage.setTitle("Login");
         loginStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         loginStage.setResizable(false);

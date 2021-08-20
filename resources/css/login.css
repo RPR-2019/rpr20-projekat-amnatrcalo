@@ -1,5 +1,6 @@
 .background{
--fx-background-color: #f40b59;
+/*-fx-background-color: #f40b59;*/
+-fx-background-color: #feccfd;
 }
 
 .btn{
@@ -7,7 +8,8 @@
 }
 
 .btn:hover{
--fx-background-color: #ffceff;
+/*-fx-background-color: #ffceff;*/
+-fx-background-color: #f40b59;
 }
 
 .logo{

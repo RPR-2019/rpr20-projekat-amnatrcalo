@@ -47,12 +47,12 @@
                   <Label fx:id="errorUsername" textFill="WHITE" />
                </children>
             </VBox>
-                <Label text="Please fill in this form to create an account!" textFill="WHITE" GridPane.rowIndex="1" />
-                <Button defaultButton="true" mnemonicParsing="false" onAction="#btnSignupAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="Sign up" GridPane.rowIndex="7">
+                <Label text="Please fill in this form to create an account!" textFill="#f40b59" GridPane.rowIndex="1" />
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#btnSignupAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="Sign up" textFill="WHITE" GridPane.rowIndex="7">
                     <font>
                         <Font name="System Italic" size="12.0" />
                     </font></Button>
-                <Label text="SIGN UP" textFill="WHITE">
+                <Label text="SIGN UP" textFill="#f40b59">
                     <font>
                         <Font name="Roboto Light" size="50.0" />
                     </font>
@@ -66,7 +66,7 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="Already have an account?" textFill="WHITE" />
+                        <Label text="Already have an account?" textFill="#f40b59" />
                         <Hyperlink onAction="#hyperlinkAction" text="Log in" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>

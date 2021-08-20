@@ -32,12 +32,24 @@ public class LoginController {
 
 
     public void hyperlinkAction(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/register.fxml"));
         Stage registrationStage=new Stage();
-        registrationStage.setTitle("Registration");
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
+        RegisterController registerController = new RegisterController(null, users);
+        loader.setController(registerController);
+        root = loader.load();
+
+        registrationStage.setTitle("Sign Up");
         registrationStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         registrationStage.setResizable(false);
         registrationStage.show();
+
+        /*registrationStage.setOnHiding( event -> {
+            User user = registerController.getUser();
+            if (user != null) {
+                dao.addUser(user);
+            }
+        } );*/
     }
 
     public boolean checkLogin(String username, String password){
