@@ -28,7 +28,6 @@ public class AppDAO {
             ps = conn.prepareStatement("SELECT *FROM users");
 
         } catch (SQLException exception) {
-
             generateDatabase();
             try {
                 ps = conn.prepareStatement("SELECT *FROM users");
@@ -74,7 +73,6 @@ public class AppDAO {
             e.printStackTrace();
         }
     }
-
 
 
 }

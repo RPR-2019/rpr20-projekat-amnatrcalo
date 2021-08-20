@@ -41,7 +41,6 @@ public class RegisterController {
 
 
     public void btnSignupAction(ActionEvent actionEvent) {
-        System.out.println("Usao");
         if(fldFirstName.getText().trim().isEmpty()){
             errorFirstName.setText("The First name field is required.");
         } else{
@@ -66,14 +65,14 @@ public class RegisterController {
             errorPassword.setText(" ");
         }
 
-       if(fldConfirmPassword.getText().trim().isEmpty() ) {
-            errorConfirmPassword.setText("The Confirm password field is required.");
-        } else{
-           errorConfirmPassword.setText(" ");
-       }
-
-       if(!fldPassword.getText().isEmpty() && !fldConfirmPassword.getText().isEmpty() && !fldPassword.getText().equals(fldConfirmPassword.getText())){
+       if(fldConfirmPassword.getText().trim().isEmpty() && !fldPassword.getText().isEmpty() ) {
+           System.out.println("treba se pojavit");
+           errorConfirmPassword.setText("The Confirm password field is required.");
+        } else if(!fldPassword.getText().isEmpty() && !fldConfirmPassword.getText().isEmpty() && !fldPassword.getText().equals(fldConfirmPassword.getText())){
+           System.out.println("mismatch");
            errorConfirmPassword.setText("Passwords do not match.");
+       } else if (fldConfirmPassword.getText().trim().isEmpty() && fldPassword.getText().trim().isEmpty()){
+           errorConfirmPassword.setText("The Confirm password field is required.");
        } else{
            errorConfirmPassword.setText(" ");
        }
