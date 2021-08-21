@@ -1,15 +1,16 @@
 package ba.unsa.etf.rpr.project;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +58,8 @@ public class LoginController {
             if (user != null) {
                 dao.addUser(user);
             }
-        } );
+        });
+
 
 
     }
@@ -73,7 +75,7 @@ public class LoginController {
     }
 
 
-    public void btnLoginAction(ActionEvent actionEvent) {
+    public void btnLoginAction(ActionEvent actionEvent) throws IOException {
         boolean ok=true;
 
         if(fldUsername.getText().trim().isEmpty() || fldPassword.getText().trim().isEmpty())
@@ -101,6 +103,26 @@ public class LoginController {
 
         Stage stage = (Stage) fldUsername.getScene().getWindow();
         stage.close();
+
+        //open myDay
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
+            Stage myDayStage=new Stage();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/fxml/myDay.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            myDayStage.setTitle("My Day");
+            myDayStage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
+            Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+            myDayStage.getIcons().add(icon);
+            myDayStage.setResizable(true);
+            myDayStage.show();
+
+        }));
+        timeline.play();
+
 
     }
 }

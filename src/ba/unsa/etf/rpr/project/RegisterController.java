@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -7,12 +9,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -71,7 +72,7 @@ public class RegisterController {
     }
 
 
-    public void btnSignupAction(ActionEvent actionEvent) {
+    public void btnSignupAction(ActionEvent actionEvent) throws IOException {
         boolean ok=true;
 
         if(fldFirstName.getText().trim().isEmpty()){
@@ -133,5 +134,34 @@ public class RegisterController {
         Stage stage = (Stage) fldUsername.getScene().getWindow();
         stage.close();
 
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000), event -> {
+            Stage myDayStage=new Stage();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/fxml/myDay.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            myDayStage.setTitle("My Day");
+            myDayStage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
+            Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+            myDayStage.getIcons().add(icon);
+            myDayStage.setResizable(true);
+            myDayStage.show();
+            Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event2 -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Let's get started!");
+                alert.setHeaderText(null);
+                alert.setContentText("If You need help, check Help menu at the top left area of the screen. Enjoy in planning Your day! ");
+
+                alert.show();
+            }));
+            timeline2.play();
+        }));
+        timeline.play();
     }
 }
+
+
+
