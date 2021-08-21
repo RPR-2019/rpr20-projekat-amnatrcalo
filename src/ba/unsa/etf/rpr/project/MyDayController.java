@@ -19,13 +19,17 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 
 public class MyDayController {
     public Label greetingMessage;
     public Label clock;
+    public Label randomQuote;
     private User user;
+    AppDAO dao;
 
     private final int currentHour=LocalDateTime.now().getHour();
     private final DateFormat format = DateFormat.getInstance();
@@ -33,12 +37,22 @@ public class MyDayController {
     //konstruktor: proslijediti mu user
 
 
+    public MyDayController() {
+        dao=AppDAO.getInstance();
+    }
+
     @FXML
     public void initialize(){
         //set greeting message
        if(currentHour<=11) greetingMessage.setText("Good morning, ");
        else if(currentHour<=19) greetingMessage.setText("Good afternoon, "); //+user.getUsername()
        else greetingMessage.setText("Good evening, ");
+
+       //set qoute
+        Random rand=new Random();
+        int upperbound=dao.quotes().size();
+        int randIndex=rand.nextInt(upperbound);
+        randomQuote.setText(dao.quotes().get(randIndex).getContent());
 
        //set time
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {

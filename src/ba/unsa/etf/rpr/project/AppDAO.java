@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AppDAO {
-    private Connection conn;
-    private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsers;
+    private static Connection conn;
+    private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsers,
+            getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotes;;
 
     private static AppDAO instance=null;
 
@@ -39,6 +40,13 @@ public class AppDAO {
             addNewUserStmt=conn.prepareStatement("INSERT INTO users VALUES(?,?,?,?,?)");
             getUserStmt=conn.prepareStatement("SELECT *FROM users WHERE username=?");
             deleteAllUsers=conn.prepareStatement("DELETE FROM users");
+
+            //quotes
+            getAllQuotesStmt=conn.prepareStatement("SELECT *FROM quotes");
+            setNewIdStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM quotes");
+            addNewQuoteStmt =conn.prepareStatement("INSERT INTO quotes VALUES(?,?,?)");
+            getQuoteStmt =conn.prepareStatement("SELECT *FROM quotes WHERE id=?");
+            deleteAllQuotes =conn.prepareStatement("DELETE FROM quotes");
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -46,10 +54,14 @@ public class AppDAO {
 
     }
 
-    private void generateDatabase() {
+    public static Connection getConn() {
+        return conn;
+    }
+
+    private static void generateDatabase() {
         Scanner input = null;
         try {
-            input = new Scanner(new FileInputStream("todoDatabase.sql"));
+            input = new Scanner(new FileInputStream("todoDatabase.db.sql"));
             String sqlStatement = "";
             while (input.hasNext()) {
                 sqlStatement += input.nextLine();
@@ -68,6 +80,8 @@ public class AppDAO {
             e.printStackTrace();
         }
     }
+
+
 
     public static AppDAO getInstance()  {
         if (instance == null) instance = new AppDAO();
@@ -143,6 +157,65 @@ public class AppDAO {
     public void deleteAllUsers(){
         try {
             deleteAllUsers.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    //quotes
+    private Quote getQuoteFromResultSet(ResultSet rs) throws SQLException {
+        Quote q = new Quote(rs.getInt(1), rs.getString(2), rs.getString(3));
+        return q;
+    }
+
+    public ArrayList<Quote> quotes(){
+        ArrayList<Quote> result = new ArrayList();
+        try {
+            ResultSet rs = getAllQuotesStmt.executeQuery();
+            while (rs.next()) {
+                Quote quote = getQuoteFromResultSet(rs);
+                result.add(quote);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void addQuote(Quote quote){
+        ResultSet rs = null;
+        try {
+            rs = setNewIdQuoteStmt.executeQuery();
+            int id = 1;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            addNewQuoteStmt.setInt(1,id);
+            addNewQuoteStmt.setString(2,quote.getContent());
+            addNewQuoteStmt.setString(3,quote.getAuthor());
+            addNewQuoteStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+
+    }
+
+    public Quote getQuote(Integer id){
+        try {
+            getQuoteStmt.setInt(1,id);
+            ResultSet rs = getQuoteStmt.executeQuery();
+            if (!rs.next()) return null;
+            return getQuoteFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void deleteAllQuotes(){
+        try {
+            deleteAllQuotes.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
