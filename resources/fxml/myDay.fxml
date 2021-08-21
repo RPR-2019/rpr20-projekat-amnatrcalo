@@ -39,8 +39,8 @@
             <RowConstraints />
          </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="464.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="464.0" text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="clock" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="464.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="greetingMessage" alignment="CENTER" prefHeight="17.0" prefWidth="464.0" text="Label" GridPane.columnIndex="1" />
             <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="465.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>

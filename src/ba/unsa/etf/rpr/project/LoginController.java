@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.project;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class LoginController {
-    public Label loginFailedField;
+    public Label loginFailedMessage;
     public TextField fldUsername;
     public PasswordField fldPassword;
     private User user;
@@ -80,22 +81,22 @@ public class LoginController {
 
         if(fldUsername.getText().trim().isEmpty() || fldPassword.getText().trim().isEmpty())
         {
-            loginFailedField.setText("Login failed! Invalid username or password!");
-            loginFailedField.getStyleClass().add("loginFailed");
+            loginFailedMessage.setText("Login failed! Invalid username or password!");
+            loginFailedMessage.getStyleClass().add("loginFailed");
             fldUsername.clear();
             fldPassword.clear();
             ok=false;
 
         } else if(!checkLogin(fldUsername.getText(), fldPassword.getText())){
-            loginFailedField.setText("Login failed! Invalid username or password!");
-            loginFailedField.getStyleClass().add("loginFailed");
+            loginFailedMessage.setText("Login failed! Invalid username or password!");
+            loginFailedMessage.getStyleClass().add("loginFailed");
             fldUsername.clear();
             fldPassword.clear();
             ok=false;
         }
         else {
-            loginFailedField.setText(" ");
-            loginFailedField.getStyleClass().removeAll("loginFailed");
+            loginFailedMessage.setText(" ");
+            loginFailedMessage.getStyleClass().removeAll("loginFailed");
 
         }
 
