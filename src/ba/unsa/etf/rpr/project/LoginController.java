@@ -8,6 +8,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -46,6 +47,8 @@ public class LoginController {
 
         registrationStage.setTitle("Sign Up");
         registrationStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        registrationStage.getIcons().add(icon);
         registrationStage.setResizable(false);
         registrationStage.show();
 
@@ -71,6 +74,7 @@ public class LoginController {
 
 
     public void btnLoginAction(ActionEvent actionEvent) {
+        boolean ok=true;
 
         if(fldUsername.getText().trim().isEmpty() || fldPassword.getText().trim().isEmpty())
         {
@@ -78,13 +82,14 @@ public class LoginController {
             loginFailedField.getStyleClass().add("loginFailed");
             fldUsername.clear();
             fldPassword.clear();
+            ok=false;
 
         } else if(!checkLogin(fldUsername.getText(), fldPassword.getText())){
             loginFailedField.setText("Login failed! Invalid username or password!");
             loginFailedField.getStyleClass().add("loginFailed");
             fldUsername.clear();
             fldPassword.clear();
-
+            ok=false;
         }
         else {
             loginFailedField.setText(" ");
@@ -92,9 +97,10 @@ public class LoginController {
 
         }
 
+        if(!ok) return;
 
-
-
+        Stage stage = (Stage) fldUsername.getScene().getWindow();
+        stage.close();
 
     }
 }

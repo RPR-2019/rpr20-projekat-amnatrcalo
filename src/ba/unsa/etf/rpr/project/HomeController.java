@@ -5,8 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+
+import java.awt.*;
 import java.io.IOException;
 
 public class HomeController {
@@ -27,6 +30,8 @@ public class HomeController {
 
         loginStage.setTitle("Login");
         loginStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        loginStage.getIcons().add(icon);
         loginStage.setResizable(false);
         loginStage.show();
 
@@ -46,6 +51,8 @@ public class HomeController {
 
         registrationStage.setTitle("Sign Up");
         registrationStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        registrationStage.getIcons().add(icon);
         registrationStage.setResizable(false);
         registrationStage.show();
 

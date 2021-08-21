@@ -11,6 +11,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -43,6 +44,9 @@ public class RegisterController {
     }
 
     public void hyperlinkAction(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) fldUsername.getScene().getWindow();
+        stage.close();
+
         Stage loginStage=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
@@ -52,6 +56,8 @@ public class RegisterController {
 
         loginStage.setTitle("Login");
         loginStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        loginStage.getIcons().add(icon);
         loginStage.setResizable(false);
         loginStage.show();
     }
