@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/css/home.css" />
     </stylesheets>
    <children>
-      <Button layoutX="282.0" layoutY="281.0" mnemonicParsing="false" onAction="#loginAction" prefWidth="190.0" styleClass="btn" text="Log in">
+      <Button fx:id="btnLogin" layoutX="282.0" layoutY="281.0" mnemonicParsing="false" onAction="#loginAction" prefWidth="190.0" styleClass="btn" text="Log in">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>

@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -28,6 +29,7 @@ public class MyDayController {
     public Label greetingMessage;
     public Label clock;
     public Label randomQuote;
+    public Label quoteAuthor;
     private User user;
     AppDAO dao;
 
@@ -45,7 +47,7 @@ public class MyDayController {
     public void initialize(){
         //set greeting message
        if(currentHour<=11) greetingMessage.setText("Good morning, ");
-       else if(currentHour<=19) greetingMessage.setText("Good afternoon, "); //+user.getUsername()
+       else if(currentHour<19) greetingMessage.setText("Good afternoon, "); //+user.getUsername()
        else greetingMessage.setText("Good evening, ");
 
        //set qoute
@@ -53,6 +55,7 @@ public class MyDayController {
         int upperbound=dao.quotes().size();
         int randIndex=rand.nextInt(upperbound);
         randomQuote.setText(dao.quotes().get(randIndex).getContent());
+        quoteAuthor.setText(dao.quotes().get(randIndex).getAuthor());
 
        //set time
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {

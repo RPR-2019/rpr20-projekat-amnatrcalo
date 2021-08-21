@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.project.MyDayController">
-   <top>
+    <stylesheets>
+        <URL value="@/css/myDay.css" />
+    </stylesheets>
+    <top>
       <MenuBar layoutX="10.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -28,7 +32,7 @@
       </MenuBar>
    </top>
    <center>
-      <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
+      <GridPane hgap="10.0" styleClass="centerBackground" vgap="10.0" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />
@@ -56,12 +60,12 @@
          </padding></GridPane>
    </center>
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="340.0" prefWidth="123.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Label" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Button" />
-            <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="MenuButton">
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Button" />
+            <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="MenuButton">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -69,11 +73,16 @@
             </MenuButton>
          </children>
          <padding>
-            <Insets top="5.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
    </left>
    <bottom>
-      <Label fx:id="randomQuote" text="Label" BorderPane.alignment="CENTER" />
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="randomQuote" alignment="CENTER" contentDisplay="CENTER" text="Label" />
+            <Label fx:id="quoteAuthor" alignment="CENTER" contentDisplay="CENTER" text="Label" />
+         </children>
+      </VBox>
    </bottom>
 </BorderPane>

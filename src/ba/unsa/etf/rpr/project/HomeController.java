@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 public class HomeController {
     private AppDAO dao;
+    public Button btnLogin;
 
     public HomeController(){
         dao=AppDAO.getInstance();
@@ -21,6 +23,8 @@ public class HomeController {
 
 
     public void loginAction(ActionEvent actionEvent) throws IOException {
+
+
         Stage loginStage=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
@@ -37,11 +41,11 @@ public class HomeController {
 
 
 
-
-
     }
 
     public void registrationAction(ActionEvent actionEvent) throws IOException {
+
+
         Stage registrationStage=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
@@ -63,6 +67,8 @@ public class HomeController {
                 dao.addUser(user);
             }
         } );
+
+
 
     }
 
