@@ -21,7 +21,7 @@ public class HomeController {
         Stage loginStage=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-        LoginController loginController = new LoginController(null, dao.users());
+        LoginController loginController = new LoginController(null, dao.users(),  dao);
         loader.setController(loginController);
         root = loader.load();
 
@@ -30,24 +30,17 @@ public class HomeController {
         loginStage.setResizable(false);
         loginStage.show();
 
-        /*loginStage.setOnHiding( event -> {
-            User user = loginController.getUser();
-            if (user != null) {
-                User foundUser=dao.getUser(user.getUsername());
-                if(foundUser==null || !foundUser.getPassword().equals(user.getPassword())){
-                    System.out.println("Ne valja");
-                    loginStage.show();
-                    loginController.setOk(false);
-                }
-            }
-        } );*/
+
+
+
+
     }
 
     public void registrationAction(ActionEvent actionEvent) throws IOException {
         Stage registrationStage=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
-        RegisterController registerController = new RegisterController(null, dao.users());
+        RegisterController registerController = new RegisterController(null, dao.users(),dao);
         loader.setController(registerController);
         root = loader.load();
 
@@ -57,6 +50,7 @@ public class HomeController {
         registrationStage.show();
 
         registrationStage.setOnHiding( event -> {
+
             User user = registerController.getUser();
             if (user != null) {
                 dao.addUser(user);
@@ -64,6 +58,8 @@ public class HomeController {
         } );
 
     }
+
+
 
 
 }

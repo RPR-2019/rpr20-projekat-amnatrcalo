@@ -30,10 +30,12 @@ public class RegisterController {
     public Label errorConfirmPassword;
     private ArrayList<User> users=new ArrayList<>();
     private User user;
+    private AppDAO dao;
 
-    public RegisterController(User user,ArrayList<User>users) {
+    public RegisterController(User user,ArrayList<User>users, AppDAO dao) {
         this.user=user;
         this.users=users;
+        this.dao=dao;
     }
 
     public User getUser() {
@@ -44,7 +46,7 @@ public class RegisterController {
         Stage loginStage=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-        LoginController loginController = new LoginController(null, users);
+        LoginController loginController = new LoginController(null, users,dao);
         loader.setController(loginController);
         root = loader.load();
 

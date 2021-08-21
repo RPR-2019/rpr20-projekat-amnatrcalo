@@ -19,10 +19,12 @@ public class LoginController {
     public PasswordField fldPassword;
     private User user;
     private ArrayList<User> users=new ArrayList<>();
+    private AppDAO dao;
 
-    public LoginController(User user, ArrayList<User>users) {
+    public LoginController(User user, ArrayList<User>users, AppDAO dao) {
         this.user = user;
         this.users=users;
+        this.dao=dao;
     }
 
     public User getUser() {
@@ -32,10 +34,13 @@ public class LoginController {
 
 
     public void hyperlinkAction(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) fldUsername.getScene().getWindow();
+        stage.close();
+
         Stage registrationStage=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
-        RegisterController registerController = new RegisterController(null, users);
+        RegisterController registerController = new RegisterController(null, users,dao);
         loader.setController(registerController);
         root = loader.load();
 
@@ -44,12 +49,14 @@ public class LoginController {
         registrationStage.setResizable(false);
         registrationStage.show();
 
-        /*registrationStage.setOnHiding( event -> {
+        registrationStage.setOnHiding( event -> {
             User user = registerController.getUser();
             if (user != null) {
                 dao.addUser(user);
             }
-        } );*/
+        } );
+
+
     }
 
     public boolean checkLogin(String username, String password){
@@ -64,20 +71,20 @@ public class LoginController {
 
 
     public void btnLoginAction(ActionEvent actionEvent) {
-        //boolean ok=true;
+
         if(fldUsername.getText().trim().isEmpty() || fldPassword.getText().trim().isEmpty())
         {
             loginFailedField.setText("Login failed! Invalid username or password!");
             loginFailedField.getStyleClass().add("loginFailed");
             fldUsername.clear();
             fldPassword.clear();
-           // ok=false;
+
         } else if(!checkLogin(fldUsername.getText(), fldPassword.getText())){
             loginFailedField.setText("Login failed! Invalid username or password!");
             loginFailedField.getStyleClass().add("loginFailed");
             fldUsername.clear();
             fldPassword.clear();
-          //  ok=false;
+
         }
         else {
             loginFailedField.setText(" ");
@@ -85,10 +92,6 @@ public class LoginController {
 
         }
 
-        /*if(!ok) return;
-
-        user.setUsername(fldUsername.getText());
-        user.setPassword(fldPassword.getText());*/
 
 
 
