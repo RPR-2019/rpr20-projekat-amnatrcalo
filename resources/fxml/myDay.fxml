@@ -4,7 +4,6 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.project.MyDayController">
     <stylesheets>
@@ -31,38 +30,10 @@
         </menus>
       </MenuBar>
    </top>
-   <center>
-      <GridPane hgap="10.0" styleClass="centerBackground" vgap="10.0" BorderPane.alignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
-         <children>
-            <Label fx:id="clock" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="464.0" text="." GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Cambria" size="36.0" />
-               </font></Label>
-            <Label fx:id="greetingMessage" alignment="CENTER" prefHeight="17.0" prefWidth="464.0" text="Label" GridPane.columnIndex="1">
-               <font>
-                  <Font name="Cambria" size="52.0" />
-               </font></Label>
-            <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="465.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding></GridPane>
-   </center>
    <left>
       <VBox prefHeight="340.0" prefWidth="123.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Label" />
+            <Label fx:id="clock" text="Label" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Button" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Button" />
             <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="MenuButton">
@@ -78,11 +49,35 @@
       </VBox>
    </left>
    <bottom>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="randomQuote" alignment="CENTER" contentDisplay="CENTER" text="Label" />
             <Label fx:id="quoteAuthor" alignment="CENTER" contentDisplay="CENTER" text="Label" />
          </children>
       </VBox>
    </bottom>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="greetingMessage" text="Label" />
+                  <Label fx:id="date" text="Label" />
+               </children>
+            </VBox>
+            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+              <columns>
+                <TableColumn minWidth="-1.0" prefWidth="75.0" text="C1" />
+              </columns>
+            </TableView>
+         </children>
+      </GridPane>
+   </center>
 </BorderPane>

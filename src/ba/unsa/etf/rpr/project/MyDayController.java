@@ -3,38 +3,29 @@ package ba.unsa.etf.rpr.project;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-
+//kada se poziva postaviti mu minHeight i minwidth od oka
 public class MyDayController {
     public Label greetingMessage;
-    public Label clock;
+    public Label date;
     public Label randomQuote;
     public Label quoteAuthor;
+    public Label clock;
     private User user;
     AppDAO dao;
 
     private final int currentHour=LocalDateTime.now().getHour();
-    private final DateFormat format = DateFormat.getInstance();
+    //private final DateFormat format = DateFormat.getInstance();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
+    SimpleDateFormat simpleClockFormat=new SimpleDateFormat("HH:mm");
 
     //konstruktor: proslijediti mu user
 
@@ -57,10 +48,12 @@ public class MyDayController {
         randomQuote.setText(dao.quotes().get(randIndex).getContent());
         quoteAuthor.setText(dao.quotes().get(randIndex).getAuthor());
 
-       //set time
+       //set date and time
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
             final Calendar cal = Calendar.getInstance();
-            clock.setText(format.format(cal.getTime()));
+            //clock.setText(format.format(cal.getTime()));
+            date.setText(simpleDateFormat.format(cal.getTime()));
+            clock.setText(simpleClockFormat.format(cal.getTime()));
 
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
