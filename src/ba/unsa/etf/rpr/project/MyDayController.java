@@ -23,7 +23,6 @@ public class MyDayController {
     AppDAO dao;
 
     private final int currentHour=LocalDateTime.now().getHour();
-    //private final DateFormat format = DateFormat.getInstance();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
     SimpleDateFormat simpleClockFormat=new SimpleDateFormat("HH:mm");
 
@@ -51,7 +50,6 @@ public class MyDayController {
        //set date and time
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
             final Calendar cal = Calendar.getInstance();
-            //clock.setText(format.format(cal.getTime()));
             date.setText(simpleDateFormat.format(cal.getTime()));
             clock.setText(simpleClockFormat.format(cal.getTime()));
 

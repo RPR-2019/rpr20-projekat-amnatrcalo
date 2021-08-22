@@ -19,6 +19,7 @@ public class HomeController {
 
     public HomeController(){
         dao=AppDAO.getInstance();
+        for(User us: dao.users()) System.out.println(us.getId());
     }
 
 

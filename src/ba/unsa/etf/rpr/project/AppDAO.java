@@ -8,8 +8,9 @@ import java.util.Scanner;
 
 public class AppDAO {
     private static Connection conn;
-    private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsers,
-            getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotes;;
+    private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsersStmt,
+            getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
+            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, deleteAllTasksStmt;
 
     private static AppDAO instance=null;
 
@@ -26,6 +27,8 @@ public class AppDAO {
 
         try {
             getAllUsersStmt = conn.prepareStatement("SELECT *FROM users");
+
+
         } catch (SQLException e) {
             generateDatabase();
             try {
@@ -39,14 +42,22 @@ public class AppDAO {
             setNewIdStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM users");
             addNewUserStmt=conn.prepareStatement("INSERT INTO users VALUES(?,?,?,?,?)");
             getUserStmt=conn.prepareStatement("SELECT *FROM users WHERE username=?");
-            deleteAllUsers=conn.prepareStatement("DELETE FROM users");
+            deleteAllUsersStmt =conn.prepareStatement("DELETE FROM users");
 
             //quotes
             getAllQuotesStmt=conn.prepareStatement("SELECT *FROM quotes");
-            setNewIdStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM quotes");
+            setNewIdQuoteStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM quotes");
             addNewQuoteStmt =conn.prepareStatement("INSERT INTO quotes VALUES(?,?,?)");
             getQuoteStmt =conn.prepareStatement("SELECT *FROM quotes WHERE id=?");
-            deleteAllQuotes =conn.prepareStatement("DELETE FROM quotes");
+            deleteAllQuotesStmt =conn.prepareStatement("DELETE FROM quotes");
+
+            //tasks
+            getAllTasksStmt=conn.prepareStatement("SELECT *FROM tasks");
+            setNewIdTaskStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM tasks");
+            addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?)");
+            getTaskStmt =conn.prepareStatement("SELECT *FROM tasks WHERE username=?");
+            deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
+
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -122,9 +133,9 @@ public class AppDAO {
     }
 
     public void addUser(User user){
-        ResultSet rs = null;
+
         try {
-            rs = setNewIdStmt.executeQuery();
+            ResultSet rs  = setNewIdStmt.executeQuery();
             int id = 1;
             if (rs.next()) {
                 id = rs.getInt(1);
@@ -156,7 +167,7 @@ public class AppDAO {
 
     public void deleteAllUsers(){
         try {
-            deleteAllUsers.executeUpdate();
+            deleteAllUsersStmt.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -215,7 +226,73 @@ public class AppDAO {
 
     public void deleteAllQuotes(){
         try {
-            deleteAllQuotes.executeUpdate();
+            deleteAllQuotesStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    //tasks
+    private Task getTaskFromResultSet(ResultSet rs) throws SQLException {
+        Task t = new Task(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4),rs.getTime(5),rs.getDate(6),rs.getTime(7),rs.getString(8),rs.getBoolean(9),rs.getBoolean(10));
+        return t;
+    }
+
+    public ArrayList<Task> tasks(){
+        ArrayList<Task> result = new ArrayList();
+        try {
+            ResultSet rs = getAllTasksStmt.executeQuery();
+            while (rs.next()) {
+                Task task = getTaskFromResultSet(rs);
+                result.add(task);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void addTask(Task task){
+
+        try {
+            ResultSet rs  = setNewIdTaskStmt.executeQuery();
+            int id = 1;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            addNewTaskStmt.setInt(1,id);
+            addNewTaskStmt.setString(2,task.getUsername());
+            addNewTaskStmt.setString(3,task.getTaskName());
+            addNewTaskStmt.setDate(4,task.getStartDate());
+            addNewTaskStmt.setTime(5,task.getStartTime());
+            addNewTaskStmt.setDate(6,task.getEndDate());
+            addNewTaskStmt.setTime(7,task.getEndTime());
+            addNewTaskStmt.setString(8,task.getNote());
+            addNewTaskStmt.setBoolean(9,task.isReminder());
+            addNewTaskStmt.setBoolean(10,task.isFreeTask());
+            addNewUserStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+
+    }
+
+    public Task getTask(String username){
+        try {
+            getTaskStmt.setString(1, username);
+            ResultSet rs = getTaskStmt.executeQuery();
+            if (!rs.next()) return null;
+            return getTaskFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void deleteAllTasks(){
+        try {
+            deleteAllTasksStmt.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

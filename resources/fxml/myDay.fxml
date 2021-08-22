@@ -4,6 +4,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.project.MyDayController">
     <stylesheets>
@@ -33,7 +34,10 @@
    <left>
       <VBox prefHeight="340.0" prefWidth="123.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="clock" text="Label" />
+            <Label fx:id="clock" text="time" textFill="#f40b59">
+               <font>
+                  <Font name="Tahoma" size="36.0" />
+               </font></Label>
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Button" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Button" />
             <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="MenuButton">
@@ -57,20 +61,32 @@
       </VBox>
    </bottom>
    <center>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane styleClass="centerBackground" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER_LEFT">
                <children>
-                  <Label fx:id="greetingMessage" text="Label" />
-                  <Label fx:id="date" text="Label" />
+                  <Label fx:id="greetingMessage" text="Label" textFill="#f40b59">
+                     <font>
+                        <Font name="Tahoma" size="24.0" />
+                     </font></Label>
+                  <Label fx:id="date" text="Label" textFill="#f40b59">
+                     <font>
+                        <Font name="Tahoma" size="18.0" />
+                     </font></Label>
                </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </VBox>
             <TableView prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
               <columns>

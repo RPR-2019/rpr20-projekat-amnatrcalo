@@ -13,8 +13,20 @@ CREATE TABLE IF NOT EXISTS "quotes" (
 	"author"	TEXT,
 	PRIMARY KEY("id")
 );
+CREATE TABLE IF NOT EXISTS "tasks" (
+	"id"	INTEGER,
+	"username"	TEXT,
+	"task_name"	TEXT,
+	"start_date"	TEXT,
+	"start_time"	TEXT,
+	"end_date"	TEXT,
+	"end_time"	TEXT,
+	"note"	TEXT,
+	"reminder"	INTEGER,
+	"free_task"	INTEGER,
+	PRIMARY KEY("id")
+);
 INSERT INTO "users" VALUES (0,'Amna','Trcalo','amna','amna');
-INSERT INTO "users" VALUES (1,'Mirna','Trcalo','mirna','mirna');
 INSERT INTO "quotes" VALUES (0,'A positive attitude causes a chain reaction of positive thoughts, events, and outcomes.','Wade Boggs');
 INSERT INTO "quotes" VALUES (1,'Every day that I wake up has to be a good day!','Bret Michaels');
 INSERT INTO "quotes" VALUES (2,'On a good day, when you have a clear plan, you are able to execute whatever you wanted.','Jasprit Bumrah');
