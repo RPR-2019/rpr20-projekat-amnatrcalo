@@ -3,10 +3,18 @@ package ba.unsa.etf.rpr.project;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -61,8 +69,18 @@ public class MyDayController {
     }
 
 
+    public void actionAddNewTask(ActionEvent actionEvent) throws IOException {
+        Stage addNewTask=new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/task.fxml"));
 
 
+        addNewTask.setTitle("My Day");
+        addNewTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        addNewTask.getIcons().add(icon);
+        addNewTask.setResizable(false);
+        addNewTask.show();
+    }
 }
 
 
