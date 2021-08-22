@@ -32,13 +32,16 @@
       </MenuBar>
    </top>
    <left>
-      <VBox prefHeight="340.0" prefWidth="123.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="123.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="clock" text="time" textFill="#f40b59">
                <font>
                   <Font name="Tahoma" size="36.0" />
                </font></Label>
-            <Button fx:id="addNewTask" mnemonicParsing="false" onAction="#actionAddNewTask" prefHeight="25.0" prefWidth="123.0" text="Button" />
+            <Button fx:id="addNewTask" alignment="CENTER" mnemonicParsing="false" onAction="#actionAddNewTask" prefHeight="25.0" prefWidth="123.0" styleClass="btnAddTask" text="+">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Button" />
             <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="MenuButton">
               <items>
