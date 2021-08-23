@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.project;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -54,7 +55,7 @@ public class AppDAO {
             //tasks
             getAllTasksStmt=conn.prepareStatement("SELECT *FROM tasks");
             setNewIdTaskStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM tasks");
-            addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?)");
+            addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             getTaskStmt =conn.prepareStatement("SELECT *FROM tasks WHERE username=?");
             deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
 
@@ -234,7 +235,27 @@ public class AppDAO {
 
     //tasks
     private Task getTaskFromResultSet(ResultSet rs) throws SQLException {
-        Task t = new Task(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4),rs.getTime(5),rs.getDate(6),rs.getTime(7),rs.getString(8),rs.getBoolean(9),rs.getBoolean(10));
+        Task t = new Task();
+        t.setId(rs.getInt(1));
+        t.setUsername(rs.getString(2));
+        t.setTaskName(rs.getString(3));
+        t.setStartYear(rs.getInt(4));
+        t.setStartMonth(rs.getInt(5));
+        t.setStartDay(rs.getInt(6));
+        t.setStartHour(rs.getInt(7));
+        t.setStartMin(rs.getInt(8));
+        t.setEndYear(rs.getInt(9));
+        t.setEndMonth(rs.getInt(10));
+        t.setEndDay(rs.getInt(11));
+        t.setEndHour(rs.getInt(12));
+        t.setEndMin(rs.getInt(13));
+        t.setNote(rs.getString(14));
+        t.setReminder(rs.getBoolean(15));
+        t.setReminderDigit(rs.getInt(16));
+        t.setReminderPeriod(rs.getString(17));
+        t.setAlertNotification(rs.getBoolean(18));
+        t.setAlertEmail(rs.getBoolean(19));
+        t.setListName(rs.getString(20));
         return t;
     }
 
@@ -263,13 +284,23 @@ public class AppDAO {
             addNewTaskStmt.setInt(1,id);
             addNewTaskStmt.setString(2,task.getUsername());
             addNewTaskStmt.setString(3,task.getTaskName());
-            addNewTaskStmt.setDate(4,task.getStartDate());
-            addNewTaskStmt.setTime(5,task.getStartTime());
-            addNewTaskStmt.setDate(6,task.getEndDate());
-            addNewTaskStmt.setTime(7,task.getEndTime());
-            addNewTaskStmt.setString(8,task.getNote());
-            addNewTaskStmt.setBoolean(9,task.isReminder());
-            addNewTaskStmt.setBoolean(10,task.isFreeTask());
+            addNewTaskStmt.setInt(4,task.getStartYear());
+            addNewTaskStmt.setInt(5,task.getStartMonth());
+            addNewTaskStmt.setInt(6,task.getStartDay());
+            addNewTaskStmt.setInt(7,task.getStartHour());
+            addNewTaskStmt.setInt(8,task.getStartMin());
+            addNewTaskStmt.setInt(9,task.getEndYear());
+            addNewTaskStmt.setInt(10,task.getEndMonth());
+            addNewTaskStmt.setInt(11,task.getEndDay());
+            addNewTaskStmt.setInt(12,task.getEndHour());
+            addNewTaskStmt.setInt(13,task.getEndMin());
+            addNewTaskStmt.setString(14,task.getNote());
+            addNewTaskStmt.setBoolean(15,task.isReminder());
+            addNewTaskStmt.setInt(16, task.getReminderDigit());
+            addNewTaskStmt.setString(17,task.getReminderPeriod());
+            addNewTaskStmt.setBoolean(18, task.isAlertNotification());
+            addNewTaskStmt.setBoolean(19,task.isAlertEmail());
+            addNewTaskStmt.setString(20,task.getListName());
             addNewUserStmt.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();

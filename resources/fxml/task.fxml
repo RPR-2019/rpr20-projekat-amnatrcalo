@@ -5,26 +5,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="gridPane" hgap="10.0" prefHeight="400.0" prefWidth="600.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.project.TaskController">
+<GridPane fx:id="gridPane" hgap="10.0" prefHeight="400.0" prefWidth="600.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <stylesheets>
       <URL value="@/css/task.css" />
    </stylesheets>
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
+      <ColumnConstraints />
    </columnConstraints>
 
    <children>
-      <TextField fx:id="taskName" promptText="Task name" />
+      <TextField fx:id="fldTaskName" promptText="Task name" />
       <Separator prefWidth="200.0" GridPane.rowIndex="1" />
-      <TextArea fx:id="note" prefHeight="200.0" prefWidth="200.0" promptText="Add Note" GridPane.rowIndex="3" />
-      <MenuButton fx:id="listMenu" mnemonicParsing="false" text="My lists" GridPane.columnIndex="1">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
-      <Button fx:id="btnCreateOrDelete" mnemonicParsing="false" text="Create or delete" GridPane.rowIndex="4" />
+      <TextArea fx:id="areaNote" prefHeight="200.0" prefWidth="200.0" promptText="Add Note" GridPane.rowIndex="3" />
+      <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#actionCreate" text="Create or delete" GridPane.rowIndex="4" />
+      <ChoiceBox fx:id="listMenu" prefHeight="25.0" prefWidth="101.0" GridPane.columnIndex="2" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

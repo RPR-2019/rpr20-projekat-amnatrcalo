@@ -137,18 +137,24 @@ public class RegisterController {
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000), event -> {
             Stage myDayStage=new Stage();
-            Parent root = null;
+            Parent root=null;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/myDay.fxml"));
+            MyDayController myDayController = new MyDayController(user);
+            loader.setController(myDayController);
             try {
-                root = FXMLLoader.load(getClass().getResource("/fxml/myDay.fxml"));
+                root = loader.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
             myDayStage.setTitle("My Day");
             myDayStage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
             Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
             myDayStage.getIcons().add(icon);
             myDayStage.setResizable(true);
             myDayStage.show();
+
             Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event2 -> {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Let's get started!");

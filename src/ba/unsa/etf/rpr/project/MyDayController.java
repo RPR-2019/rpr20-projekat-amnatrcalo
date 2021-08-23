@@ -34,19 +34,20 @@ public class MyDayController {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
     SimpleDateFormat simpleClockFormat=new SimpleDateFormat("HH:mm");
 
-    //konstruktor: proslijediti mu user
 
 
-    public MyDayController() {
+    public MyDayController(User user) {
+        this.user=user;
         dao=AppDAO.getInstance();
     }
 
     @FXML
     public void initialize(){
+
         //set greeting message
-       if(currentHour<=11) greetingMessage.setText("Good morning, ");
-       else if(currentHour<19) greetingMessage.setText("Good afternoon, "); //+user.getUsername()
-       else greetingMessage.setText("Good evening, ");
+       if(currentHour<=11) greetingMessage.setText("Good morning!");
+       else if(currentHour<19) greetingMessage.setText("Good afternoon!");
+       else greetingMessage.setText("Good evening!");
 
        //set qoute
         Random rand=new Random();
@@ -71,8 +72,15 @@ public class MyDayController {
 
     public void actionAddNewTask(ActionEvent actionEvent) throws IOException {
         Stage addNewTask=new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/task.fxml"));
-
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
+        TaskController taskController=new TaskController(user);
+        loader.setController(taskController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         addNewTask.setTitle("My Day");
         addNewTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
@@ -80,6 +88,12 @@ public class MyDayController {
         addNewTask.getIcons().add(icon);
         addNewTask.setResizable(false);
         addNewTask.show();
+
+
+
+
+
+
     }
 }
 

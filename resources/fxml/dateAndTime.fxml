@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane hgap="10.0" prefHeight="400.0" prefWidth="600.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints maxWidth="195.0" minWidth="95.00000000000001" prefWidth="95.00000000000001" />
+      <ColumnConstraints maxWidth="305.0" minWidth="205.00000000000003" prefWidth="305.0" />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <CheckBox fx:id="checkBoxAllDayTask" mnemonicParsing="false" onAction="#actionAllDayTask" text="All day task" />
+      <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+      <Label text="Start" GridPane.rowIndex="2" />
+      <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <DatePicker fx:id="startDatePicker" prefHeight="25.0" prefWidth="122.0" />
+            <Spinner fx:id="startHour" max="24" min="01" prefHeight="25.0" prefWidth="99.0" />
+            <Spinner fx:id="startMins" layoutX="137.0" layoutY="10.0" max="59" min="00" prefHeight="25.0" prefWidth="99.0" />
+         </children>
+      </HBox>
+      <Label text="End" GridPane.rowIndex="3" />
+      <HBox layoutX="121.0" layoutY="56.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <DatePicker fx:id="endDatePicker" prefHeight="25.0" prefWidth="122.0" />
+            <Spinner fx:id="endHour" max="24" min="01" prefHeight="25.0" prefWidth="99.0" />
+            <Spinner fx:id="endMins" layoutX="137.0" layoutY="10.0" max="59" min="00" prefHeight="25.0" prefWidth="99.0" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+      <CheckBox fx:id="checkBoxReminder" mnemonicParsing="false" text="Remind me" GridPane.rowIndex="5" />
+      <Label text="tekst remindera" GridPane.rowIndex="6" />
+      <ComboBox fx:id="comboDigitBefore" editable="true" prefWidth="150.0" GridPane.rowIndex="7" />
+      <ChoiceBox fx:id="choicePeriodBefore" prefHeight="25.0" prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+      <Label text="Alert type" GridPane.rowIndex="9" />
+      <RadioButton fx:id="radioNotification" mnemonicParsing="false" selected="true" text="Notification" GridPane.rowIndex="10">
+         <toggleGroup>
+            <ToggleGroup fx:id="alertType" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="radioEmail" mnemonicParsing="false" text="E-mail" toggleGroup="$alertType" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="11" />
+      <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="12">
+         <buttons>
+            <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#actionSave" text="Save" />
+            <Button cancelButton="true" mnemonicParsing="false" text="Cancel" />
+         </buttons>
+      </ButtonBar>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</GridPane>
