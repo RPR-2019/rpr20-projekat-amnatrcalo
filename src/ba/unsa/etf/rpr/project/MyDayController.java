@@ -45,9 +45,9 @@ public class MyDayController {
     public void initialize(){
 
         //set greeting message
-       if(currentHour<=11) greetingMessage.setText("Good morning!");
-       else if(currentHour<19) greetingMessage.setText("Good afternoon!");
-       else greetingMessage.setText("Good evening!");
+       if(currentHour<=11) greetingMessage.setText("Good morning @"+user.getUsername()+"!");
+       else if(currentHour<19) greetingMessage.setText("Good afternoon @"+user.getUsername()+"!");
+       else greetingMessage.setText("Good evening @"+user.getUsername()+"!");
 
        //set qoute
         Random rand=new Random();

@@ -84,6 +84,7 @@ public class TaskController {
 
         if(!ok) return;
 
+        if(task==null) task=new Task();
         task.setTaskName(fldTaskName.getText());
         task.setUsername(user.getUsername());
         task.setNote(areaNote.getText());

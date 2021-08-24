@@ -102,6 +102,9 @@ public class LoginController {
 
         if(!ok) return;
 
+        if(user==null) user=dao.getUser(fldUsername.getText());
+
+
         Stage stage = (Stage) fldUsername.getScene().getWindow();
         stage.close();
 
