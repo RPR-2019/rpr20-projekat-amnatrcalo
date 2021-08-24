@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -216,9 +217,16 @@ public class DateAndTimeController {
             task.setEndMin(Integer.parseInt(endMins.getValue()));
         }
 
-
         task.setReminder(checkBoxReminder.isSelected());
-        task.setReminderDigit(comboValueBefore.getValue());
+
+        try{
+            task.setReminderDigit(comboValueBefore.getValue());
+        }catch(Exception e){
+            ok=false;
+            alertClass.alertERROR("Reminder can't be set",
+                    "Entered value is not a number");
+        }
+
         task.setReminderPeriod(choicePeriodBefore.getValue());
         task.setAlertNotification(radioNotification.isSelected());
         task.setAlertEmail(radioEmail.isSelected());

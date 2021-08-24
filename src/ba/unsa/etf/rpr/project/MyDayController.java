@@ -71,6 +71,7 @@ public class MyDayController {
 
 
     public void actionAddNewTask(ActionEvent actionEvent) throws IOException {
+
         Stage addNewTask=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
