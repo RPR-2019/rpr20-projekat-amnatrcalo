@@ -34,7 +34,7 @@
       <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <DatePicker fx:id="startDatePicker" prefHeight="25.0" prefWidth="122.0" />
-            <Spinner fx:id="startHour" max="24" min="01" prefHeight="25.0" prefWidth="99.0" />
+            <Spinner fx:id="startHour" prefHeight="25.0" prefWidth="99.0" />
             <Spinner fx:id="startMins" layoutX="137.0" layoutY="10.0" max="59" min="00" prefHeight="25.0" prefWidth="99.0" />
          </children>
       </HBox>
@@ -47,7 +47,7 @@
          </children>
       </HBox>
       <Separator prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-      <CheckBox fx:id="checkBoxReminder" mnemonicParsing="false" text="Remind me" GridPane.rowIndex="5" />
+      <CheckBox fx:id="checkBoxReminder" mnemonicParsing="false" onAction="#actionRemindMe" text="Remind me" GridPane.rowIndex="5" />
       <Label text="tekst remindera" GridPane.rowIndex="6" />
       <ComboBox fx:id="comboDigitBefore" editable="true" prefWidth="150.0" GridPane.rowIndex="7" />
       <ChoiceBox fx:id="choicePeriodBefore" prefHeight="25.0" prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
