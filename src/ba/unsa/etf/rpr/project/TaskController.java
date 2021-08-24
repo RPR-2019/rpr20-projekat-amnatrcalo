@@ -26,6 +26,7 @@ public class TaskController {
 
     private Task task;
     private User user;
+    private AlertClass alertClass=new AlertClass();
 
     @FXML
     public void initialize(){
@@ -74,6 +75,15 @@ public class TaskController {
     }
 
     public void actionCreate(ActionEvent actionEvent) {
+        boolean ok=true;
+        if(fldTaskName.getText().trim().isEmpty()){
+            ok=false;
+            alertClass.alertERROR("Task name field is required",
+                    "You didn't enter the name of Your task.");
+        }
+
+        if(!ok) return;
+
         task.setTaskName(fldTaskName.getText());
         task.setUsername(user.getUsername());
         task.setNote(areaNote.getText());
