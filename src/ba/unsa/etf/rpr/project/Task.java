@@ -43,7 +43,9 @@ public class Task {
     }
 
     public Task() {
+        taskName=new SimpleStringProperty();
     }
+
 
     public Integer getId() {
         return id;
@@ -66,7 +68,8 @@ public class Task {
     }
 
     public void setTaskName(String taskName) {
-        this.taskName.set(taskName);
+         this.taskName.set(taskName);
+
     }
 
     public StringProperty taskNameProperty() {

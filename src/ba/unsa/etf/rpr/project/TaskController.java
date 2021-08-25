@@ -31,6 +31,8 @@ public class TaskController {
     private AlertClass alertClass=new AlertClass();
     private ObservableList<List> listLists= FXCollections.observableArrayList();
 
+    private AppDAO dao;
+
     @FXML
     public void initialize(){
 
@@ -76,7 +78,7 @@ public class TaskController {
     }
 
     public TaskController(User user, ObservableList<List> listLists){
-
+        dao=AppDAO.getInstance();
         this.user=user;
         this.listLists=listLists;
     }
@@ -94,9 +96,13 @@ public class TaskController {
         if(task==null) task=new Task();
         task.setTaskName(fldTaskName.getText());
         task.setUsername(user.getUsername());
-        task.setNote(areaNote.getText());
+
+        if(!areaNote.getText().trim().isEmpty()) task.setNote(areaNote.getText());
+
         task.setListName(listMenu.getValue().getListName());
+
         //ovdje ga dodajem u bazu
+        dao.addTask(task);
 
     }
 }

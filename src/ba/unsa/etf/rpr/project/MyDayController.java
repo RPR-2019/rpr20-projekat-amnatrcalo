@@ -10,12 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -35,11 +35,13 @@ public class MyDayController {
     public Label randomQuote;
     public Label quoteAuthor;
     public Label clock;
-    public ChoiceBox<List> choiceList;
+    public ListView<List> listViewLists;
     public TableColumn<Task,String>colTaskName;
     public TableView<Task> tableViewTasks;
 
     public ObservableList<List> listLists;
+
+
     private ObservableList<Task> activeSession = FXCollections.observableArrayList();
     private User user;
     AppDAO dao;
@@ -54,6 +56,7 @@ public class MyDayController {
         this.user=user;
         listLists = FXCollections.observableArrayList(lists);
         dao=AppDAO.getInstance();
+
     }
 
     @FXML
@@ -81,11 +84,20 @@ public class MyDayController {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
-        choiceList.setItems(listLists);
+        listViewLists.setItems(listLists);
 
-        /*colTaskName.setCellValueFactory(cellData -> cellData.getValue().taskNameProperty());
-        activeSession.add(new Exercise("hrrykane"));
-        exerciseTable.setItems(activeSession);*/
+        listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
+            List oldList=(List) oldItem;
+            List newList=(List) newItem;
+
+
+                activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
+                tableViewTasks.setItems(activeSession);
+                colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
+
+        } );
+
+
 
     }
 
@@ -109,13 +121,10 @@ public class MyDayController {
         addNewTask.getIcons().add(icon);
         addNewTask.setResizable(false);
         addNewTask.show();
-
-
-
-
-
-
     }
+
+
+
 }
 
 

@@ -57,7 +57,6 @@ public class AppDAO {
             getAllTasksStmt=conn.prepareStatement("SELECT *FROM tasks");
             setNewIdTaskStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM tasks");
             addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            getTaskStmt =conn.prepareStatement("SELECT *FROM tasks WHERE username=?");
             deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
 
             //lists
@@ -310,7 +309,7 @@ public class AppDAO {
             addNewTaskStmt.setBoolean(18, task.isAlertNotification());
             addNewTaskStmt.setBoolean(19,task.isAlertEmail());
             addNewTaskStmt.setString(20,task.getListName());
-            addNewUserStmt.executeUpdate();
+            addNewTaskStmt.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -318,16 +317,16 @@ public class AppDAO {
 
     }
 
-    public Task getTask(String username){
-        try {
-            getTaskStmt.setString(1, username);
-            ResultSet rs = getTaskStmt.executeQuery();
-            if (!rs.next()) return null;
-            return getTaskFromResultSet(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+    public ArrayList<Task> getAllTasksByListName(String username, String listName){
+        ArrayList<Task>result=new ArrayList<>();
+        for(Task t: this.tasks()){
+            if(t.getUsername().equals(username) && t.getListName().equals(listName)){
+                result.add(t);
+            }
         }
+        return result;
+
+
     }
 
     public void deleteAllTasks(){
@@ -374,7 +373,6 @@ public class AppDAO {
     }
 
     public void addList(String username, String listName){
-        System.out.println("usao u addList");
         try {
             addNewListForUserStmt.setString(1,username);
             addNewListForUserStmt.setString(2,listName);
