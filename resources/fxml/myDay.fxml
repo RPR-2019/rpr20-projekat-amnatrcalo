@@ -32,7 +32,7 @@
       </MenuBar>
    </top>
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="123.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="155.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="clock" text="time" textFill="#f40b59">
                <font>
@@ -42,7 +42,12 @@
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Button" />
+            <ButtonBar buttonMinWidth="25.0">
+               <buttons>
+                  <Button fx:id="btnNewList" mnemonicParsing="false" onAction="#actionNewList" text="insert" />
+                  <Button fx:id="btnDeleteList" minWidth="72.0" mnemonicParsing="false" onAction="#actionDeleteList" prefHeight="25.0" text="delete" />
+               </buttons>
+            </ButtonBar>
             <ListView fx:id="listViewLists" prefHeight="200.0" prefWidth="200.0" />
          </children>
          <padding>

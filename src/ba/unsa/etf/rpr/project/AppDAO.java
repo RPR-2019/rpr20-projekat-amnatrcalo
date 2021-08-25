@@ -12,7 +12,8 @@ public class AppDAO {
     private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
             getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, deleteAllTasksStmt,
-            getAllListsStmt, getAllListsForUserStmt, setNewIdListStmt, addNewListForUserStmt, getListStmt, deleteAllListsStmt, deleteListForUserStmt;
+            getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, deleteAllListsStmt, deleteListForUserStmt;
+
 
     private static AppDAO instance=null;
 

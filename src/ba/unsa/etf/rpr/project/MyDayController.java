@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -19,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 import java.awt.*;
 import java.io.IOException;
@@ -40,11 +42,14 @@ public class MyDayController {
     public TableView<Task> tableViewTasks;
 
     public ObservableList<List> listLists;
+    public Button btnNewList;
+    public Button btnDeleteList;
 
 
     private ObservableList<Task> activeSession = FXCollections.observableArrayList();
     private User user;
-    AppDAO dao;
+    private AppDAO dao;
+    private AlertClass alertClass=new AlertClass();
 
     private final int currentHour=LocalDateTime.now().getHour();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
@@ -124,7 +129,41 @@ public class MyDayController {
     }
 
 
+    public void actionNewList(ActionEvent actionEvent) {
+        Stage addNewList=new Stage();
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/list.fxml"));
+        ListController listController=new ListController(null);
+        loader.setController(listController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        addNewList.setTitle("My List");
+        addNewList.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        addNewList.getIcons().add(icon);
+        addNewList.setResizable(false);
+        addNewList.show();
+
+        addNewList.setOnHiding( event -> {
+            String listName= listController.getListName();
+            if (listName != null) {
+                dao.addList(user.getUsername(),listName);
+                listLists.add(new List(user.getUsername(),listName));
+            }
+
+        } );
+
+
+    }
+
+
+
+    public void actionDeleteList(ActionEvent actionEvent) {
+    }
 }
 
 
