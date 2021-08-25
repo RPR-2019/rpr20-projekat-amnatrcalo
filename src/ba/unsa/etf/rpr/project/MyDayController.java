@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.Random;
 
 //kada se poziva postaviti mu minHeight i minwidth od oka
@@ -163,6 +164,33 @@ public class MyDayController {
 
 
     public void actionDeleteList(ActionEvent actionEvent) {
+        String selectedListName=listViewLists.getSelectionModel().getSelectedItem().getListName();
+        if(selectedListName.equals("Tasks") || selectedListName.equals("My day")||selectedListName.equals("Planned")){
+            alertClass.alertERROR("This list can't be deleted", "Lists: 'My day', 'Tasks' and 'Planned'" +
+                    "can't be deleted.");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete list");
+        alert.setHeaderText("By deleting this list, all tasks from it will be deleted, too.");
+        alert.setContentText("Are you sure?");
+
+        ButtonType buttonTypeOne = new ButtonType("Yes");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == buttonTypeOne) {
+                dao.deleteTasksFromList(user.getUsername(),selectedListName);
+                dao.deleteList(user.getUsername(),selectedListName);
+                listLists.remove(new List(user.getUsername(), selectedListName));
+            }
+
+
+
     }
 }
 

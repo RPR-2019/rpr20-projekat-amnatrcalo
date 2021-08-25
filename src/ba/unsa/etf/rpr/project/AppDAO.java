@@ -3,7 +3,6 @@ package ba.unsa.etf.rpr.project;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +10,7 @@ public class AppDAO {
     private static Connection conn;
     private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
-            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, deleteAllTasksStmt,
+            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, deleteAllTasksFromListStmt, deleteAllTasksStmt,
             getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, deleteAllListsStmt, deleteListForUserStmt;
 
 
@@ -58,6 +57,7 @@ public class AppDAO {
             getAllTasksStmt=conn.prepareStatement("SELECT *FROM tasks");
             setNewIdTaskStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM tasks");
             addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            deleteAllTasksFromListStmt =conn.prepareStatement("DELETE FROM tasks WHERE username=? AND list_name=?");
             deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
 
             //lists
@@ -328,6 +328,16 @@ public class AppDAO {
         return result;
 
 
+    }
+
+    public void deleteTasksFromList(String username,String listName){
+        try {
+            deleteAllTasksFromListStmt.setString(1,username);
+            deleteAllTasksFromListStmt.setString(2,listName);
+            deleteAllTasksFromListStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void deleteAllTasks(){

@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
-public class List {
+public class List  {
 
     private String username;
     private String listName;
@@ -32,4 +32,22 @@ public class List {
     public String toString(){
         return listName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof List)) {
+            return false;
+        }
+
+        List l = (List) o;
+
+        return this.getListName().equals(((List) o).getListName())
+                && this.getUsername().equals(((List) o).getUsername());
+    }
+
 }
