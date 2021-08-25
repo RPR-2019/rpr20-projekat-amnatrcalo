@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,11 +24,12 @@ public class TaskController {
     public TextField fldTaskName;
     public TextArea areaNote;
     public Button btnCreate;
-    public ChoiceBox<String> listMenu;
+    public ChoiceBox<List> listMenu;
 
     private Task task;
     private User user;
     private AlertClass alertClass=new AlertClass();
+    private ObservableList<List> listLists= FXCollections.observableArrayList();
 
     @FXML
     public void initialize(){
@@ -68,10 +71,14 @@ public class TaskController {
 
         });
 
+        listMenu.setItems(listLists);
+
     }
 
-    public TaskController(User user){
+    public TaskController(User user, ObservableList<List> listLists){
+
         this.user=user;
+        this.listLists=listLists;
     }
 
     public void actionCreate(ActionEvent actionEvent) {
@@ -88,7 +95,7 @@ public class TaskController {
         task.setTaskName(fldTaskName.getText());
         task.setUsername(user.getUsername());
         task.setNote(areaNote.getText());
-        task.setListName(listMenu.getValue());
+        task.setListName(listMenu.getValue().getListName());
         //ovdje ga dodajem u bazu
 
     }

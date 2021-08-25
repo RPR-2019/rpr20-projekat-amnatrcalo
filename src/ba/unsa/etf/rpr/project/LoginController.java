@@ -113,7 +113,7 @@ public class LoginController {
             Stage myDayStage=new Stage();
             Parent root=null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/myDay.fxml"));
-            MyDayController myDayController = new MyDayController(user);
+            MyDayController myDayController = new MyDayController(user,dao.lists(user));
             loader.setController(myDayController);
 
             try {

@@ -3,20 +3,28 @@ package ba.unsa.etf.rpr.project;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -27,6 +35,12 @@ public class MyDayController {
     public Label randomQuote;
     public Label quoteAuthor;
     public Label clock;
+    public ChoiceBox<List> choiceList;
+    public TableColumn<Task,String>colTaskName;
+    public TableView<Task> tableViewTasks;
+
+    public ObservableList<List> listLists;
+    private ObservableList<Task> activeSession = FXCollections.observableArrayList();
     private User user;
     AppDAO dao;
 
@@ -36,8 +50,9 @@ public class MyDayController {
 
 
 
-    public MyDayController(User user) {
+    public MyDayController(User user, ArrayList<List>lists) {
         this.user=user;
+        listLists = FXCollections.observableArrayList(lists);
         dao=AppDAO.getInstance();
     }
 
@@ -66,6 +81,11 @@ public class MyDayController {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
+        choiceList.setItems(listLists);
+
+        /*colTaskName.setCellValueFactory(cellData -> cellData.getValue().taskNameProperty());
+        activeSession.add(new Exercise("hrrykane"));
+        exerciseTable.setItems(activeSession);*/
 
     }
 
@@ -75,7 +95,7 @@ public class MyDayController {
         Stage addNewTask=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
-        TaskController taskController=new TaskController(user);
+        TaskController taskController=new TaskController(user,listLists);
         loader.setController(taskController);
         try {
             root = loader.load();

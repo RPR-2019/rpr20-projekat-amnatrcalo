@@ -63,7 +63,6 @@ public class AppDAO {
             //lists
             getAllListsStmt=conn.prepareStatement("SELECT *FROM lists");
             getAllListsForUserStmt=conn.prepareStatement("SELECT *FROM lists WHERE username=?");
-            setNewIdListStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM lists");
             addNewListForUserStmt=conn.prepareStatement("INSERT INTO lists VALUES (?,?)");
             deleteAllListsStmt=conn.prepareStatement("DELETE from lists");
             deleteListForUserStmt=conn.prepareStatement("DELETE from lists WHERE username=? AND list_name=?");
@@ -375,15 +374,10 @@ public class AppDAO {
     }
 
     public void addList(String username, String listName){
-        ResultSet rs = null;
+        System.out.println("usao u addList");
         try {
-            rs = setNewIdListStmt.executeQuery();
-            int id = 1;
-            if (rs.next()) {
-                id = rs.getInt(1);
-            }
             addNewListForUserStmt.setString(1,username);
-            addNewListForUserStmt.setString(1,listName);
+            addNewListForUserStmt.setString(2,listName);
             addNewListForUserStmt.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();

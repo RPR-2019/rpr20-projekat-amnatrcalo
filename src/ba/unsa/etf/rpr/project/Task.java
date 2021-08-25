@@ -1,11 +1,14 @@
 package ba.unsa.etf.rpr.project;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.time.LocalDate;
 
 public class Task {
     private Integer id;
     private String username;
-    private String taskName;
+    private SimpleStringProperty taskName;
     private Integer startYear, startMonth, startDay, startHour, startMin;
     private Integer endYear, endMonth, endDay, endHour, endMin;
     private String note;
@@ -19,7 +22,7 @@ public class Task {
     public Task(Integer id, String username, String taskName, Integer startYear, Integer startMonth, Integer startDay, Integer startHour, Integer startMin, Integer endYear, Integer endMonth, Integer endDay, Integer endHour, Integer endMin, String note, boolean reminder, Integer reminderDigit, String reminderPeriod, boolean alertNotification, boolean alertEmail, String listName) {
         this.id = id;
         this.username = username;
-        this.taskName = taskName;
+        this.taskName = new SimpleStringProperty(taskName);
         this.startYear = startYear;
         this.startMonth = startMonth;
         this.startDay = startDay;
@@ -59,11 +62,15 @@ public class Task {
     }
 
     public String getTaskName() {
-        return taskName;
+        return taskName.get();
     }
 
     public void setTaskName(String taskName) {
-        this.taskName = taskName;
+        this.taskName.set(taskName);
+    }
+
+    public StringProperty taskNameProperty() {
+        return taskName;
     }
 
     public Integer getStartYear() {

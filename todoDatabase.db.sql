@@ -38,12 +38,9 @@ CREATE TABLE IF NOT EXISTS "tasks" (
 );
 CREATE TABLE IF NOT EXISTS "lists" (
 	"username"	TEXT,
-	"list_name"	TEXT,
-	PRIMARY KEY("username")
+	"list_name"	TEXT
 );
 INSERT INTO "users" VALUES (0,'Amna','Trcalo','amna','amna');
-INSERT INTO "users" VALUES (1,'Mirna','Trcalo','mirna','mirna');
-INSERT INTO "users" VALUES (2,'maho','trcalo','maho','maho');
 INSERT INTO "quotes" VALUES (0,'A positive attitude causes a chain reaction of positive thoughts, events, and outcomes.','Wade Boggs');
 INSERT INTO "quotes" VALUES (1,'Every day that I wake up has to be a good day!','Bret Michaels');
 INSERT INTO "quotes" VALUES (2,'On a good day, when you have a clear plan, you are able to execute whatever you wanted.','Jasprit Bumrah');

@@ -134,12 +134,16 @@ public class RegisterController {
         Stage stage = (Stage) fldUsername.getScene().getWindow();
         stage.close();
 
+        dao.addList(user.getUsername(),"My day");
+        dao.addList(user.getUsername(),"Planned");
+        dao.addList(user.getUsername(),"Tasks");
+
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000), event -> {
             Stage myDayStage=new Stage();
             Parent root=null;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/myDay.fxml"));
-            MyDayController myDayController = new MyDayController(user);
+            MyDayController myDayController = new MyDayController(user,dao.lists(user));
             loader.setController(myDayController);
             try {
                 root = loader.load();

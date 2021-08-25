@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/css/myDay.css" />
     </stylesheets>
@@ -43,12 +43,7 @@
                   <Font size="18.0" />
                </font></Button>
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Button" />
-            <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="MenuButton">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-              </items>
-            </MenuButton>
+            <ChoiceBox fx:id="choiceList" prefWidth="150.0" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -91,9 +86,9 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+            <TableView fx:id="tableViewTasks" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
               <columns>
-                <TableColumn minWidth="-1.0" prefWidth="75.0" text="C1" />
+                <TableColumn fx:id="colTaskName" minWidth="-1.0" prefWidth="75.0" text="C1" />
               </columns>
             </TableView>
          </children>

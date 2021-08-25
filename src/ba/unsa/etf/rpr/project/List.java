@@ -27,4 +27,9 @@ public class List {
     public void setListName(String listName) {
         this.listName = listName;
     }
+
+    @Override
+    public String toString(){
+        return listName;
+    }
 }
