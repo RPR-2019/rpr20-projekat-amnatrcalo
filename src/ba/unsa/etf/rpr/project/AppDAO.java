@@ -11,7 +11,8 @@ public class AppDAO {
     private static Connection conn;
     private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
-            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, deleteAllTasksStmt;
+            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, deleteAllTasksStmt,
+            getAllListsStmt, getAllListsForUserStmt, setNewIdListStmt, addNewListForUserStmt, getListStmt, deleteAllListsStmt, deleteListForUserStmt;
 
     private static AppDAO instance=null;
 
@@ -58,6 +59,15 @@ public class AppDAO {
             addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             getTaskStmt =conn.prepareStatement("SELECT *FROM tasks WHERE username=?");
             deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
+
+            //lists
+            getAllListsStmt=conn.prepareStatement("SELECT *FROM lists");
+            getAllListsForUserStmt=conn.prepareStatement("SELECT *FROM lists WHERE username=?");
+            setNewIdListStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM lists");
+            addNewListForUserStmt=conn.prepareStatement("INSERT INTO lists VALUES (?,?)");
+            deleteAllListsStmt=conn.prepareStatement("DELETE from lists");
+            deleteListForUserStmt=conn.prepareStatement("DELETE from lists WHERE username=? AND list_name=?");
+
 
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -329,5 +339,77 @@ public class AppDAO {
         }
     }
 
+    //lists
+    private List getListFromResultSet(ResultSet rs) throws SQLException {
+        List l = new List( rs.getString(1), rs.getString(2));
+        return l;
+    }
+
+    public ArrayList<List> lists(){
+        ArrayList<List> result = new ArrayList();
+        try {
+            ResultSet rs = getAllListsStmt.executeQuery();
+            while (rs.next()) {
+                List list = getListFromResultSet(rs);
+                result.add(list);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ArrayList<List> lists(User u){
+        ArrayList<List> result = new ArrayList();
+        try {
+            getAllListsForUserStmt.setString(1,u.getUsername());
+            ResultSet rs = getAllListsForUserStmt.executeQuery();
+            while (rs.next()) {
+                List list = getListFromResultSet(rs);
+                result.add(list);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void addList(String username, String listName){
+        ResultSet rs = null;
+        try {
+            rs = setNewIdListStmt.executeQuery();
+            int id = 1;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            addNewListForUserStmt.setString(1,username);
+            addNewListForUserStmt.setString(1,listName);
+            addNewListForUserStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+    }
+
+
+
+    public void deleteAllLists(){
+        try {
+            deleteAllListsStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void deleteList(String username, String listName){
+        try {
+            deleteListForUserStmt.setString(1,username);
+            deleteListForUserStmt.setString(2,listName);
+            deleteListForUserStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+    }
 
 }
