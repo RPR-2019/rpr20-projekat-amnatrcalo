@@ -114,6 +114,14 @@ public class TaskController {
             ok=false;
             alertClass.alertERROR("Task name field is required",
                     "You didn't enter the name of Your task.");
+        }else{
+            for(Task t: dao.tasks()){
+                if(t.getTaskName().equals(fldTaskName.getText()) && t.getUsername().equals(user.getUsername())){
+                    ok=false;
+                    alertClass.alertERROR("This name is not approved",
+                            "Task with this name already exists");
+                }
+            }
         }
 
         if(!ok) return;
