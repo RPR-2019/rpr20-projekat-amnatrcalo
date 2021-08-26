@@ -11,7 +11,7 @@ public class AppDAO {
     private static Connection conn;
     private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
-            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, deleteAllTasksFromListStmt, deleteAllTasksStmt,
+            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, deleteOneTaskStmt, deleteAllTasksFromListStmt, deleteAllTasksStmt,
             getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, deleteAllListsStmt, deleteListForUserStmt;
 
 
@@ -62,6 +62,7 @@ public class AppDAO {
             editTaskStmt=conn.prepareStatement("UPDATE tasks SET task_name=?, start_year=?, start_month=?, start_day=?, start_hour=?," +
                     "start_min=?, end_year=?, end_month=?, end_day=?, end_hour=?, end_min=?, note=?, reminder=?, reminder_digit=?," +
                     "reminder_period=?, alert_notification=?, alert_email=?, list_name=? WHERE id=?");
+            deleteOneTaskStmt=conn.prepareStatement("DELETE FROM tasks WHERE id=?");
             deleteAllTasksFromListStmt =conn.prepareStatement("DELETE FROM tasks WHERE username=? AND list_name=?");
             deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
 
@@ -372,6 +373,15 @@ public class AppDAO {
         return result;
 
 
+    }
+
+    public void deleteTask(Task task){
+        try {
+            deleteOneTaskStmt.setInt(1,task.getId());
+            deleteOneTaskStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void deleteTasksFromList(String username,String listName){

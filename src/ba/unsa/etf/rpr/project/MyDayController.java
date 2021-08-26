@@ -243,6 +243,12 @@ public class MyDayController {
 
 
     public void actionDeleteTask(ActionEvent actionEvent) {
+        Task task = tableViewTasks.getSelectionModel().getSelectedItem();
+        if (task == null) return;
+        if(alertClass.alertCONFIRMATION("Deleting task", "Are you sure you want to delete '"+task.getTaskName()+"'?",
+                "This task will be deleted immediately. You can't undo this action.")){
+            dao.deleteTask(task);
+        }
     }
 }
 
