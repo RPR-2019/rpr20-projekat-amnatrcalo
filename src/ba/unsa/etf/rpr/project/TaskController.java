@@ -140,15 +140,18 @@ public class TaskController {
         if(areaNote.getText()!=null && !areaNote.getText().trim().isEmpty()) task.setNote(areaNote.getText());
         else task.setNote(" ");
 
-        if(listMenu.getValue()==null){
-            if(startDateAndTimeAreSet(task.getStartYear(), task.getStartMonth(),task.getStartDay())){
+        if(listMenu.getValue()==null) {
+            if (startDateAndTimeAreSet(task.getStartYear(), task.getStartMonth(), task.getStartDay())) {
                 task.setListName("Planned");
-            } else{
+            } else {
                 task.setListName("Tasks");
             }
-        } else {
+        }else{
             task.setListName(listMenu.getValue().getListName());
         }
+
+
+
 
 
 

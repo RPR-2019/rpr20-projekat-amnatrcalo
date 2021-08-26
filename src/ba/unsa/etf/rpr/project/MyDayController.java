@@ -152,7 +152,7 @@ public class MyDayController {
         Stage addNewList=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/list.fxml"));
-        ListController listController=new ListController(null);
+        ListController listController=new ListController(user,null);
         loader.setController(listController);
         try {
             root = loader.load();
@@ -168,10 +168,10 @@ public class MyDayController {
         addNewList.show();
 
         addNewList.setOnHiding( event -> {
-            String listName= listController.getListName();
-            if (listName != null) {
-                dao.addList(user.getUsername(),listName);
-                listLists.add(new List(user.getUsername(),listName));
+            List newList= listController.getList();
+            if (newList != null) {
+                dao.addList(user.getUsername(),newList.getListName());
+                listLists.add(newList);
             }
 
         } );

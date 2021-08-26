@@ -87,6 +87,7 @@ public class DateAndTimeController {
             //edit current task
             checkBoxReminder.setSelected(task.isReminder());
             if(task.isReminder()){
+                selectReminder=true;
                 comboValueBefore.setDisable(false);
                 choicePeriodBefore.setDisable(false);
                 radioNotification.setDisable(false);
