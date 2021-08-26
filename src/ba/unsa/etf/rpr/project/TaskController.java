@@ -156,6 +156,11 @@ public class TaskController {
         stage.close();
     }
 
+    public void actionCancel(ActionEvent actionEvent) {
+        Stage stage= (Stage) areaNote.getScene().getWindow();
+        stage.close();
+    }
+
 
 
     }

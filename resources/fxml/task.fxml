@@ -19,7 +19,12 @@
       <TextField fx:id="fldTaskName" promptText="Task name" />
       <Separator prefWidth="200.0" GridPane.rowIndex="1" />
       <TextArea fx:id="areaNote" prefHeight="200.0" prefWidth="200.0" promptText="Add Note" GridPane.rowIndex="3" />
-      <Button fx:id="btnCreate" defaultButton="true" mnemonicParsing="false" onAction="#actionCreate" text="Create " GridPane.rowIndex="4" />
+      <ButtonBar GridPane.rowIndex="4">
+         <buttons>
+            <Button fx:id="btnCreate" defaultButton="true" mnemonicParsing="false" onAction="#actionCreate" text="Create " />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" text="Cancel" />
+         </buttons>
+      </ButtonBar>
       <ChoiceBox fx:id="listMenu" prefHeight="25.0" prefWidth="101.0" GridPane.columnIndex="2" />
    </children>
    <padding>
