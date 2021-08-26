@@ -122,7 +122,7 @@ public class MyDayController {
         Stage addNewTask=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
-        TaskController taskController=new TaskController(null,user,listLists);
+        TaskController taskController=new TaskController(null,user,listLists,false);
         loader.setController(taskController);
         try {
             root = loader.load();
@@ -217,7 +217,7 @@ public class MyDayController {
         Stage editTask=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
-        TaskController taskController=new TaskController(task,user,listLists);
+        TaskController taskController=new TaskController(task,user,listLists,true);
         loader.setController(taskController);
         try {
             root = loader.load();

@@ -54,7 +54,7 @@ public class DateAndTimeController {
             "51", "52", "53","54", "55", "56", "57", "58", "59");
 
     private ObservableList<String> periods=FXCollections.observableArrayList("minutes", "hours", "days");
-    private ObservableList<Integer> valuesBefore=FXCollections.observableArrayList(1,2,3,4,5,10,15,30);
+    private ObservableList<Integer> valuesBefore=FXCollections.observableArrayList(1,2,3,4,5,10,15,20,25,30);
 
     public String setEditSprinnerHours(Integer value){
         if(value<0) return "--";
@@ -92,6 +92,13 @@ public class DateAndTimeController {
                 choicePeriodBefore.setDisable(false);
                 radioNotification.setDisable(false);
                 radioEmail.setDisable(false);
+            } else{
+                comboValueBefore.setDisable(true);
+                choicePeriodBefore.setDisable(true);
+                radioNotification.setDisable(true);
+                radioEmail.setDisable(true);
+                radioNotification.setSelected(true);
+                radioEmail.setSelected(false);
             }
             comboValueBefore.setValue(task.getReminderDigit());
             choicePeriodBefore.setValue(task.getReminderPeriod());

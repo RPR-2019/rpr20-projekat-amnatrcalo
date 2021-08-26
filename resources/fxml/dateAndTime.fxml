@@ -56,7 +56,7 @@
       <Separator prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="4" />
       <CheckBox fx:id="checkBoxReminder" mnemonicParsing="false" onAction="#actionRemindMe" text="Remind me" GridPane.rowIndex="5" />
       <Label text="tekst remindera" GridPane.rowIndex="6" />
-      <ComboBox fx:id="comboValueBefore" editable="true" prefWidth="150.0" GridPane.rowIndex="7" />
+      <ComboBox fx:id="comboValueBefore" prefWidth="150.0" GridPane.rowIndex="7" />
       <ChoiceBox fx:id="choicePeriodBefore" prefHeight="25.0" prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="8" />
       <Label text="Alert type" GridPane.rowIndex="9" />

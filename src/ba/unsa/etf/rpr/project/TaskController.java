@@ -33,7 +33,7 @@ public class TaskController {
     private ObservableList<List> listLists= FXCollections.observableArrayList();
 
     private AppDAO dao;
-
+    private boolean edit=false;
 
     public Task getTask() {
         return task;
@@ -94,11 +94,12 @@ public class TaskController {
 
     }
 
-    public TaskController(Task task,User user, ObservableList<List> listLists){
+    public TaskController(Task task,User user, ObservableList<List> listLists, boolean edit){
         this.task=task;
         dao=AppDAO.getInstance();
         this.user=user;
         this.listLists=listLists;
+        this.edit=edit;
     }
 
     public boolean startDateAndTimeAreSet (Integer startYear, Integer startMonth, Integer startDay){
@@ -114,7 +115,9 @@ public class TaskController {
             ok=false;
             alertClass.alertERROR("Task name field is required",
                     "You didn't enter the name of Your task.");
-        }else{
+        }
+
+        if(!edit){
             for(Task t: dao.tasks()){
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getUsername().equals(user.getUsername())){
                     ok=false;
@@ -128,7 +131,6 @@ public class TaskController {
 
 
         if(task==null) {
-
             task=new Task();
             task.setStartYear(-1);
             task.setStartMonth(-1);
