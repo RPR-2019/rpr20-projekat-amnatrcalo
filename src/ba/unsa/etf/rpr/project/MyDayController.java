@@ -122,7 +122,7 @@ public class MyDayController {
         Stage addNewTask=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
-        TaskController taskController=new TaskController(user,listLists);
+        TaskController taskController=new TaskController(null,user,listLists);
         loader.setController(taskController);
         try {
             root = loader.load();
@@ -136,6 +136,15 @@ public class MyDayController {
         addNewTask.getIcons().add(icon);
         addNewTask.setResizable(false);
         addNewTask.show();
+
+        addNewTask.setOnHiding( event -> {
+            Task newTask= taskController.getTask();
+            if (newTask != null) {
+                dao.addTask(newTask);
+
+            }
+
+        } );
     }
 
 
@@ -200,6 +209,40 @@ public class MyDayController {
 
 
 
+    }
+
+    public void actionEditTask(ActionEvent actionEvent) {
+        Task task = tableViewTasks.getSelectionModel().getSelectedItem();
+        Stage editTask=new Stage();
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
+        TaskController taskController=new TaskController(task,user,listLists);
+        loader.setController(taskController);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        editTask.setTitle("My Day");
+        editTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        editTask.getIcons().add(icon);
+        editTask.setResizable(false);
+        editTask.show();
+
+        editTask.setOnHiding( event -> {
+            Task newTask = taskController.getTask();
+            if (newTask != null) {
+                dao.editTask(newTask);
+
+            }
+        } );
+    }
+
+
+
+    public void actionDeleteTask(ActionEvent actionEvent) {
     }
 }
 

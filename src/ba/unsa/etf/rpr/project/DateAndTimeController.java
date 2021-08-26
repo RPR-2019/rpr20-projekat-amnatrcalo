@@ -55,13 +55,18 @@ public class DateAndTimeController {
 
     private ObservableList<String> periods=FXCollections.observableArrayList("minutes", "hours", "days");
     private ObservableList<Integer> valuesBefore=FXCollections.observableArrayList(1,2,3,4,5,10,15,30);
+
+    public String setEditSprinnerHours(Integer value){
+        if(value<0) return "--";
+        else return hours.get(value+1);
+    }
+
+    public String setEditSprinnerMins(Integer value){
+        if(value<0) return "--";
+        else return mins.get(value+1);
+    }
     @FXML
     public void initialize(){
-        comboValueBefore.setDisable(true);
-        choicePeriodBefore.setDisable(true);
-        radioEmail.setDisable(true);
-        radioNotification.setDisable(true);
-
         SpinnerValueFactory<String> valueFactoryStartHours =new SpinnerValueFactory.ListSpinnerValueFactory<String>(hours);
         startHour.setValueFactory(valueFactoryStartHours);
         valueFactoryStartHours.setValue("--");
@@ -77,6 +82,43 @@ public class DateAndTimeController {
         SpinnerValueFactory<String> valueFactoryEndMins =new SpinnerValueFactory.ListSpinnerValueFactory<String>(mins);
         endMins.setValueFactory(valueFactoryEndMins);
         valueFactoryEndMins.setValue("--");
+
+        if(task!=null){
+            //edit current task
+            checkBoxReminder.setSelected(task.isReminder());
+            if(task.isReminder()){
+                comboValueBefore.setDisable(false);
+                choicePeriodBefore.setDisable(false);
+                radioNotification.setDisable(false);
+                radioEmail.setDisable(false);
+            }
+            comboValueBefore.setValue(task.getReminderDigit());
+            choicePeriodBefore.setValue(task.getReminderPeriod());
+            radioNotification.setSelected(task.isAlertNotification());
+            radioEmail.setSelected(task.isAlertEmail());
+
+            valueFactoryStartHours.setValue(setEditSprinnerHours(task.getStartHour()));
+            valueFactoryEndHours.setValue(setEditSprinnerHours(task.getEndHour()));
+            valueFactoryStartMins.setValue(setEditSprinnerMins(task.getStartMin()));
+            valueFactoryEndMins.setValue(setEditSprinnerMins(task.getEndMin()));
+
+            if(task.getStartDay()>0){
+                startDatePicker.setValue(LocalDate.of(task.getStartYear(),task.getStartMonth(),task.getStartDay()));
+            }
+
+            if(task.getEndDay()>0){
+                endDatePicker.setValue(LocalDate.of(task.getEndYear(),task.getEndMonth(),task.getEndDay()));
+            }
+
+
+        } else{
+            // setting new task
+            comboValueBefore.setDisable(true);
+            choicePeriodBefore.setDisable(true);
+            radioEmail.setDisable(true);
+            radioNotification.setDisable(true);
+        }
+
 
         choicePeriodBefore.setItems(periods);
         choicePeriodBefore.getSelectionModel().selectFirst();

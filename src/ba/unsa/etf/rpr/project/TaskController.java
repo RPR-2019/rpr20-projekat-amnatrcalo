@@ -35,8 +35,23 @@ public class TaskController {
     private AppDAO dao;
 
 
+    public Task getTask() {
+        return task;
+    }
+
+
     @FXML
     public void initialize(){
+
+        if(task!=null){
+            fldTaskName.setText(task.getTaskName());
+            areaNote.setText(task.getNote());
+            for(List l:listLists){
+                if(l.getListName().equals(task.getListName())){
+                    listMenu.getSelectionModel().select(l);
+                }
+            }
+        }
 
         gridPane.add(btnAddDateAndTime,0,2);
         Tooltip hoverBtnDateAndTime=new Tooltip("Set date and time of start or end of the task. This is optional.");
@@ -79,7 +94,8 @@ public class TaskController {
 
     }
 
-    public TaskController(User user, ObservableList<List> listLists){
+    public TaskController(Task task,User user, ObservableList<List> listLists){
+        this.task=task;
         dao=AppDAO.getInstance();
         this.user=user;
         this.listLists=listLists;
@@ -101,6 +117,7 @@ public class TaskController {
 
         if(!ok) return;
 
+
         if(task==null) {
             task=new Task();
             task.setStartYear(-1);
@@ -120,7 +137,8 @@ public class TaskController {
         task.setTaskName(fldTaskName.getText());
         task.setUsername(user.getUsername());
 
-        if(!areaNote.getText().trim().isEmpty()) task.setNote(areaNote.getText());
+        if(areaNote.getText()!=null && !areaNote.getText().trim().isEmpty()) task.setNote(areaNote.getText());
+        else task.setNote(" ");
 
         if(listMenu.getValue()==null){
             if(startDateAndTimeAreSet(task.getStartYear(), task.getStartMonth(),task.getStartDay())){
@@ -133,9 +151,6 @@ public class TaskController {
         }
 
 
-
-        //ovdje ga dodajem u bazu
-        dao.addTask(task);
 
         Stage stage = (Stage) areaNote.getScene().getWindow();
         stage.close();

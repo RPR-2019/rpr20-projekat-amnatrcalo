@@ -11,7 +11,7 @@ public class AppDAO {
     private static Connection conn;
     private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
-            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, deleteAllTasksFromListStmt, deleteAllTasksStmt,
+            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, deleteAllTasksFromListStmt, deleteAllTasksStmt,
             getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, deleteAllListsStmt, deleteListForUserStmt;
 
 
@@ -59,6 +59,9 @@ public class AppDAO {
             getAllTasksStmt=conn.prepareStatement("SELECT *FROM tasks");
             setNewIdTaskStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM tasks");
             addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            editTaskStmt=conn.prepareStatement("UPDATE tasks SET task_name=?, start_year=?, start_month=?, start_day=?, start_hour=?," +
+                    "start_min=?, end_year=?, end_month=?, end_day=?, end_hour=?, end_min=?, note=?, reminder=?, reminder_digit=?," +
+                    "reminder_period=?, alert_notification=?, alert_email=?, list_name=? WHERE id=?");
             deleteAllTasksFromListStmt =conn.prepareStatement("DELETE FROM tasks WHERE username=? AND list_name=?");
             deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
 
@@ -328,6 +331,34 @@ public class AppDAO {
             exception.printStackTrace();
         }
 
+
+    }
+
+    public void editTask(Task task){
+        try {
+            editTaskStmt.setString(1,task.getTaskName());
+            editTaskStmt.setInt(2,task.getStartYear());
+            editTaskStmt.setInt(3,task.getStartMonth());
+            editTaskStmt.setInt(4,task.getStartDay());
+            editTaskStmt.setInt(5,task.getStartHour());
+            editTaskStmt.setInt(6,task.getStartMin());
+            editTaskStmt.setInt(7,task.getEndYear());
+            editTaskStmt.setInt(8,task.getEndMonth());
+            editTaskStmt.setInt(9,task.getEndDay());
+            editTaskStmt.setInt(10,task.getEndHour());
+            editTaskStmt.setInt(11,task.getEndMin());
+            editTaskStmt.setString(12,task.getNote());
+            editTaskStmt.setBoolean(13,task.isReminder());
+            editTaskStmt.setInt(14, task.getReminderDigit());
+            editTaskStmt.setString(15,task.getReminderPeriod());
+            editTaskStmt.setBoolean(16, task.isAlertNotification());
+            editTaskStmt.setBoolean(17,task.isAlertEmail());
+            editTaskStmt.setString(18,task.getListName());
+            editTaskStmt.setInt(19,task.getId());
+            editTaskStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
 
     }
 
