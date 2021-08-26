@@ -141,7 +141,7 @@ public class MyDayController {
             Task newTask= taskController.getTask();
             if (newTask != null) {
                 dao.addTask(newTask);
-
+                activeSession.setAll(dao.getAllTasksByListName(user.getUsername(), newTask.getListName()));
             }
 
         } );
@@ -244,10 +244,12 @@ public class MyDayController {
 
     public void actionDeleteTask(ActionEvent actionEvent) {
         Task task = tableViewTasks.getSelectionModel().getSelectedItem();
+        String listName=task.getListName();
         if (task == null) return;
         if(alertClass.alertCONFIRMATION("Deleting task", "Are you sure you want to delete '"+task.getTaskName()+"'?",
                 "This task will be deleted immediately. You can't undo this action.")){
             dao.deleteTask(task);
+            activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
         }
     }
 }
