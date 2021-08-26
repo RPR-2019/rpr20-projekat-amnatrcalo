@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,13 +16,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
+import org.controlsfx.control.Notifications;
 
+import javax.management.Notification;
 import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -30,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.Random;
+
 
 //kada se poziva postaviti mu minHeight i minwidth od oka
 public class MyDayController {
@@ -252,6 +258,20 @@ public class MyDayController {
             dao.deleteTask(task);
             activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
         }
+
+
+            Image reminderImage=new Image("/img/reminder.png");
+
+            Notifications notification=Notifications.create()
+                    .title("Download complete")
+                    .text("Saved to home")
+                    .graphic(new ImageView(reminderImage))
+                    .hideAfter(Duration.seconds(10))
+                    .position(Pos.BOTTOM_RIGHT);
+            notification.darkStyle();
+            notification.show();
+
+
     }
 }
 
