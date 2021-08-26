@@ -41,7 +41,6 @@ public class MyDayController {
     public ListView<List> listViewLists;
     public TableColumn<Task,String>colTaskName;
     public TableView<Task> tableViewTasks;
-
     public ObservableList<List> listLists;
     public Button btnNewList;
     public Button btnDeleteList;
@@ -92,7 +91,10 @@ public class MyDayController {
 
         listViewLists.setItems(listLists);
 
-
+        listViewLists.getSelectionModel().select(0);
+        activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
+        tableViewTasks.setItems(activeSession);
+        colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
 
         listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
             List oldList=(List) oldItem;
@@ -105,7 +107,6 @@ public class MyDayController {
             }
 
 
-                //activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
                 tableViewTasks.setItems(activeSession);
                 colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
 
