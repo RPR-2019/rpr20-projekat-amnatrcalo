@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.project;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ public class AppDAO {
 
 
     private static AppDAO instance=null;
+    private final LocalDate currentDate=LocalDate.now();
 
     private AppDAO()  {
         //baza ce se napraviti u home folderu korisnika
@@ -278,6 +280,17 @@ public class AppDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ArrayList<Task> getTasksForToday(String username){
+        ArrayList<Task> result=new ArrayList<>();
+        for(Task t: this.tasks()){
+            if(t.getUsername().equals(username) && t.getStartYear()==currentDate.getYear() &&
+            t.getStartMonth()==currentDate.getMonthValue() && t.getStartDay()==currentDate.getDayOfMonth()){
+                result.add(t);
+            }
         }
         return result;
     }

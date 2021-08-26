@@ -211,14 +211,14 @@ public class DateAndTimeController {
             task.setStartDay(startDatePicker.getValue().getDayOfMonth());
 
         } else{
-            task.setStartYear(null);
-            task.setStartMonth(null);
-            task.setStartDay(null);
+            task.setStartYear(-1);
+            task.setStartMonth(-1);
+            task.setStartDay(-1);
         }
 
         if(startHour.getValue().equals("--") && startMins.getValue().equals("--")){
-            task.setStartHour(null);
-            task.setStartMin(null);
+            task.setStartHour(-1);
+            task.setStartMin(-1);
         } else{
             task.setStartHour(Integer.parseInt(startHour.getValue()));
             task.setStartMin(Integer.parseInt(startMins.getValue()));
@@ -230,20 +230,25 @@ public class DateAndTimeController {
             task.setEndMonth(endDatePicker.getValue().getMonthValue());
             task.setEndDay(endDatePicker.getValue().getDayOfMonth());
         } else{
-            task.setEndYear(null);
-            task.setEndMonth(null);
-            task.setEndDay(null);
+            task.setEndYear(-1);
+            task.setEndMonth(-1);
+            task.setEndDay(-1);
         }
 
         if(endHour.getValue().equals("--") && endMins.getValue().equals("--")){
-            task.setEndHour(null);
-            task.setEndMin(null);
+            task.setEndHour(-1);
+            task.setEndMin(-1);
         } else{
             task.setEndHour(Integer.parseInt(endHour.getValue()));
             task.setEndMin(Integer.parseInt(endMins.getValue()));
         }
 
         task.setReminder(checkBoxReminder.isSelected());
+
+        if(!checkBoxReminder.isSelected()){
+            task.setReminderDigit(-1);
+            task.setReminderPeriod("--");
+        }
 
         try{
             task.setReminderDigit(comboValueBefore.getValue());

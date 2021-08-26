@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class TaskController {
 
@@ -32,6 +33,7 @@ public class TaskController {
     private ObservableList<List> listLists= FXCollections.observableArrayList();
 
     private AppDAO dao;
+
 
     @FXML
     public void initialize(){
@@ -83,6 +85,12 @@ public class TaskController {
         this.listLists=listLists;
     }
 
+    public boolean startDateAndTimeAreSet (Integer startYear, Integer startMonth, Integer startDay){
+        boolean areSet=false;
+        if(startYear>0 && startMonth>0 && startDay>0) areSet=true;
+        return areSet;
+    }
+
     public void actionCreate(ActionEvent actionEvent) {
         boolean ok=true;
         if(fldTaskName.getText().trim().isEmpty()){
@@ -93,16 +101,45 @@ public class TaskController {
 
         if(!ok) return;
 
-        if(task==null) task=new Task();
+        if(task==null) {
+            task=new Task();
+            task.setStartYear(-1);
+            task.setStartMonth(-1);
+            task.setStartDay(-1);
+            task.setStartHour(-1);
+            task.setStartMin(-1);
+            task.setReminder(false);
+            task.setReminderDigit(-1);
+            task.setReminderPeriod("--");
+            task.setEndYear(-1);
+            task.setEndMonth(-1);
+            task.setEndDay(-1);
+            task.setEndHour(-1);
+            task.setEndMin(-1);
+        }
         task.setTaskName(fldTaskName.getText());
         task.setUsername(user.getUsername());
 
         if(!areaNote.getText().trim().isEmpty()) task.setNote(areaNote.getText());
 
-        task.setListName(listMenu.getValue().getListName());
+        if(listMenu.getValue()==null){
+            if(startDateAndTimeAreSet(task.getStartYear(), task.getStartMonth(),task.getStartDay())){
+                task.setListName("Planned");
+            } else{
+                task.setListName("Tasks");
+            }
+        } else {
+            task.setListName(listMenu.getValue().getListName());
+        }
+
+
 
         //ovdje ga dodajem u bazu
         dao.addTask(task);
 
+        Stage stage = (Stage) areaNote.getScene().getWindow();
+        stage.close();
     }
-}
+
+    }
+

@@ -92,12 +92,20 @@ public class MyDayController {
 
         listViewLists.setItems(listLists);
 
+
+
         listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
             List oldList=(List) oldItem;
             List newList=(List) newItem;
 
-
+            if(newItem.getListName().equals("My day")){
+                activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
+            } else{
                 activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
+            }
+
+
+                //activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
                 tableViewTasks.setItems(activeSession);
                 colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
 
