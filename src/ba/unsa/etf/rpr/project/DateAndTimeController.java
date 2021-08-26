@@ -174,7 +174,7 @@ public class DateAndTimeController {
     public void actionSave(ActionEvent actionEvent) {
         boolean ok=true;
 
-        if(task==null) task=new Task();
+
         if(selectAllDay && startDatePicker.getValue()==null){
             alertClass.alertERROR("The start of the task is not set",
                     "The start of the task must be set because this is an all day activity.");
@@ -247,6 +247,8 @@ public class DateAndTimeController {
         }
 
         if(!ok) return;
+
+        if(task==null) task=new Task();
 
         if(startDatePicker.getValue()!=null){
             task.setStartYear(startDatePicker.getValue().getYear());
@@ -326,6 +328,11 @@ public class DateAndTimeController {
             radioNotification.setDisable(true);
         }
 
+    }
+
+    public void actionCancel(ActionEvent actionEvent){
+        Stage stage = (Stage) radioEmail.getScene().getWindow();
+        stage.close();
     }
 
 

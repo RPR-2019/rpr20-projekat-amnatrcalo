@@ -141,6 +141,7 @@ public class MyDayController {
             Task newTask= taskController.getTask();
             if (newTask != null) {
                 dao.addTask(newTask);
+                listViewLists.getSelectionModel().select(new List(user.getUsername(), newTask.getListName()));
                 activeSession.setAll(dao.getAllTasksByListName(user.getUsername(), newTask.getListName()));
             }
 

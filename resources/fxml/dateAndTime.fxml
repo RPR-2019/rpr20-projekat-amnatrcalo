@@ -70,7 +70,7 @@
       <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="12">
          <buttons>
             <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#actionSave" text="Save" />
-            <Button cancelButton="true" mnemonicParsing="false" text="Cancel" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" text="Cancel" />
          </buttons>
       </ButtonBar>
    </children>

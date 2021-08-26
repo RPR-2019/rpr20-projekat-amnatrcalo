@@ -109,6 +109,7 @@ public class TaskController {
 
     public void actionCreate(ActionEvent actionEvent) {
         boolean ok=true;
+
         if(fldTaskName.getText().trim().isEmpty()){
             ok=false;
             alertClass.alertERROR("Task name field is required",
@@ -119,6 +120,7 @@ public class TaskController {
 
 
         if(task==null) {
+
             task=new Task();
             task.setStartYear(-1);
             task.setStartMonth(-1);
@@ -150,14 +152,11 @@ public class TaskController {
             task.setListName(listMenu.getValue().getListName());
         }
 
-
-
-
-
-
         Stage stage = (Stage) areaNote.getScene().getWindow();
         stage.close();
     }
+
+
 
     }
 
