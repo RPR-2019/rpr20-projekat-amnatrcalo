@@ -107,6 +107,8 @@ public class DateAndTimeController {
         return task;
     }
 
+
+
     private boolean checkDate(LocalDate start, LocalDate end){
         boolean ok=true;
         if(start.isAfter(end)) ok=false;
@@ -117,6 +119,12 @@ public class DateAndTimeController {
         boolean ok=true;
         if(endHour<startHour) ok=false;
         else if(endHour==startHour && endMins<startMins) ok=false;
+        return ok;
+    }
+
+    private boolean checkIsTimeNull(String timeValue){
+        boolean ok=false;
+        if(timeValue.equals("--")) ok=true;
         return ok;
     }
 
@@ -133,27 +141,45 @@ public class DateAndTimeController {
             ok=false;
             alertClass.alertERROR("Start date is not set",
                     "End date is set, but start date is not.");
-        } else if (startDatePicker.getValue()!=null && endDatePicker.getValue()!=null){
+        } else if((!checkIsTimeNull(startHour.getValue()) || !(checkIsTimeNull(startMins.getValue()))) && startDatePicker.getValue()==null){
+            ok=false;
+            alertClass.alertERROR("Time error",
+                    "Start time is not set proprerly.");
+        } else if((!checkIsTimeNull(endHour.getValue()) || !(checkIsTimeNull(endMins.getValue()))) && endDatePicker.getValue()==null){
+            ok=false;
+            alertClass.alertERROR("Time error",
+                    "End time is not set proprerly.");
+        }else if (startDatePicker.getValue()!=null && endDatePicker.getValue()!=null){
             if(!checkDate(currentDate,startDatePicker.getValue())){
                 ok=false;
                 alertClass.alertERROR("Date error",
                         "The start of the task can't be before current date");
+            } else if(!checkDate(startDatePicker.getValue(),endDatePicker.getValue())){
+                ok=false;
+                alertClass.alertERROR("Date error",
+                        "The end of the task can't be before its start date");
             }else if(startHour.getValue().equals("--") || endHour.getValue().equals("--") || startMins.getValue().equals("--") ||endMins.getValue().equals("--")){
                 ok=false;
                 alertClass.alertERROR("Time error",
                         "Start time or end time are not set proprerly.");
-            } else if(!checkTime(currentHour,currentMins,Integer.parseInt(startHour.getValue()), Integer.parseInt(startMins.getValue())) && currentDate.isEqual(startDatePicker.getValue())){
-               ok=false;
-                alertClass.alertERROR("The start of the task can't be before current time",
-                        "Your task starts at "+startHour.getValue()+":"+startMins.getValue());
             }
-            else if(!checkDate(startDatePicker.getValue(),endDatePicker.getValue())){
-                ok=false;
-                alertClass.alertERROR("Date error",
-                        "The end date of the task can't be before its start date");
-            } else if(!checkTime(Integer.parseInt(startHour.getValue()),Integer.parseInt(startMins.getValue()),Integer.parseInt(endHour.getValue()),Integer.parseInt(endMins.getValue()))){
+            else if(!checkIsTimeNull(endHour.getValue()) && !checkIsTimeNull(endMins.getValue()) && !checkTime(Integer.parseInt(startHour.getValue()),Integer.parseInt(startMins.getValue()),Integer.parseInt(endHour.getValue()), Integer.parseInt(endMins.getValue())) && endDatePicker.getValue().isEqual(startDatePicker.getValue())){
                 ok=false;
                 alertClass.alertERROR("The end time of the task can't be before its start time",
+                        "Your task starts at "+startHour.getValue()+":"+startMins.getValue());
+            }
+            else if((!checkIsTimeNull(startHour.getValue()) || !(checkIsTimeNull(startMins.getValue()))) && startDatePicker.getValue()==null){
+                ok=false;
+                alertClass.alertERROR("Time error",
+                        "Start time is not set proprerly.");
+            } else if((!checkIsTimeNull(endHour.getValue()) || !(checkIsTimeNull(endMins.getValue()))) && endDatePicker.getValue()==null){
+                ok=false;
+                alertClass.alertERROR("Time error",
+                        "End time is not set proprerly.");
+            }
+            else if(!checkTime(currentHour,currentMins,Integer.parseInt(startHour.getValue()), Integer.parseInt(startMins.getValue())) && currentDate.isEqual(startDatePicker.getValue())){
+               ok=false;
+                alertClass.alertERROR("The start of the task can't be before current time",
                         "Your task starts at "+startHour.getValue()+":"+startMins.getValue());
             }
         } else if(startDatePicker.getValue()!=null && endDatePicker.getValue()==null){
