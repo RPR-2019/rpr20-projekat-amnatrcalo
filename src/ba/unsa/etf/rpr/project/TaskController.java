@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class TaskController {
 
@@ -25,12 +24,12 @@ public class TaskController {
     public TextField fldTaskName;
     public TextArea areaNote;
     public Button btnCreate;
-    public ChoiceBox<List> listMenu;
+    public ChoiceBox<CustomList> listMenu;
 
     private Task task;
     private User user;
     private AlertClass alertClass=new AlertClass();
-    private ObservableList<List> listLists= FXCollections.observableArrayList();
+    private ObservableList<CustomList> listLists= FXCollections.observableArrayList();
 
     private AppDAO dao;
     private boolean edit=false;
@@ -46,7 +45,7 @@ public class TaskController {
         if(task!=null){
             fldTaskName.setText(task.getTaskName());
             areaNote.setText(task.getNote());
-            for(List l:listLists){
+            for(CustomList l:listLists){
                 if(l.getListName().equals(task.getListName())){
                     listMenu.getSelectionModel().select(l);
                 }
@@ -94,7 +93,7 @@ public class TaskController {
 
     }
 
-    public TaskController(Task task,User user, ObservableList<List> listLists, boolean edit){
+    public TaskController(Task task, User user, ObservableList<CustomList> listLists, boolean edit){
         this.task=task;
         dao=AppDAO.getInstance();
         this.user=user;

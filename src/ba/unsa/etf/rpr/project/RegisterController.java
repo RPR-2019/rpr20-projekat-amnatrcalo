@@ -158,6 +158,9 @@ public class RegisterController {
             myDayStage.getIcons().add(icon);
             myDayStage.setResizable(true);
             myDayStage.show();
+            myDayStage.setOnCloseRequest(event2->{
+                MyDayController.timelineInfinite.stop();
+            });
 
             Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event2 -> {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

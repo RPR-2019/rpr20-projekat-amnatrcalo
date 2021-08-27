@@ -1,11 +1,11 @@
 package ba.unsa.etf.rpr.project;
 
-public class List  {
+public class CustomList {
 
     private String username;
     private String listName;
 
-    public List(String username, String listName) {
+    public CustomList(String username, String listName) {
 
         this.username = username;
         this.listName = listName;
@@ -40,14 +40,14 @@ public class List  {
             return true;
         }
 
-        if (!(o instanceof List)) {
+        if (!(o instanceof CustomList)) {
             return false;
         }
 
-        List l = (List) o;
+        CustomList l = (CustomList) o;
 
-        return this.getListName().equals(((List) o).getListName())
-                && this.getUsername().equals(((List) o).getUsername());
+        return this.getListName().equals(((CustomList) o).getListName())
+                && this.getUsername().equals(((CustomList) o).getUsername());
     }
 
 }

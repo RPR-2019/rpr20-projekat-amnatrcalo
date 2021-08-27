@@ -403,17 +403,17 @@ public class AppDAO {
     }
 
     //lists
-    private List getListFromResultSet(ResultSet rs) throws SQLException {
-        List l = new List( rs.getString(1), rs.getString(2));
+    private CustomList getListFromResultSet(ResultSet rs) throws SQLException {
+        CustomList l = new CustomList( rs.getString(1), rs.getString(2));
         return l;
     }
 
-    public ArrayList<List> lists(){
-        ArrayList<List> result = new ArrayList();
+    public ArrayList<CustomList> lists(){
+        ArrayList<CustomList> result = new ArrayList();
         try {
             ResultSet rs = getAllListsStmt.executeQuery();
             while (rs.next()) {
-                List list = getListFromResultSet(rs);
+                CustomList list = getListFromResultSet(rs);
                 result.add(list);
             }
         } catch (SQLException e) {
@@ -422,13 +422,13 @@ public class AppDAO {
         return result;
     }
 
-    public ArrayList<List> lists(User u){
-        ArrayList<List> result = new ArrayList();
+    public ArrayList<CustomList> lists(User u){
+        ArrayList<CustomList> result = new ArrayList();
         try {
             getAllListsForUserStmt.setString(1,u.getUsername());
             ResultSet rs = getAllListsForUserStmt.executeQuery();
             while (rs.next()) {
-                List list = getListFromResultSet(rs);
+                CustomList list = getListFromResultSet(rs);
                 result.add(list);
             }
         } catch (SQLException e) {

@@ -17,24 +17,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.util.Pair;
 import org.controlsfx.control.Notifications;
 
-import javax.management.Notification;
-import java.awt.*;
 import java.io.IOException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Optional;
-import java.util.Random;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 
 //kada se poziva postaviti mu minHeight i minwidth od oka
@@ -44,18 +37,20 @@ public class MyDayController {
     public Label randomQuote;
     public Label quoteAuthor;
     public Label clock;
-    public ListView<List> listViewLists;
+    public ListView<CustomList> listViewLists;
     public TableColumn<Task,String>colTaskName;
     public TableView<Task> tableViewTasks;
-    public ObservableList<List> listLists;
+    public ObservableList<CustomList> listLists;
     public Button btnNewList;
     public Button btnDeleteList;
 
+    static Timeline timelineInfinite=new Timeline();
 
     private ObservableList<Task> activeSession = FXCollections.observableArrayList();
     private User user;
     private AppDAO dao;
     private AlertClass alertClass=new AlertClass();
+
 
     private final int currentHour=LocalDateTime.now().getHour();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
@@ -63,20 +58,49 @@ public class MyDayController {
 
 
 
-    public MyDayController(User user, ArrayList<List>lists) {
+    public MyDayController(User user, ArrayList<CustomList>lists) {
         this.user=user;
         listLists = FXCollections.observableArrayList(lists);
         dao=AppDAO.getInstance();
 
     }
 
+
+
+
     @FXML
     public void initialize(){
+
+        //send notification
+        Timeline timelineInfinite = new Timeline(new KeyFrame(Duration.millis(1000), e-> {
+            for(Task t: dao.tasks()){
+                if(t.isReminder() && t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))) {
+                    Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(2000), event2 -> {
+                        Image reminderImage=new Image("/img/reminder.png");
+
+                        Notifications notification=Notifications.create()
+                                .title(t.getTaskName())
+                                .text("Starts in "+t.getReminderDigit()+" "+t.getReminderPeriod())
+                                .graphic(new ImageView(reminderImage))
+                                .hideAfter(Duration.seconds(5))
+                                .position(Pos.BOTTOM_RIGHT);
+                        notification.darkStyle();
+                        notification.show();
+                    }));
+                    timeline2.play();
+                }
+            }
+        }));
+        timelineInfinite.setCycleCount(Timeline.INDEFINITE);
+        timelineInfinite.play();
+
 
         //set greeting message
        if(currentHour<=11) greetingMessage.setText("Good morning @"+user.getUsername()+"!");
        else if(currentHour<19) greetingMessage.setText("Good afternoon @"+user.getUsername()+"!");
        else greetingMessage.setText("Good evening @"+user.getUsername()+"!");
+
+
 
        //set qoute
         Random rand=new Random();
@@ -103,8 +127,8 @@ public class MyDayController {
         colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
 
         listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
-            List oldList=(List) oldItem;
-            List newList=(List) newItem;
+            CustomList oldList=(CustomList) oldItem;
+            CustomList newList=(CustomList) newItem;
 
             if(newItem.getListName().equals("My day")){
                 activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
@@ -117,6 +141,7 @@ public class MyDayController {
                 colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
 
         } );
+
 
 
 
@@ -147,7 +172,7 @@ public class MyDayController {
             Task newTask= taskController.getTask();
             if (newTask != null) {
                 dao.addTask(newTask);
-                listViewLists.getSelectionModel().select(new List(user.getUsername(), newTask.getListName()));
+                listViewLists.getSelectionModel().select(new CustomList(user.getUsername(), newTask.getListName()));
                 activeSession.setAll(dao.getAllTasksByListName(user.getUsername(), newTask.getListName()));
             }
 
@@ -175,7 +200,7 @@ public class MyDayController {
         addNewList.show();
 
         addNewList.setOnHiding( event -> {
-            List newList= listController.getList();
+            CustomList newList= listController.getList();
             if (newList != null) {
                 dao.addList(user.getUsername(),newList.getListName());
                 listLists.add(newList);
@@ -211,7 +236,7 @@ public class MyDayController {
             if (result.get() == buttonTypeOne) {
                 dao.deleteTasksFromList(user.getUsername(),selectedListName);
                 dao.deleteList(user.getUsername(),selectedListName);
-                listLists.remove(new List(user.getUsername(), selectedListName));
+                listLists.remove(new CustomList(user.getUsername(), selectedListName));
             }
 
 
@@ -260,20 +285,13 @@ public class MyDayController {
         }
 
 
-            Image reminderImage=new Image("/img/reminder.png");
 
-            Notifications notification=Notifications.create()
-                    .title("Download complete")
-                    .text("Saved to home")
-                    .graphic(new ImageView(reminderImage))
-                    .hideAfter(Duration.seconds(10))
-                    .position(Pos.BOTTOM_RIGHT);
-            notification.darkStyle();
-            notification.show();
 
 
     }
 }
+
+
 
 
 

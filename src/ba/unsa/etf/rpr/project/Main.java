@@ -8,6 +8,8 @@ import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.lang.annotation.Inherited;
+
 public class Main extends Application {
 
     @Override
@@ -23,6 +25,8 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
     }
+
+
 
 
     public static void main(String[] args) {

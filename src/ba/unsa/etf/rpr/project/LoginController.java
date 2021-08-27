@@ -129,6 +129,9 @@ public class LoginController {
             myDayStage.getIcons().add(icon);
             myDayStage.setResizable(true);
             myDayStage.show();
+            myDayStage.setOnCloseRequest(event2->{
+                MyDayController.timelineInfinite.stop();
+            });
 
         }));
         timeline.play();

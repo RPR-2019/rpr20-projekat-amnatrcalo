@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Task {
     private Integer id;
@@ -44,6 +46,23 @@ public class Task {
 
     public Task() {
         taskName=new SimpleStringProperty();
+    }
+
+    public LocalDateTime getStartDateAndTime(){
+        return LocalDateTime.of(LocalDate.of(startYear,startMonth,startDay), LocalTime.of(startHour,startMin));
+
+    }
+
+    public LocalDateTime getEndDateAndTime(){
+        return LocalDateTime.of(LocalDate.of(endYear,endMonth,endDay), LocalTime.of(endHour,endMin));
+    }
+
+    public LocalDateTime getReminderDateAndTime(){
+        if(reminderPeriod.equals("minutes")){
+            return getStartDateAndTime().minusMinutes(reminderDigit);
+        } else if(reminderPeriod.equals("hours")){
+            return getStartDateAndTime().minusHours(reminderDigit);
+        } else return getStartDateAndTime().minusDays(reminderDigit);
     }
 
 
