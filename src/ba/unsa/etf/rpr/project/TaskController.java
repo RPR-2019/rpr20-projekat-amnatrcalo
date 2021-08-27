@@ -34,6 +34,7 @@ public class TaskController {
     private AppDAO dao;
     private boolean edit=false;
 
+
     public Task getTask() {
         return task;
     }
@@ -119,6 +120,14 @@ public class TaskController {
         if(!edit){
             for(Task t: dao.tasks()){
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getUsername().equals(user.getUsername())){
+                    ok=false;
+                    alertClass.alertERROR("This name is not approved",
+                            "Task with this name already exists");
+                }
+            }
+       } else{
+            for(Task t: dao.tasks()){
+                if(t.getTaskName().equals(fldTaskName.getText()) && t.getId()!=task.getId() && t.getUsername().equals(user.getUsername())){
                     ok=false;
                     alertClass.alertERROR("This name is not approved",
                             "Task with this name already exists");
