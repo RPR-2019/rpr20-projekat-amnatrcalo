@@ -102,9 +102,9 @@ public class TaskController {
         this.edit=edit;
     }
 
-    public boolean startDateAndTimeAreSet (Integer startYear, Integer startMonth, Integer startDay){
+    public boolean startDateAndTimeAreSet (Integer startYear){
         boolean areSet=false;
-        if(startYear>0 && startMonth>0 && startDay>0) areSet=true;
+        if(startYear!=1) areSet=true;
         return areSet;
     }
 
@@ -139,20 +139,21 @@ public class TaskController {
 
 
         if(task==null) {
+            //ako nisu podesena vremena i datumi
             task=new Task();
-            task.setStartYear(-1);
-            task.setStartMonth(-1);
-            task.setStartDay(-1);
-            task.setStartHour(-1);
-            task.setStartMin(-1);
+            task.setStartYear(1);
+            task.setStartMonth(1);
+            task.setStartDay(1);
+            task.setStartHour(1);
+            task.setStartMin(1);
             task.setReminder(false);
-            task.setReminderDigit(-1);
+            task.setReminderDigit(1);
             task.setReminderPeriod("--");
-            task.setEndYear(-1);
-            task.setEndMonth(-1);
-            task.setEndDay(-1);
-            task.setEndHour(-1);
-            task.setEndMin(-1);
+            task.setEndYear(1);
+            task.setEndMonth(1);
+            task.setEndDay(1);
+            task.setEndHour(1);
+            task.setEndMin(1);
         }
         task.setTaskName(fldTaskName.getText());
         task.setUsername(user.getUsername());
@@ -161,7 +162,7 @@ public class TaskController {
         else task.setNote(" ");
 
         if(listMenu.getValue()==null) {
-            if (startDateAndTimeAreSet(task.getStartYear(), task.getStartMonth(), task.getStartDay())) {
+            if (startDateAndTimeAreSet(task.getStartYear())) {
                 task.setListName("Planned");
             } else {
                 task.setListName("Tasks");

@@ -7,11 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 public class DateAndTimeController {
     public CheckBox checkBoxAllDayTask;
@@ -56,13 +55,13 @@ public class DateAndTimeController {
     private ObservableList<String> periods=FXCollections.observableArrayList("minutes", "hours", "days");
     private ObservableList<Integer> valuesBefore=FXCollections.observableArrayList(1,2,3,4,5,10,15,20,25,30);
 
-    public String setEditSprinnerHours(Integer value){
-        if(value<0) return "--";
+    public String setEditSprinnerHours(Integer value, Integer year){
+        if(year==1) return "--";
         else return hours.get(value+1);
     }
 
-    public String setEditSprinnerMins(Integer value){
-        if(value<0) return "--";
+    public String setEditSprinnerMins(Integer value, Integer year){
+        if(year==1) return "--";
         else return mins.get(value+1);
     }
     @FXML
@@ -105,16 +104,16 @@ public class DateAndTimeController {
             radioNotification.setSelected(task.isAlertNotification());
             radioEmail.setSelected(task.isAlertEmail());
 
-            valueFactoryStartHours.setValue(setEditSprinnerHours(task.getStartHour()));
-            valueFactoryEndHours.setValue(setEditSprinnerHours(task.getEndHour()));
-            valueFactoryStartMins.setValue(setEditSprinnerMins(task.getStartMin()));
-            valueFactoryEndMins.setValue(setEditSprinnerMins(task.getEndMin()));
+            valueFactoryStartHours.setValue(setEditSprinnerHours(task.getStartHour(), task.getStartYear()));
+            valueFactoryEndHours.setValue(setEditSprinnerHours(task.getEndHour(),task.getEndYear()));
+            valueFactoryStartMins.setValue(setEditSprinnerMins(task.getStartMin(),task.getStartYear()));
+            valueFactoryEndMins.setValue(setEditSprinnerMins(task.getEndMin(), task.getEndYear()));
 
-            if(task.getStartDay()>0){
+            if(task.getStartYear()!=1){
                 startDatePicker.setValue(LocalDate.of(task.getStartYear(),task.getStartMonth(),task.getStartDay()));
             }
 
-            if(task.getEndDay()>0){
+            if(task.getEndYear()!=1){
                 endDatePicker.setValue(LocalDate.of(task.getEndYear(),task.getEndMonth(),task.getEndDay()));
             }
 
@@ -144,11 +143,15 @@ public class DateAndTimeController {
             endDatePicker.setDisable(true);
             endHour.setDisable(true);
             endMins.setDisable(true);
+            startHour.setDisable(true);
+            startMins.setDisable(true);
         }
         if(!selectAllDay){
             endDatePicker.setDisable(false);
             endHour.setDisable(false);
             endMins.setDisable(false);
+            startHour.setDisable(false);
+            startMins.setDisable(false);
         }
 
     }
@@ -165,14 +168,15 @@ public class DateAndTimeController {
         return ok;
     }
 
-    private boolean checkTime(Integer startHour, Integer startMins, Integer endHour, Integer endMins){
+    private boolean checkTime(LocalDateTime start, LocalDateTime end){
+
         boolean ok=true;
-        if(endHour<startHour) ok=false;
-        else if(endHour==startHour && endMins<startMins) ok=false;
+        if(start.isAfter(end)) ok=false;
         return ok;
     }
 
-    private boolean checkIsTimeNull(String timeValue){
+    private boolean isTimeNull(String timeValue){
+
         boolean ok=false;
         if(timeValue.equals("--")) ok=true;
         return ok;
@@ -180,78 +184,70 @@ public class DateAndTimeController {
 
     public void actionSave(ActionEvent actionEvent) {
         boolean ok=true;
-
-
-        if(selectAllDay && startDatePicker.getValue()==null){
-            alertClass.alertERROR("The start of the task is not set",
-                    "The start of the task must be set because this is an all day activity.");
-           ok=false;
-        }
-        else if(startDatePicker.getValue()==null && endDatePicker.getValue()!=null){
-            ok=false;
-            alertClass.alertERROR("Start date is not set",
-                    "End date is set, but start date is not.");
-        } else if((!checkIsTimeNull(startHour.getValue()) || !(checkIsTimeNull(startMins.getValue()))) && startDatePicker.getValue()==null){
-            ok=false;
-            alertClass.alertERROR("Time error",
-                    "Start time is not set proprerly.");
-        } else if((!checkIsTimeNull(endHour.getValue()) || !(checkIsTimeNull(endMins.getValue()))) && endDatePicker.getValue()==null){
-            ok=false;
-            alertClass.alertERROR("Time error",
-                    "End time is not set proprerly.");
-        }else if (startDatePicker.getValue()!=null && endDatePicker.getValue()!=null){
+        if(startDatePicker.getValue()!=null){
             if(!checkDate(currentDate,startDatePicker.getValue())){
                 ok=false;
                 alertClass.alertERROR("Date error",
                         "The start of the task can't be before current date");
-            } else if(!checkDate(startDatePicker.getValue(),endDatePicker.getValue())){
+            }
+        }
+
+        if(selectAllDay){
+            if(startDatePicker.getValue()==null){
+                alertClass.alertERROR("The start of the task is not set",
+                        "The start of the task must be set because this is an all day activity.");
+                ok=false;
+            }
+        } else{
+            if(startDatePicker.getValue()==null && endDatePicker.getValue()!=null){
+                ok=false;
+                alertClass.alertERROR("Start date is not set",
+                        "End date is set, but start date is not.");
+            }else if((!isTimeNull(startHour.getValue()) || !(isTimeNull(startMins.getValue()))) && startDatePicker.getValue()==null){
                 ok=false;
                 alertClass.alertERROR("Date error",
-                        "The end of the task can't be before its start date");
-            }else if(startHour.getValue().equals("--") || endHour.getValue().equals("--") || startMins.getValue().equals("--") ||endMins.getValue().equals("--")){
+                        "Start date is not set proprerly.");
+            } else if((!isTimeNull(endHour.getValue()) || !(isTimeNull(endMins.getValue()))) && endDatePicker.getValue()==null){
                 ok=false;
-                alertClass.alertERROR("Time error",
-                        "Start time or end time are not set proprerly.");
-            }
-            else if(!checkIsTimeNull(endHour.getValue()) && !checkIsTimeNull(endMins.getValue()) && !checkTime(Integer.parseInt(startHour.getValue()),Integer.parseInt(startMins.getValue()),Integer.parseInt(endHour.getValue()), Integer.parseInt(endMins.getValue())) && endDatePicker.getValue().isEqual(startDatePicker.getValue())){
-                ok=false;
-                alertClass.alertERROR("The end time of the task can't be before its start time",
-                        "Your task starts at "+startHour.getValue()+":"+startMins.getValue());
-            }
-            else if((!checkIsTimeNull(startHour.getValue()) || !(checkIsTimeNull(startMins.getValue()))) && startDatePicker.getValue()==null){
+                alertClass.alertERROR("Date error",
+                        "End date is not set proprerly.");
+            } else if((isTimeNull(startHour.getValue()) || (isTimeNull(startMins.getValue()))) && startDatePicker.getValue()!=null){
                 ok=false;
                 alertClass.alertERROR("Time error",
                         "Start time is not set proprerly.");
-            } else if((!checkIsTimeNull(endHour.getValue()) || !(checkIsTimeNull(endMins.getValue()))) && endDatePicker.getValue()==null){
+            } else if((isTimeNull(endHour.getValue()) || (isTimeNull(endMins.getValue()))) && endDatePicker.getValue()!=null){
                 ok=false;
                 alertClass.alertERROR("Time error",
                         "End time is not set proprerly.");
-            }
-            else if(!checkTime(currentHour,currentMins,Integer.parseInt(startHour.getValue()), Integer.parseInt(startMins.getValue())) && currentDate.isEqual(startDatePicker.getValue())){
-               ok=false;
-                alertClass.alertERROR("The start of the task can't be before current time",
-                        "Your task starts at "+startHour.getValue()+":"+startMins.getValue());
-            }
-        } else if(startDatePicker.getValue()!=null && endDatePicker.getValue()==null){
-            if(!checkDate(currentDate,startDatePicker.getValue())){
-                ok=false;
-                alertClass.alertERROR("Date error",
-                        "The start of the task can't be before current date");
-            }  else if(startHour.getValue().equals("--")  || startMins.getValue().equals("--") ){
+            } else if(startDatePicker.getValue()!=null && !checkTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),LocalDateTime.of(startDatePicker.getValue(),LocalTime.of(Integer.parseInt(startHour.getValue()), Integer.parseInt(startMins.getValue()))) )){
                 ok=false;
                 alertClass.alertERROR("Time error",
-                        "Start time is not set proprerly.");
-            } else if(!checkTime(currentHour,currentMins,Integer.parseInt(startHour.getValue()), Integer.parseInt(startMins.getValue())) && currentDate.isEqual(startDatePicker.getValue())){
-                ok=false;
-                alertClass.alertERROR("The start of the task can't be before current time",
-                        "Your task starts at "+startHour.getValue()+":"+startMins.getValue());
+                        "The start of the task can't be before current date");
             }
-        } else if(selectReminder && (startHour.getValue().equals("--")  || startMins.getValue().equals("--") || startDatePicker.getValue()==null)){
-            ok=false;
-            alertClass.alertERROR("Reminder can't be set",
-                    "You didn't specify start time of Your task.");
+            else if (startDatePicker.getValue()!=null && endDatePicker.getValue()!=null){
+               LocalDate startDate=LocalDate.of(startDatePicker.getValue().getYear(),startDatePicker.getValue().getMonthValue(),startDatePicker.getValue().getDayOfMonth());
+               LocalTime startTime=LocalTime.of(Integer.parseInt(startHour.getValue()), Integer.parseInt(startMins.getValue()));
 
+                LocalDate endDate=LocalDate.of(endDatePicker.getValue().getYear(),endDatePicker.getValue().getMonthValue(),endDatePicker.getValue().getDayOfMonth());
+                LocalTime endTime=LocalTime.of(Integer.parseInt(endHour.getValue()), Integer.parseInt(endMins.getValue()));
+
+                if(!checkTime(LocalDateTime.of(startDate,startTime), LocalDateTime.of(endDate,endTime))){
+                    ok=false;
+                    alertClass.alertERROR("Date error",
+                            "The end of the task can't be before its start date");
+                } else if(isTimeNull(startHour.getValue()) || isTimeNull(startMins.getValue()) || isTimeNull(endHour.getValue()) || isTimeNull(endMins.getValue())){
+                    ok=false;
+                    alertClass.alertERROR("Time error",
+                            "Start time or end time are not set proprerly.");
+                }
+            } else if(selectReminder && (isTimeNull(startMins.getValue()) || isTimeNull(startHour.getValue()) || startDatePicker.getValue()==null)){
+                ok=false;
+                alertClass.alertERROR("Reminder can't be set",
+                        "You didn't specify start time of Your task.");
+            }
         }
+
+
 
         if(!ok) return;
 
@@ -263,14 +259,14 @@ public class DateAndTimeController {
             task.setStartDay(startDatePicker.getValue().getDayOfMonth());
 
         } else{
-            task.setStartYear(-1);
-            task.setStartMonth(-1);
-            task.setStartDay(-1);
+            task.setStartYear(1);
+            task.setStartMonth(1);
+            task.setStartDay(1);
         }
 
         if(startHour.getValue().equals("--") && startMins.getValue().equals("--")){
-            task.setStartHour(-1);
-            task.setStartMin(-1);
+            task.setStartHour(1);
+            task.setStartMin(1);
         } else{
             task.setStartHour(Integer.parseInt(startHour.getValue()));
             task.setStartMin(Integer.parseInt(startMins.getValue()));
@@ -282,14 +278,14 @@ public class DateAndTimeController {
             task.setEndMonth(endDatePicker.getValue().getMonthValue());
             task.setEndDay(endDatePicker.getValue().getDayOfMonth());
         } else{
-            task.setEndYear(-1);
-            task.setEndMonth(-1);
-            task.setEndDay(-1);
+            task.setEndYear(1);
+            task.setEndMonth(1);
+            task.setEndDay(1);
         }
 
         if(endHour.getValue().equals("--") && endMins.getValue().equals("--")){
-            task.setEndHour(-1);
-            task.setEndMin(-1);
+            task.setEndHour(1);
+            task.setEndMin(1);
         } else{
             task.setEndHour(Integer.parseInt(endHour.getValue()));
             task.setEndMin(Integer.parseInt(endMins.getValue()));

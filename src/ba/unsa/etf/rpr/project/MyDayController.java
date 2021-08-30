@@ -170,7 +170,7 @@ public class MyDayController {
 
         addNewTask.setOnHiding( event -> {
             Task newTask= taskController.getTask();
-            if (newTask != null) {
+            if (newTask != null && newTask.getUsername()!=null) {
                 dao.addTask(newTask);
                 listViewLists.getSelectionModel().select(new CustomList(user.getUsername(), newTask.getListName()));
                 activeSession.setAll(dao.getAllTasksByListName(user.getUsername(), newTask.getListName()));
@@ -268,6 +268,7 @@ public class MyDayController {
             if (newTask != null) {
                 dao.editTask(newTask);
 
+
             }
         } );
     }
@@ -283,11 +284,14 @@ public class MyDayController {
             dao.deleteTask(task);
             activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
         }
+    }
 
-
-
-
-
+    public boolean sameStart(Task task){
+        boolean same=false;
+        for(Task t: dao.tasks()){
+            if(t.getStartDateAndTime().isEqual(task.getStartDateAndTime())) same=true;
+        }
+        return same;
     }
 }
 
