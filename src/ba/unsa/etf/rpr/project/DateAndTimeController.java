@@ -146,6 +146,7 @@ public class DateAndTimeController {
             startHour.setDisable(true);
             startMins.setDisable(true);
             checkBoxReminder.setDisable(true);
+            remDisabled(true);
         }
         if(!selectAllDay){
             endDatePicker.setDisable(false);
@@ -153,6 +154,8 @@ public class DateAndTimeController {
             endMins.setDisable(false);
             startHour.setDisable(false);
             startMins.setDisable(false);
+            checkBoxReminder.setDisable(false);
+            remDisabled(false);
         }
 
     }
@@ -308,21 +311,22 @@ public class DateAndTimeController {
         stage.close();
     }
 
+    public void remDisabled(boolean disable){
+        comboValueBefore.setDisable(disable);
+        choicePeriodBefore.setDisable(disable);
+        radioEmail.setDisable(disable);
+        radioNotification.setDisable(disable);
+    }
+
     public void actionRemindMe(ActionEvent actionEvent){
         selectReminder=!selectReminder;
 
         if(selectReminder){
-            comboValueBefore.setDisable(false);
-            choicePeriodBefore.setDisable(false);
-            radioEmail.setDisable(false);
-            radioNotification.setDisable(false);
+            remDisabled(false);
         }
 
         if(!selectReminder){
-            comboValueBefore.setDisable(true);
-            choicePeriodBefore.setDisable(true);
-            radioEmail.setDisable(true);
-            radioNotification.setDisable(true);
+            remDisabled(true);
         }
 
     }
