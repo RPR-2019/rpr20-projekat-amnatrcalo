@@ -12,6 +12,7 @@ public class AppDAO {
     private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
             getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, deleteOneTaskStmt, deleteAllTasksFromListStmt, deleteAllTasksStmt,
+            getAllTasksNotificationRemStmt, getAllTasksEmailRemStmt,
             getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, deleteAllListsStmt, deleteListForUserStmt;
 
 
@@ -44,7 +45,7 @@ public class AppDAO {
 
         try {
             setNewIdStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM users");
-            addNewUserStmt=conn.prepareStatement("INSERT INTO users VALUES(?,?,?,?,?)");
+            addNewUserStmt=conn.prepareStatement("INSERT INTO users VALUES(?,?,?,?,?,?)");
             getUserStmt=conn.prepareStatement("SELECT *FROM users WHERE username=?");
             deleteAllUsersStmt =conn.prepareStatement("DELETE FROM users");
 
@@ -65,7 +66,8 @@ public class AppDAO {
             deleteOneTaskStmt=conn.prepareStatement("DELETE FROM tasks WHERE id=?");
             deleteAllTasksFromListStmt =conn.prepareStatement("DELETE FROM tasks WHERE username=? AND list_name=?");
             deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
-
+            getAllTasksNotificationRemStmt =conn.prepareStatement("SELECT *FROM tasks WHERE reminder=1 AND alert_notification=1 AND username=?");
+            getAllTasksEmailRemStmt=conn.prepareStatement("SELECT *FROM tasks WHERE reminder=1 AND alert_email=1 AND username=?");
             //lists
             getAllListsStmt=conn.prepareStatement("SELECT *FROM lists");
             getAllListsForUserStmt=conn.prepareStatement("SELECT *FROM lists WHERE username=?");
@@ -130,7 +132,7 @@ public class AppDAO {
     }
 
     private User getUserFromResultSet(ResultSet rs) throws SQLException {
-        User u = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5));
+        User u = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5), rs.getString(6));
         return u;
     }
 
@@ -160,7 +162,8 @@ public class AppDAO {
             addNewUserStmt.setString(2,user.getFirstName());
             addNewUserStmt.setString(3,user.getLastName());
             addNewUserStmt.setString(4,user.getUsername());
-            addNewUserStmt.setString(5,user.getPassword());
+            addNewUserStmt.setString(5,user.getMail());
+            addNewUserStmt.setString(6,user.getPassword());
             addNewUserStmt.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -400,6 +403,36 @@ public class AppDAO {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    public ArrayList<Task>getAllTasksAlertNotification(User user){
+        ArrayList<Task>result=new ArrayList<>();
+        try {
+            getAllTasksNotificationRemStmt.setString(1,user.getUsername());
+            ResultSet rs = getAllTasksNotificationRemStmt.executeQuery();
+            while (rs.next()) {
+                Task task = getTaskFromResultSet(rs);
+                result.add(task);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return result;
+    }
+
+    public ArrayList<Task>getAllTasksEmailNotification(User user){
+        ArrayList<Task>result=new ArrayList<>();
+        try {
+            getAllTasksEmailRemStmt.setString(1,user.getUsername());
+            ResultSet rs = getAllTasksEmailRemStmt.executeQuery();
+            while (rs.next()) {
+                Task task = getTaskFromResultSet(rs);
+                result.add(task);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return result;
     }
 
     //lists

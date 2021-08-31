@@ -73,21 +73,26 @@ public class MyDayController {
 
         //send notification
         Timeline timelineInfinite = new Timeline(new KeyFrame(Duration.millis(1000), e-> {
-            for(Task t: dao.tasks()){
-                if(t.isReminder() && t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))) {
+            for(Task t: dao.getAllTasksAlertNotification(user)){
+                if(t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
                     Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(2000), event2 -> {
-                        Image reminderImage=new Image("/img/reminder.png");
-
-                        Notifications notification=Notifications.create()
-                                .title(t.getTaskName())
-                                .text("Starts in "+t.getReminderDigit()+" "+t.getReminderPeriod())
-                                .graphic(new ImageView(reminderImage))
-                                .hideAfter(Duration.seconds(5))
-                                .position(Pos.BOTTOM_RIGHT);
-                        notification.darkStyle();
-                        notification.show();
+                        NotificationReminder.sendNotification(t);
                     }));
                     timeline2.play();
+                }
+            }
+
+            for(Task t: dao.getAllTasksEmailNotification(user)){
+                if(t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
+                    Timeline timeline3 = new Timeline(new KeyFrame(Duration.millis(2000), event3 -> {
+                        try {
+                            MailClass.sendMail(t,user);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }));
+                    timeline3.play();
+
                 }
             }
         }));

@@ -247,8 +247,6 @@ public class DateAndTimeController {
             }
         }
 
-
-
         if(!ok) return;
 
         if(task==null) task=new Task();
@@ -298,13 +296,8 @@ public class DateAndTimeController {
             task.setReminderPeriod("--");
         }
 
-        try{
-            task.setReminderDigit(comboValueBefore.getValue());
-        }catch(Exception e){
-            ok=false;
-            alertClass.alertERROR("Reminder can't be set",
-                    "Entered value is not a number");
-        }
+
+        task.setReminderDigit(comboValueBefore.getValue());
 
         task.setReminderPeriod(choicePeriodBefore.getValue());
         task.setAlertNotification(radioNotification.isSelected());

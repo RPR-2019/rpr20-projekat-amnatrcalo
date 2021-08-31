@@ -15,6 +15,7 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
 import java.io.IOException;
 
 public class TaskController {
@@ -100,6 +101,9 @@ public class TaskController {
         this.user=user;
         this.listLists=listLists;
         this.edit=edit;
+
+
+
     }
 
     public boolean startDateAndTimeAreSet (Integer startYear){
@@ -175,7 +179,8 @@ public class TaskController {
         stage.close();
     }
 
-    public void actionCancel(ActionEvent actionEvent) {
+    public void actionCancel(ActionEvent actionEvent)  {
+
         Stage stage= (Stage) areaNote.getScene().getWindow();
         stage.close();
     }

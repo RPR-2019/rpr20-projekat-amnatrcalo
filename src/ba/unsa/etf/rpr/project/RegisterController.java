@@ -26,6 +26,8 @@ public class RegisterController {
     public Label errorFirstName;
     public TextField fldLastName;
     public Label errorLastName;
+    public TextField fldMail;
+    public Label errorMail;
     public PasswordField fldPassword;
     public Label errorPassword;
     public PasswordField fldConfirmPassword;
@@ -100,6 +102,14 @@ public class RegisterController {
             errorUsername.setText(" ");
         }
 
+        if(fldMail.getText().trim().isEmpty()) {
+            errorMail.setText("The Mail field is required.");
+            ok = false;
+        }else{
+            errorMail.setText(" ");
+        }
+
+
         if(fldPassword.getText().trim().isEmpty()){
             errorPassword.setText("The Password field is required.");
             ok=false;
@@ -129,6 +139,7 @@ public class RegisterController {
        user.setFirstName(fldFirstName.getText());
        user.setLastName(fldLastName.getText());
        user.setUsername(fldUsername.getText());
+       user.setMail(fldMail.getText());
        user.setPassword(fldPassword.getText());
 
         Stage stage = (Stage) fldUsername.getScene().getWindow();
