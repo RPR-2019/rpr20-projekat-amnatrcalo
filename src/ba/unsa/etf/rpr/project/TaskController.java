@@ -175,6 +175,11 @@ public class TaskController {
             task.setListName(listMenu.getValue().getListName());
         }
 
+        if(isOverlaping(task)){
+            //
+
+        }
+
         Stage stage = (Stage) areaNote.getScene().getWindow();
         stage.close();
     }
@@ -185,6 +190,14 @@ public class TaskController {
         stage.close();
     }
 
+    public boolean isOverlaping(Task task){
+        boolean overlap=false;
+        for(Task t: dao.allTasksForUser(user)){
+            if(t.getStartDateAndTime().isEqual(task.getStartDateAndTime())) overlap=true;
+            else if(t.getStartDateAndTime().isBefore(task.getStartDateAndTime()) && t.getEndDateAndTime().isAfter(task.getStartDateAndTime())) overlap=true;
+        }
+        return overlap;
+    }
 
 
     }

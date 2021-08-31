@@ -11,7 +11,7 @@ public class AppDAO {
     private static Connection conn;
     private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
-            getAllTasksStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, deleteOneTaskStmt, deleteAllTasksFromListStmt, deleteAllTasksStmt,
+            getAllTasksStmt, getAllTasksForUserStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, deleteOneTaskStmt, deleteAllTasksFromListStmt, deleteAllTasksStmt,
             getAllTasksNotificationRemStmt, getAllTasksEmailRemStmt,
             getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, deleteAllListsStmt, deleteListForUserStmt;
 
@@ -58,6 +58,7 @@ public class AppDAO {
 
             //tasks
             getAllTasksStmt=conn.prepareStatement("SELECT *FROM tasks");
+            getAllTasksForUserStmt=conn.prepareStatement("SELECT *FROM tasks WHERE username=?");
             setNewIdTaskStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM tasks");
             addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             editTaskStmt=conn.prepareStatement("UPDATE tasks SET task_name=?, start_year=?, start_month=?, start_day=?, start_hour=?," +
@@ -281,6 +282,21 @@ public class AppDAO {
         ArrayList<Task> result = new ArrayList();
         try {
             ResultSet rs = getAllTasksStmt.executeQuery();
+            while (rs.next()) {
+                Task task = getTaskFromResultSet(rs);
+                result.add(task);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ArrayList<Task> allTasksForUser(User u){
+        ArrayList<Task> result = new ArrayList();
+        try {
+            getAllTasksForUserStmt.setString(1,u.getUsername());
+            ResultSet rs = getAllTasksForUserStmt.executeQuery();
             while (rs.next()) {
                 Task task = getTaskFromResultSet(rs);
                 result.add(task);

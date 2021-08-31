@@ -20,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.CheckListView;
 import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
@@ -38,8 +39,9 @@ public class MyDayController {
     public Label quoteAuthor;
     public Label clock;
     public ListView<CustomList> listViewLists;
-    public TableColumn<Task,String>colTaskName;
-    public TableView<Task> tableViewTasks;
+    //public TableColumn<Task,String>colTaskName;
+    //public TableView<Task> tableViewTasks;
+    public CheckListView<Task> tableViewTasks;
     public ObservableList<CustomList> listLists;
     public Button btnNewList;
     public Button btnDeleteList;
@@ -129,7 +131,7 @@ public class MyDayController {
         listViewLists.getSelectionModel().select(0);
         activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
         tableViewTasks.setItems(activeSession);
-        colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
+        //colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
 
         listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
             CustomList oldList=(CustomList) oldItem;
@@ -143,7 +145,7 @@ public class MyDayController {
 
 
                 tableViewTasks.setItems(activeSession);
-                colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
+                //colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
 
         } );
 
@@ -274,8 +276,8 @@ public class MyDayController {
             Task newTask = taskController.getTask();
             if (newTask != null) {
                 dao.editTask(newTask);
-
-
+                listViewLists.getSelectionModel().select(new CustomList(user.getUsername(), newTask.getListName()));
+                activeSession.setAll(dao.getAllTasksByListName(user.getUsername(), newTask.getListName()));
             }
         } );
     }

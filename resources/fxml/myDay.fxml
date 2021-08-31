@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import org.controlsfx.control.CheckListView?>
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
     <stylesheets>
         <URL value="@/css/myDay.css" />
@@ -91,11 +92,11 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <TableView fx:id="tableViewTasks" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-              <columns>
+            <CheckListView fx:id="tableViewTasks" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+
                 <TableColumn fx:id="colTaskName" minWidth="-1.0" prefWidth="75.0" text="C1" />
-              </columns>
-            </TableView>
+
+            </CheckListView>
          </children>
       </GridPane>
    </center>
