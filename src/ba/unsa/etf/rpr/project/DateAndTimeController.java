@@ -145,6 +145,7 @@ public class DateAndTimeController {
             endMins.setDisable(true);
             startHour.setDisable(true);
             startMins.setDisable(true);
+            checkBoxReminder.setDisable(true);
         }
         if(!selectAllDay){
             endDatePicker.setDisable(false);

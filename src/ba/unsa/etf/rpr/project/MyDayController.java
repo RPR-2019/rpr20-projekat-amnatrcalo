@@ -250,6 +250,8 @@ public class MyDayController {
 
     public void actionEditTask(ActionEvent actionEvent) {
         Task task = tableViewTasks.getSelectionModel().getSelectedItem();
+        if(task==null) return;
+
         Stage editTask=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
@@ -282,6 +284,7 @@ public class MyDayController {
 
     public void actionDeleteTask(ActionEvent actionEvent) {
         Task task = tableViewTasks.getSelectionModel().getSelectedItem();
+        if(task==null) return;
         String listName=task.getListName();
         if (task == null) return;
         if(alertClass.alertCONFIRMATION("Deleting task", "Are you sure you want to delete '"+task.getTaskName()+"'?",

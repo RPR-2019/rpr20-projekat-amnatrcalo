@@ -21,6 +21,9 @@ public class Task {
     private boolean alertEmail;
     private String listName;
 
+    private LocalDateTime startDateAndTime;
+    private LocalDateTime endDateAndTime;
+
     public Task(Integer id, String username, String taskName, Integer startYear, Integer startMonth, Integer startDay, Integer startHour, Integer startMin, Integer endYear, Integer endMonth, Integer endDay, Integer endHour, Integer endMin, String note, boolean reminder, Integer reminderDigit, String reminderPeriod, boolean alertNotification, boolean alertEmail, String listName) {
         this.id = id;
         this.username = username;
