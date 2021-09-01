@@ -15,9 +15,12 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class LoginController {
     public Label loginFailedMessage;
+    public Label lblWhatToEnter =new Label();
+    public Label lblDontHaveAccount =new Label();
     public TextField fldUsername;
     public PasswordField fldPassword;
     private User user;
@@ -34,6 +37,12 @@ public class LoginController {
         return user;
     }
 
+    @FXML
+    public void initialize(){
+        lblWhatToEnter.setText(LoginMessages.WHATTOENTERLOGIN.toString());
+        lblDontHaveAccount.setText(LoginMessages.DONTHAVEACCOUNT.toString());
+    }
+
 
 
     public void hyperlinkAction(ActionEvent actionEvent) throws IOException {
@@ -41,8 +50,9 @@ public class LoginController {
         stage.close();
 
         Stage registrationStage=new Stage();
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         Parent root=null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"),bundle);
         RegisterController registerController = new RegisterController(null, users,dao);
         loader.setController(registerController);
         root = loader.load();
@@ -81,14 +91,14 @@ public class LoginController {
 
         if(fldUsername.getText().trim().isEmpty() || fldPassword.getText().trim().isEmpty())
         {
-            loginFailedMessage.setText("Login failed! Invalid username or password!");
+            loginFailedMessage.setText(LoginMessages.LOGINFAILED.toString());
             loginFailedMessage.getStyleClass().add("loginFailed");
             fldUsername.clear();
             fldPassword.clear();
             ok=false;
 
         } else if(!checkLogin(fldUsername.getText(), fldPassword.getText())){
-            loginFailedMessage.setText("Login failed! Invalid username or password!");
+            loginFailedMessage.setText(LoginMessages.LOGINFAILED.toString());
             loginFailedMessage.getStyleClass().add("loginFailed");
             fldUsername.clear();
             fldPassword.clear();

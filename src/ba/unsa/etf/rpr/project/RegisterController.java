@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class RegisterController {
     public TextField fldUsername;
@@ -32,6 +33,8 @@ public class RegisterController {
     public Label errorPassword;
     public PasswordField fldConfirmPassword;
     public Label errorConfirmPassword;
+    public Label lblWhatToEnter=new Label();
+    public Label lblHaveAccount=new Label();
     private ArrayList<User> users=new ArrayList<>();
     private User user;
     private AppDAO dao;
@@ -40,6 +43,12 @@ public class RegisterController {
         this.user=user;
         this.users=users;
         this.dao=dao;
+    }
+
+    @FXML
+    public void initialize(){
+        lblWhatToEnter.setText(LoginMessages.WHATTOENTERREGISTRATION.toString());
+        lblHaveAccount.setText(LoginMessages.ALREADYHAVEACCOUNT.toString());
     }
 
     public User getUser() {
@@ -51,8 +60,9 @@ public class RegisterController {
         stage.close();
 
         Stage loginStage=new Stage();
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         Parent root=null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"),bundle);
         LoginController loginController = new LoginController(null, users,dao);
         loader.setController(loginController);
         root = loader.load();

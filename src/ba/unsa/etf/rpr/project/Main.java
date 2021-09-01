@@ -9,17 +9,18 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.lang.annotation.Inherited;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"),bundle);
         HomeController ctrl = new HomeController();
         loader.setController(ctrl);
         Parent root = loader.load();
-        primaryStage.setTitle("ToDo List App");
+        primaryStage.setTitle("To Do List App");
         primaryStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
         primaryStage.getIcons().add(icon);
