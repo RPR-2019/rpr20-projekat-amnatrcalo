@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -72,7 +73,6 @@ public class MyDayController {
 
     @FXML
     public void initialize(){
-
         //send notification
         Timeline timelineInfinite = new Timeline(new KeyFrame(Duration.millis(1000), e-> {
             for(Task t: dao.getAllTasksAlertNotification(user)){
@@ -142,12 +142,23 @@ public class MyDayController {
             } else{
                 activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
             }
-
-
                 tableViewTasks.setItems(activeSession);
                 //colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
 
         } );
+
+        tableViewTasks.getCheckModel().getCheckedItems().addListener(new ListChangeListener<Task>() {
+            @Override
+            public void onChanged(Change<? extends Task> change) {
+                change.next();
+                if(change.wasAdded()) {
+                    System.out.println("Item Checked : " + change.getAddedSubList().get(0));
+                } else if (change.wasRemoved()) {
+                    System.out.println("Item Unchecked : " + change.getRemoved().get(0));
+                }
+
+            }
+        });
 
 
 
@@ -184,6 +195,7 @@ public class MyDayController {
             }
 
         } );
+
     }
 
 

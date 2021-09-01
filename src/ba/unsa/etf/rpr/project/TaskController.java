@@ -176,12 +176,20 @@ public class TaskController {
         }
 
         if(isOverlaping(task)){
-            //
+            if(alertClass.alertCONFIRMATION("Overlapping tasks", "This task overlaps with another task.", "Are You ok with this?")){
+                Stage stage = (Stage) areaNote.getScene().getWindow();
+                stage.close();
+            }
 
         }
 
-        Stage stage = (Stage) areaNote.getScene().getWindow();
-        stage.close();
+        if(!isOverlaping(task)){
+            Stage stage = (Stage) areaNote.getScene().getWindow();
+            stage.close();
+        }
+
+
+
     }
 
     public void actionCancel(ActionEvent actionEvent)  {
