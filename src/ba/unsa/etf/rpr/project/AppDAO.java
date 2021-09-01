@@ -311,7 +311,7 @@ public class AppDAO {
         ArrayList<Task> result=new ArrayList<>();
         for(Task t: this.tasks()){
             if(t.getUsername().equals(username) && t.getStartYear()==currentDate.getYear() &&
-            t.getStartMonth()==currentDate.getMonthValue() && t.getStartDay()==currentDate.getDayOfMonth()){
+            t.getStartMonth()==currentDate.getMonthValue() && t.getStartDay()==currentDate.getDayOfMonth() && !t.getListName().equals("Completed")){
                 result.add(t);
             }
         }

@@ -260,6 +260,7 @@ public class DateAndTimeController {
             task.setStartMonth(startDatePicker.getValue().getMonthValue());
             task.setStartDay(startDatePicker.getValue().getDayOfMonth());
 
+
         } else{
             task.setStartYear(1);
             task.setStartMonth(1);

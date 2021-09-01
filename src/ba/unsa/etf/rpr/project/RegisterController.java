@@ -148,6 +148,7 @@ public class RegisterController {
         dao.addList(user.getUsername(),"My day");
         dao.addList(user.getUsername(),"Planned");
         dao.addList(user.getUsername(),"Tasks");
+        dao.addList(user.getUsername(),"Completed");
 
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000), event -> {

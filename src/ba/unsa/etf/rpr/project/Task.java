@@ -21,8 +21,6 @@ public class Task {
     private boolean alertEmail;
     private String listName;
 
-    private LocalDateTime startDateAndTime;
-    private LocalDateTime endDateAndTime;
 
     public Task(Integer id, String username, String taskName, Integer startYear, Integer startMonth, Integer startDay, Integer startHour, Integer startMin, Integer endYear, Integer endMonth, Integer endDay, Integer endHour, Integer endMin, String note, boolean reminder, Integer reminderDigit, String reminderPeriod, boolean alertNotification, boolean alertEmail, String listName) {
         this.id = id;
@@ -59,6 +57,7 @@ public class Task {
     public LocalDateTime getEndDateAndTime(){
         return LocalDateTime.of(LocalDate.of(endYear,endMonth,endDay), LocalTime.of(endHour,endMin));
     }
+
 
     public LocalDateTime getReminderDateAndTime(){
         if(reminderPeriod.equals("minutes")){
@@ -238,6 +237,22 @@ public class Task {
     public String toString(){
         return taskName.get();
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Task)) {
+            return false;
+        }
+
+        Task t = (Task) o;
+
+        return t.getTaskName().equals(((Task) o).getTaskName()) && t.getUsername().equals(((Task) o).getUsername());
+    }
+
 }
 
 

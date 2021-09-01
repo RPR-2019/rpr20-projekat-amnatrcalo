@@ -3,6 +3,9 @@ package ba.unsa.etf.rpr.project;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -15,13 +18,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.CheckListView;
+import org.controlsfx.control.IndexedCheckModel;
 import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
@@ -54,6 +60,8 @@ public class MyDayController {
     private AppDAO dao;
     private AlertClass alertClass=new AlertClass();
 
+    private ArrayList<Task> checkedTasks=new ArrayList<>();
+
 
     private final int currentHour=LocalDateTime.now().getHour();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
@@ -68,7 +76,9 @@ public class MyDayController {
 
     }
 
-
+    public boolean shouldSendNotif(Task t){
+        return !t.getListName().equals("Completed");
+    }
 
 
     @FXML
@@ -76,7 +86,7 @@ public class MyDayController {
         //send notification
         Timeline timelineInfinite = new Timeline(new KeyFrame(Duration.millis(1000), e-> {
             for(Task t: dao.getAllTasksAlertNotification(user)){
-                if(t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
+                if(shouldSendNotif(t) && t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
                     Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(2000), event2 -> {
                         NotificationReminder.sendNotification(t);
                     }));
@@ -85,7 +95,7 @@ public class MyDayController {
             }
 
             for(Task t: dao.getAllTasksEmailNotification(user)){
-                if(t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
+                if(shouldSendNotif(t) && t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
                     Timeline timeline3 = new Timeline(new KeyFrame(Duration.millis(2000), event3 -> {
                         try {
                             MailClass.sendMail(t,user);
@@ -147,21 +157,50 @@ public class MyDayController {
 
         } );
 
-        tableViewTasks.getCheckModel().getCheckedItems().addListener(new ListChangeListener<Task>() {
+        /*tableViewTasks.getCheckModel().getCheckedItems().addListener(new ListChangeListener<Task>() {
             @Override
             public void onChanged(Change<? extends Task> change) {
                 change.next();
                 if(change.wasAdded()) {
+                    for(Task t: change.getAddedSubList()){
+                        System.out.println("Item Checked : " + t.getTaskName());
+                    }
+                    String oldListName= change.getAddedSubList().get(0).getListName();
+                    change.getAddedSubList().get(0).setListName("Completed");
+                    dao.editTask(change.getAddedSubList().get(0));
                     System.out.println("Item Checked : " + change.getAddedSubList().get(0));
                 } else if (change.wasRemoved()) {
-                    System.out.println("Item Unchecked : " + change.getRemoved().get(0));
+                    checkedTasks.remove(change.getRemoved().get(0));
+                 //   System.out.println("Item Unchecked : " + change.getRemoved().get(0));
                 }
 
             }
-        });
+        });*/
+
+        tableViewTasks.setCellFactory(CheckBoxListCell.forListView(new Callback<Task, ObservableValue<Boolean>>() {
+            @Override
+            public ObservableValue<Boolean> call(Task task) {
+                BooleanProperty observable=new SimpleBooleanProperty();
+                observable.addListener((obs, wasSelected, isNowSelected) ->{
+                    if(isNowSelected){
+                        if(!task.getListName().equals("Completed")) {
+                            task.setListName("Completed");
+
+                        } else{
+                            if(TaskController.startDateAndTimeAreSet(task.getStartYear())) task.setListName("Planned");
+                            else task.setListName("Tasks");
+                        }
+                        dao.editTask(task);
+                        listViewLists.getSelectionModel().select(new CustomList(user.getUsername(), task.getListName()));
+                        activeSession.setAll(dao.getAllTasksByListName(user.getUsername(), task.getListName()));
+                    }
+                }
 
 
-
+                );
+                return observable ;
+            }
+        }));
 
     }
 
@@ -234,9 +273,9 @@ public class MyDayController {
 
     public void actionDeleteList(ActionEvent actionEvent) {
         String selectedListName=listViewLists.getSelectionModel().getSelectedItem().getListName();
-        if(selectedListName.equals("Tasks") || selectedListName.equals("My day")||selectedListName.equals("Planned")){
-            alertClass.alertERROR("This list can't be deleted", "Lists: 'My day', 'Tasks' and 'Planned'" +
-                    "can't be deleted.");
+        if(selectedListName.equals("Tasks") || selectedListName.equals("My day")||selectedListName.equals("Planned") ||selectedListName.equals("Completed")){
+            alertClass.alertERROR("This list can't be deleted", "Lists: 'My day', 'Tasks', 'Planned'" +
+                    " and 'Completed' can't be deleted.");
             return;
         }
 

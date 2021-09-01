@@ -17,6 +17,7 @@ import javafx.util.Duration;
 
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class TaskController {
 
@@ -90,9 +91,11 @@ public class TaskController {
 
 
         });
-
-        listMenu.setItems(listLists);
-
+        ObservableList<CustomList> listsForMenu=listLists.stream().filter(l->
+          !l.getListName().equals("My day") &&  !l.getListName().equals("Planned") && !l.getListName().equals("Tasks") && !l.getListName().equals("Completed"))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        //listMenu.setItems(listLists);
+        listMenu.setItems(listsForMenu);
     }
 
     public TaskController(Task task, User user, ObservableList<CustomList> listLists, boolean edit){
@@ -106,7 +109,7 @@ public class TaskController {
 
     }
 
-    public boolean startDateAndTimeAreSet (Integer startYear){
+    public static boolean startDateAndTimeAreSet (Integer startYear){
         boolean areSet=false;
         if(startYear!=1) areSet=true;
         return areSet;
