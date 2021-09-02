@@ -88,24 +88,24 @@ public class RegisterController {
         boolean ok=true;
 
         if(fldFirstName.getText().trim().isEmpty()){
-            errorFirstName.setText("The First name field is required.");
+            errorFirstName.setText(LoginMessages.FIRSTNAMEEMPTY.toString());
             ok=false;
         } else{
             errorFirstName.setText(" ");
         }
 
         if(fldLastName.getText().trim().isEmpty()){
-            errorLastName.setText("The Last name field is required.");
+            errorLastName.setText(LoginMessages.LASTNAMEEMPTY.toString());
             ok=false;
         }else{
             errorLastName.setText(" ");
         }
 
         if(fldUsername.getText().trim().isEmpty()) {
-            errorUsername.setText("The Username field is required.");
+            errorUsername.setText(LoginMessages.USERNAMEEMPTY.toString());
             ok=false;
         }else if(!fldUsername.getText().trim().isEmpty() && !isUsernameFree(fldUsername.getText())) {
-            errorUsername.setText("User with this Username already exists.");
+            errorUsername.setText(LoginMessages.USERNAMEERROR.toString());
             ok=false;
         }
         else{
@@ -113,7 +113,7 @@ public class RegisterController {
         }
 
         if(fldMail.getText().trim().isEmpty()) {
-            errorMail.setText("The Mail field is required.");
+            errorMail.setText(LoginMessages.MAILEMPTY.toString());
             ok = false;
         }else{
             errorMail.setText(" ");
@@ -121,23 +121,23 @@ public class RegisterController {
 
 
         if(fldPassword.getText().trim().isEmpty()){
-            errorPassword.setText("The Password field is required.");
+            errorPassword.setText(LoginMessages.PASSWORDEMPTY.toString());
             ok=false;
         } else if(!fldPassword.getText().isEmpty()&& fldPassword.getText().length()<4){
             ok=false;
-            errorPassword.setText("Password must contain at least 4 characters.");
+            errorPassword.setText(LoginMessages.PASSWORDENTRY.toString());
         }else{
             errorPassword.setText(" ");
         }
 
        if(fldConfirmPassword.getText().trim().isEmpty() && !fldPassword.getText().isEmpty() ) {
-           errorConfirmPassword.setText("The Confirm password field is required.");
+           errorConfirmPassword.setText(LoginMessages.CONFIRMPASSWORDEMPTY.toString());
            ok=false;
         } else if(!fldPassword.getText().isEmpty() && !fldConfirmPassword.getText().isEmpty() && !fldPassword.getText().equals(fldConfirmPassword.getText())){
-           errorConfirmPassword.setText("Passwords do not match.");
+           errorConfirmPassword.setText(LoginMessages.PASSWORDMISMATCH.toString());
            ok=false;
        } else if (fldConfirmPassword.getText().trim().isEmpty() && fldPassword.getText().trim().isEmpty()){
-           errorConfirmPassword.setText("The Confirm password field is required.");
+           errorConfirmPassword.setText(LoginMessages.CONFIRMPASSWORDEMPTY.toString());
            ok=false;
        } else{
            errorConfirmPassword.setText(" ");

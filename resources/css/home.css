@@ -5,6 +5,7 @@
 .btn{
 -fx-background-color: #f40b59;
 -fx-border-radius: 50;
+-fx-cursor:hand;
 -fx-effect: dropshadow( three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 

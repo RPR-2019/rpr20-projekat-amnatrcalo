@@ -1,0 +1,43 @@
+.alert-pane{
+  -fx-border-color:white;
+  -fx-border-width:1.0px;
+ }
+
+/**Costumization of The Bar where the buttons are located**/
+.alert-pane > .button-bar > .container {
+  -fx-background-color:#f9f0fa;
+}
+
+.alert-pane > .content.label {
+   -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+   -fx-background-color: #f9f0fa;
+   -fx-text-fill:black;
+   -fx-font-size:13.0px;
+}
+
+/**Costumization of DialogPane Header**/
+.alert-pane:header .header-panel {
+  -fx-background-color: #f9f0fa;
+
+}
+
+.alert-pane:header .header-panel .label{
+  -fx-background-color: #f9f0fa;
+  -fx-text-fill:black;
+   -fx-font-weight:bold;
+   -fx-font-size:16.0px;
+}
+
+
+/**Costumization of Buttons**/
+.alert-pane .button{
+   -fx-background-color: #06cbe6;
+   -fx-text-fill:white;
+   -fx-wrap-text: true;
+    -fx-font-style:italic;
+   -fx-cursor:hand;
+ }
+
+.alert-pane .button:hover{
+  -fx-background-color: #f40b59;
+ }

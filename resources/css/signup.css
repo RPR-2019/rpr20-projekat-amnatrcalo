@@ -19,12 +19,17 @@
 .heading{
 -fx-font-family:serif;
 -fx-font-weight:bold;
--fx-font-size:35.0px;
+-fx-font-size:30.0px;
 }
 
 .subheading{
 -fx-font-family:serif;
 -fx-font-size:14.0px;
+-fx-color:black;
+}
+
+.errorMessages{
+-fx-font-size:9.0px;
 }
 
 

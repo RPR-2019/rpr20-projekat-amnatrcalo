@@ -275,7 +275,7 @@ public class MyDayController {
         String selectedListName=listViewLists.getSelectionModel().getSelectedItem().getListName();
         if(selectedListName.equals("Tasks") || selectedListName.equals("My day")||selectedListName.equals("Planned") ||selectedListName.equals("Completed")){
             alertClass.alertERROR("This list can't be deleted", "Lists: 'My day', 'Tasks', 'Planned'" +
-                    " and 'Completed' can't be deleted.");
+                    " and 'Completed' can't be deleted.","/img/login-icon.png");
             return;
         }
 

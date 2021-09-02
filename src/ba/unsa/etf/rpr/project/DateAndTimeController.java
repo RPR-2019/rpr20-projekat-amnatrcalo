@@ -192,41 +192,41 @@ public class DateAndTimeController {
             if(!checkDate(currentDate,startDatePicker.getValue())){
                 ok=false;
                 alertClass.alertERROR("Date error",
-                        "The start of the task can't be before current date");
+                        "The start of the task can't be before current date","/img/login-icon.png");
             }
         }
 
         if(selectAllDay){
             if(startDatePicker.getValue()==null){
                 alertClass.alertERROR("The start of the task is not set",
-                        "The start of the task must be set because this is an all day activity.");
+                        "The start of the task must be set because this is an all day activity.","/img/login-icon.png");
                 ok=false;
             }
         } else{
             if(startDatePicker.getValue()==null && endDatePicker.getValue()!=null){
                 ok=false;
                 alertClass.alertERROR("Start date is not set",
-                        "End date is set, but start date is not.");
+                        "End date is set, but start date is not.","/img/login-icon.png");
             }else if((!isTimeNull(startHour.getValue()) || !(isTimeNull(startMins.getValue()))) && startDatePicker.getValue()==null){
                 ok=false;
                 alertClass.alertERROR("Date error",
-                        "Start date is not set proprerly.");
+                        "Start date is not set proprerly.","/img/login-icon.png");
             } else if((!isTimeNull(endHour.getValue()) || !(isTimeNull(endMins.getValue()))) && endDatePicker.getValue()==null){
                 ok=false;
                 alertClass.alertERROR("Date error",
-                        "End date is not set proprerly.");
+                        "End date is not set proprerly.","/img/login-icon.png");
             } else if((isTimeNull(startHour.getValue()) || (isTimeNull(startMins.getValue()))) && startDatePicker.getValue()!=null){
                 ok=false;
                 alertClass.alertERROR("Time error",
-                        "Start time is not set proprerly.");
+                        "Start time is not set proprerly.","/img/login-icon.png");
             } else if((isTimeNull(endHour.getValue()) || (isTimeNull(endMins.getValue()))) && endDatePicker.getValue()!=null){
                 ok=false;
                 alertClass.alertERROR("Time error",
-                        "End time is not set proprerly.");
+                        "End time is not set proprerly.","/img/login-icon.png");
             } else if(startDatePicker.getValue()!=null && !checkTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),LocalDateTime.of(startDatePicker.getValue(),LocalTime.of(Integer.parseInt(startHour.getValue()), Integer.parseInt(startMins.getValue()))) )){
                 ok=false;
                 alertClass.alertERROR("Time error",
-                        "The start of the task can't be before current date");
+                        "The start of the task can't be before current date","/img/login-icon.png");
             }
             else if (startDatePicker.getValue()!=null && endDatePicker.getValue()!=null){
                LocalDate startDate=LocalDate.of(startDatePicker.getValue().getYear(),startDatePicker.getValue().getMonthValue(),startDatePicker.getValue().getDayOfMonth());
@@ -238,16 +238,16 @@ public class DateAndTimeController {
                 if(!checkTime(LocalDateTime.of(startDate,startTime), LocalDateTime.of(endDate,endTime))){
                     ok=false;
                     alertClass.alertERROR("Date error",
-                            "The end of the task can't be before its start date");
+                            "The end of the task can't be before its start date","/img/login-icon.png");
                 } else if(isTimeNull(startHour.getValue()) || isTimeNull(startMins.getValue()) || isTimeNull(endHour.getValue()) || isTimeNull(endMins.getValue())){
                     ok=false;
                     alertClass.alertERROR("Time error",
-                            "Start time or end time are not set proprerly.");
+                            "Start time or end time are not set proprerly.","/img/login-icon.png");
                 }
             } else if(selectReminder && (isTimeNull(startMins.getValue()) || isTimeNull(startHour.getValue()) || startDatePicker.getValue()==null)){
                 ok=false;
                 alertClass.alertERROR("Reminder can't be set",
-                        "You didn't specify start time of Your task.");
+                        "You didn't specify start time of Your task.","/img/login-icon.png");
             }
         }
 

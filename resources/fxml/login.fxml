@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefWidth="500.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefWidth="380.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
           <stylesheets>
               <URL value="@/css/login.css" />
           </stylesheets>
          <children>
             <StackPane prefHeight="50.0" prefWidth="100.0" styleClass="logo">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/plan-your-day-icon.png" />
                      </image>
@@ -24,7 +24,7 @@
                   </ImageView>
                </children>
             </StackPane>
-            <GridPane hgap="10.0" layoutX="131.0" layoutY="105.0" prefWidth="239.0" vgap="10.0">
+            <GridPane hgap="10.0" layoutX="75.0" layoutY="75.0" prefWidth="239.0" vgap="10.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" />
               </columnConstraints>
@@ -38,12 +38,12 @@
               </rowConstraints>
                <children>
                   <TextField fx:id="fldUsername" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="150.0" promptText="%username" GridPane.rowIndex="2" />
-                  <Label fx:id="lblWhatToEnter" textFill="#f40b59" GridPane.rowIndex="1" />
+                  <Label fx:id="lblWhatToEnter" styleClass="subheading" textFill="#f40b59" GridPane.rowIndex="1" />
                   <Button defaultButton="true" mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="%log_in" textFill="WHITE" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font></Button>
-                  <Label text="%login" textFill="#f40b59">
+                  <Label fx:id="lblHeading" styleClass="heading" text="%login" textFill="#f40b59">
                      <font>
                         <Font name="Roboto Light" size="40.0" />
                      </font>
@@ -67,6 +67,5 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </GridPane>
-      <Label fx:id="loginFailedMessage" layoutX="139.0" layoutY="63.0" textFill="#e10b0b" />
          </children>
       </AnchorPane>

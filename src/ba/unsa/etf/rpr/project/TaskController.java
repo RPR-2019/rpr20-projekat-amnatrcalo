@@ -121,7 +121,7 @@ public class TaskController {
         if(fldTaskName.getText().trim().isEmpty()){
             ok=false;
             alertClass.alertERROR("Task name field is required",
-                    "You didn't enter the name of Your task.");
+                    "You didn't enter the name of Your task.","/img/login-icon.png");
         }
 
         if(!edit){
@@ -129,7 +129,7 @@ public class TaskController {
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getUsername().equals(user.getUsername())){
                     ok=false;
                     alertClass.alertERROR("This name is not approved",
-                            "Task with this name already exists");
+                            "Task with this name already exists","/img/login-icon.png");
                 }
             }
        } else{
@@ -137,7 +137,7 @@ public class TaskController {
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getId()!=task.getId() && t.getUsername().equals(user.getUsername())){
                     ok=false;
                     alertClass.alertERROR("This name is not approved",
-                            "Task with this name already exists");
+                            "Task with this name already exists","/img/login-icon.png");
                 }
             }
         }

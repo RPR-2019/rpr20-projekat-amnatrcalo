@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LoginController {
-    public Label loginFailedMessage;
     public Label lblWhatToEnter =new Label();
     public Label lblDontHaveAccount =new Label();
     public TextField fldUsername;
@@ -91,24 +90,18 @@ public class LoginController {
 
         if(fldUsername.getText().trim().isEmpty() || fldPassword.getText().trim().isEmpty())
         {
-            loginFailedMessage.setText(LoginMessages.LOGINFAILED.toString());
-            loginFailedMessage.getStyleClass().add("loginFailed");
+            AlertClass.alertERROR(LoginMessages.LOGINFAILEDHEADER.toString(),LoginMessages.LOGINFAILEDCONTENT.toString(),"/img/login-icon.png");
             fldUsername.clear();
             fldPassword.clear();
             ok=false;
 
         } else if(!checkLogin(fldUsername.getText(), fldPassword.getText())){
-            loginFailedMessage.setText(LoginMessages.LOGINFAILED.toString());
-            loginFailedMessage.getStyleClass().add("loginFailed");
+            AlertClass.alertERROR(LoginMessages.LOGINFAILEDHEADER.toString(),LoginMessages.LOGINFAILEDCONTENT.toString(),"/img/login-icon.png");
             fldUsername.clear();
             fldPassword.clear();
             ok=false;
         }
-        else {
-            loginFailedMessage.setText(" ");
-            loginFailedMessage.getStyleClass().removeAll("loginFailed");
 
-        }
 
         if(!ok) return;
 
