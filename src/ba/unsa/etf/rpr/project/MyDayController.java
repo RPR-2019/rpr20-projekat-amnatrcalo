@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -23,12 +24,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.CheckListView;
 import org.controlsfx.control.IndexedCheckModel;
 import org.controlsfx.control.Notifications;
+import org.controlsfx.control.Rating;
 
 import java.io.IOException;
 import java.sql.Time;
@@ -52,7 +55,9 @@ public class MyDayController {
     public ObservableList<CustomList> listLists;
     public Button btnNewList;
     public Button btnDeleteList;
-
+    public VBox rightVBox;
+    public ImageButton btnDeleteTask=new ImageButton(new Image("/img/delete-task.png"), 36, 36);
+    public ImageButton btnEditTask=new ImageButton(new Image("/img/edit-list-and-pen.png"), 36, 36);
     static Timeline timelineInfinite=new Timeline();
 
     private ObservableList<Task> activeSession = FXCollections.observableArrayList();
@@ -60,7 +65,7 @@ public class MyDayController {
     private AppDAO dao;
     private AlertClass alertClass=new AlertClass();
 
-    private ArrayList<Task> checkedTasks=new ArrayList<>();
+
 
 
     private final int currentHour=LocalDateTime.now().getHour();
@@ -81,9 +86,67 @@ public class MyDayController {
     }
 
 
+
     @FXML
     public void initialize(){
-        //send notification
+        //set delete task Btn and edit task Btn
+        rightVBox.setStyle("-fx-background-color: #faf0f0;");
+        rightVBox.setAlignment(Pos.TOP_CENTER);
+        rightVBox.getChildren().add(btnEditTask);
+        rightVBox.getChildren().add(btnDeleteTask);
+
+
+
+        btnDeleteTask.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Task task = tableViewTasks.getSelectionModel().getSelectedItem();
+                if(task==null) return;
+                String listName=task.getListName();
+                if(AlertClass.alertCONFIRMATION("Deleting task", "Are you sure you want to delete '"+task.getTaskName()+"'?",
+                        "This task will be deleted immediately. You can't undo this action.")){
+                    dao.deleteTask(task);
+                    activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
+                }
+            }
+        });
+
+        btnEditTask.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Task task = tableViewTasks.getSelectionModel().getSelectedItem();
+                if(task==null) return;
+
+                Stage editTask=new Stage();
+                Parent root=null;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
+                TaskController taskController=new TaskController(task,user,listLists,true);
+                loader.setController(taskController);
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                editTask.setTitle("My Day");
+                editTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
+                Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+                editTask.getIcons().add(icon);
+                editTask.setResizable(false);
+                editTask.show();
+
+                editTask.setOnHiding( event -> {
+                    Task newTask = taskController.getTask();
+                    if (newTask != null) {
+                        dao.editTask(newTask);
+                        listViewLists.getSelectionModel().select(new CustomList(user.getUsername(), newTask.getListName()));
+                        activeSession.setAll(dao.getAllTasksByListName(user.getUsername(), newTask.getListName()));
+                    }
+                } );
+            }
+        });
+
+    //send notification
         Timeline timelineInfinite = new Timeline(new KeyFrame(Duration.millis(1000), e-> {
             for(Task t: dao.getAllTasksAlertNotification(user)){
                 if(shouldSendNotif(t) && t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
@@ -273,6 +336,8 @@ public class MyDayController {
 
     public void actionDeleteList(ActionEvent actionEvent) {
         String selectedListName=listViewLists.getSelectionModel().getSelectedItem().getListName();
+        if(selectedListName==null) return;
+
         if(selectedListName.equals("Tasks") || selectedListName.equals("My day")||selectedListName.equals("Planned") ||selectedListName.equals("Completed")){
             alertClass.alertERROR("This list can't be deleted", "Lists: 'My day', 'Tasks', 'Planned'" +
                     " and 'Completed' can't be deleted.","/img/login-icon.png");
@@ -301,51 +366,11 @@ public class MyDayController {
 
     }
 
-    public void actionEditTask(ActionEvent actionEvent) {
-        Task task = tableViewTasks.getSelectionModel().getSelectedItem();
-        if(task==null) return;
-
-        Stage editTask=new Stage();
-        Parent root=null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
-        TaskController taskController=new TaskController(task,user,listLists,true);
-        loader.setController(taskController);
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        editTask.setTitle("My Day");
-        editTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
-        editTask.getIcons().add(icon);
-        editTask.setResizable(false);
-        editTask.show();
-
-        editTask.setOnHiding( event -> {
-            Task newTask = taskController.getTask();
-            if (newTask != null) {
-                dao.editTask(newTask);
-                listViewLists.getSelectionModel().select(new CustomList(user.getUsername(), newTask.getListName()));
-                activeSession.setAll(dao.getAllTasksByListName(user.getUsername(), newTask.getListName()));
-            }
-        } );
-    }
 
 
 
-    public void actionDeleteTask(ActionEvent actionEvent) {
-        Task task = tableViewTasks.getSelectionModel().getSelectedItem();
-        if(task==null) return;
-        String listName=task.getListName();
-        if (task == null) return;
-        if(alertClass.alertCONFIRMATION("Deleting task", "Are you sure you want to delete '"+task.getTaskName()+"'?",
-                "This task will be deleted immediately. You can't undo this action.")){
-            dao.deleteTask(task);
-            activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
-        }
-    }
+
+
 
     public boolean sameStart(Task task){
         boolean same=false;

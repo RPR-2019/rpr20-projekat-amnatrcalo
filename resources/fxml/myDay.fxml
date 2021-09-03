@@ -5,9 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
 
-<?import org.controlsfx.control.CheckListView?>
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/css/myDay.css" />
     </stylesheets>
@@ -101,14 +101,13 @@
       </GridPane>
    </center>
    <right>
-      <VBox prefHeight="340.0" prefWidth="103.0" spacing="5.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onAction="#actionEditTask" text="Edit task" />
-            <Button mnemonicParsing="false" onAction="#actionDeleteTask" text="delete task" />
-         </children>
+      <VBox fx:id="rightVBox" prefHeight="340.0" prefWidth="103.0" spacing="5.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </right>
 </BorderPane>
