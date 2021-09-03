@@ -11,5 +11,23 @@ public enum TooltipContent {
             else
                 return "Potrebna nam je Vaša email adresa ukoliko odlučite da želite dobiti podsjetnik email-om.";
         }
+    },
+    EDITTASK{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Edit task";
+            else
+                return "Uredi zadatak";
+        }
+    },
+    DELETETASK{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Delete task";
+            else
+                return "Obriši zadatak";
+        }
     }
 }

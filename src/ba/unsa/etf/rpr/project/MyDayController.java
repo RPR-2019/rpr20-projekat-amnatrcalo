@@ -1,8 +1,10 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.TooltipContent;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
@@ -89,12 +91,15 @@ public class MyDayController {
 
     @FXML
     public void initialize(){
+
         //set delete task Btn and edit task Btn
         rightVBox.setStyle("-fx-background-color: #faf0f0;");
         rightVBox.setAlignment(Pos.TOP_CENTER);
         rightVBox.getChildren().add(btnEditTask);
         rightVBox.getChildren().add(btnDeleteTask);
 
+        btnEditTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.EDITTASK.toString()));
+        btnDeleteTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETETASK.toString()));
 
 
         btnDeleteTask.setOnAction(new EventHandler<ActionEvent>() {

@@ -10,13 +10,7 @@
  -fx-max-height: 50px;
 };
 
-.btnEditAndDelete{
-    -fx-cursor:hand;
-    -fx-border-radius: 50;
-    -fx-effect: dropshadow( three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
-    -fx-border-radius: 5px;
 
-}
 
 .btn:hover{
  /*-fx-transform: scale(1.5) perspective(1px);*/
