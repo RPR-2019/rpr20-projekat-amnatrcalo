@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.MyDayMessages;
 import ba.unsa.etf.rpr.project.enums.TooltipContent;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -106,10 +107,13 @@ public class MyDayController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Task task = tableViewTasks.getSelectionModel().getSelectedItem();
-                if(task==null) return;
+                if(task==null) {
+                    AlertClass.alertERROR(MyDayMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+                    return;
+                }
                 String listName=task.getListName();
-                if(AlertClass.alertCONFIRMATION("Deleting task", "Are you sure you want to delete '"+task.getTaskName()+"'?",
-                        "This task will be deleted immediately. You can't undo this action.")){
+                if(AlertClass.alertCONFIRMATION( MyDayMessages.DELETECONFIRMATIONHEADER.toString() +" '"+task.getTaskName()+"'?",
+                        MyDayMessages.DELETECONFIRMATIONCONTENT.toString(),"/img/todolist-icon.png")){
                     dao.deleteTask(task);
                     activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
                 }
@@ -120,7 +124,10 @@ public class MyDayController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Task task = tableViewTasks.getSelectionModel().getSelectedItem();
-                if(task==null) return;
+                if(task==null){
+                    AlertClass.alertERROR(MyDayMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+                    return;
+                }
 
                 Stage editTask=new Stage();
                 Parent root=null;

@@ -91,6 +91,7 @@ public class DateAndTimeController {
                 choicePeriodBefore.setDisable(false);
                 radioNotification.setDisable(false);
                 radioEmail.setDisable(false);
+
             } else{
                 comboValueBefore.setDisable(true);
                 choicePeriodBefore.setDisable(true);
@@ -99,6 +100,7 @@ public class DateAndTimeController {
                 radioNotification.setSelected(true);
                 radioEmail.setSelected(false);
             }
+
             comboValueBefore.setValue(task.getReminderDigit());
             choicePeriodBefore.setValue(task.getReminderPeriod());
             radioNotification.setSelected(task.isAlertNotification());

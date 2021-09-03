@@ -179,7 +179,7 @@ public class TaskController {
         }
 
         if(isOverlaping(task)){
-            if(alertClass.alertCONFIRMATION("Overlapping tasks", "This task overlaps with another task.", "Are You ok with this?")){
+            if(alertClass.alertCONFIRMATION( "This task overlaps with another task.", "Are You ok with this?", "/img/todolist-icon.png")){
                 Stage stage = (Stage) areaNote.getScene().getWindow();
                 stage.close();
             }

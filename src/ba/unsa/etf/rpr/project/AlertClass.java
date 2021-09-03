@@ -31,13 +31,13 @@ public class AlertClass {
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
     }
 
-    public static boolean alertCONFIRMATION(String title, String header, String content){
+    public static boolean alertCONFIRMATION( String header, String content, String image){
         boolean ok=false;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
+        alert.setTitle(" ");
         alert.setHeaderText(header);
         alert.setContentText(content);
-
+        styleAlert(alert,image);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             ok=true;
