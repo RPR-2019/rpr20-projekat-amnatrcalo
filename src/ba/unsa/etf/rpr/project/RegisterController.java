@@ -1,9 +1,9 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.LoginMessages;
+import ba.unsa.etf.rpr.project.enums.TooltipContent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +16,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class RegisterController {
     public TextField fldUsername;
@@ -49,6 +49,7 @@ public class RegisterController {
     public void initialize(){
         lblWhatToEnter.setText(LoginMessages.WHATTOENTERREGISTRATION.toString());
         lblHaveAccount.setText(LoginMessages.ALREADYHAVEACCOUNT.toString());
+        fldMail.setTooltip(TooltipClass.makeTooltip(TooltipContent.EMAIL.toString()));
     }
 
     public User getUser() {
@@ -83,6 +84,17 @@ public class RegisterController {
         return free;
     }
 
+    public static boolean emailValidation(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 
     public void btnSignupAction(ActionEvent actionEvent) throws IOException {
         boolean ok=true;
@@ -115,7 +127,9 @@ public class RegisterController {
         if(fldMail.getText().trim().isEmpty()) {
             errorMail.setText(LoginMessages.MAILEMPTY.toString());
             ok = false;
-        }else{
+        }else if(!emailValidation(fldMail.getText())){
+           errorMail.setText(LoginMessages.INVALIDMAIL.toString());
+        } else{
             errorMail.setText(" ");
         }
 
@@ -185,12 +199,7 @@ public class RegisterController {
             });
 
             Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event2 -> {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Let's get started!");
-                alert.setHeaderText(null);
-                alert.setContentText("If You need help, check Help menu at the top left area of the screen. Enjoy in planning Your day! ");
-
-                alert.show();
+                AlertClass.alertINFORMATION(LoginMessages.REGISTERMESSAGETITLE.toString(), LoginMessages.REGISTERMESSAGEHEADER.toString(),  LoginMessages.REGISTERMESSAGECONTENT.toString(),"/img/salute.png" );
             }));
             timeline2.play();
         }));

@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr.project;
+package ba.unsa.etf.rpr.project.enums;
 
 import java.util.Locale;
 
@@ -103,6 +103,15 @@ public enum LoginMessages {
                 return "Unos Mail-a je obavezno.";
         }
     },
+    INVALIDMAIL{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "This email address is not valid.";
+            else
+                return "Unesena email adresa nije validna.";
+        }
+    },
     PASSWORDEMPTY{
         @Override
         public String toString() {
@@ -137,6 +146,39 @@ public enum LoginMessages {
                 return "Passwords do not match.";
             else
                 return "Unesene lozinke se ne podudaraju.";
+        }
+    },
+    REGISTERMESSAGETITLE{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Let's get started!";
+            else
+                return "Počnimo!";
+        }
+    },
+    REGISTERMESSAGEHEADER{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "It looks like you are starting To Do APP for the first time";
+            else
+                return "Izgleda da koristite To Do App prvi put";
+        }
+    },
+    REGISTERMESSAGECONTENT{
+        @Override
+        public String toString() {
+            String s1="", s2="";
+            if (Locale.getDefault().getCountry().equals("US")){
+                return "If You need help, check Help menu at the top left area of the screen.\nEnjoy in planning Your day!";
+            }
+
+            else{
+              return "Ako trebate pomoć, provjerite Help menu u gornjem lijevom ćošku ekrana.\nUživajte u planiranju Vašeg dana!";
+
+            }
+
         }
     }
 
