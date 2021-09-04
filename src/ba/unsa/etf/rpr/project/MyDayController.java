@@ -64,6 +64,8 @@ public class MyDayController {
     public VBox rightVBox;
     public ImageButton btnDeleteTask=new ImageButton(new Image("/img/delete-task.png"), 36, 36);
     public ImageButton btnEditTask=new ImageButton(new Image("/img/edit-list-and-pen.png"), 36, 36);
+    public ImageButton btnRightArrow=new ImageButton(new Image("/img/right_arrow.png"),15,15);
+    public Button btnMoreDetails;
     static Timeline timelineInfinite=new Timeline();
 
     private ObservableList<Task> activeSession = FXCollections.observableArrayList();
@@ -107,12 +109,29 @@ public class MyDayController {
         rightVBox.setAlignment(Pos.TOP_CENTER);
         rightVBox.getChildren().add(0,btnEditTask);
         rightVBox.getChildren().add(1,btnDeleteTask);
+        rightVBox.getChildren().add(3,btnRightArrow);
         TextFlow textFlow = new TextFlow(text1, text2, text3, text4, text5,text6);
+        textFlow.setLineSpacing(1.5);
+        textFlow.setMaxHeight(500);
         rightVBox.getChildren().add(textFlow);
 
         btnEditTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.EDITTASK.toString()));
         btnDeleteTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETETASK.toString()));
+        btnRightArrow.setTooltip(TooltipClass.makeTooltip(TooltipContent.COLLAPSEDETAILS.toString()));
 
+
+        btnRightArrow.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                rightVBox.setPrefWidth(200);
+                text1.setText(" ");
+                text2.setText(" ");
+                text3.setText(" ");
+                text4.setText(" ");
+                text5.setText(" ");
+                text6.setText(" ");
+            }
+        });
 
 
 
@@ -381,31 +400,32 @@ public class MyDayController {
         if(task==null){
             AlertClass.alertERROR(MyDayMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
         } else{
-            text1.setText(task.getTaskName() + "("+task.getListName()+")");
+            rightVBox.setPrefWidth(400);
+            text1.setText(task.getTaskName() + "("+task.getListName()+")\n");
 
             if(task.getStartYear()!=1){
-                text2.setText(task.getStartDateAndTime().format(formatDate));
+                text2.setText(task.getStartDateAndTime().format(formatDate)+"\n");
                 if(task.isAllDay()){
-                    text3.setText("All day");
+                    text3.setText("All day\n");
                 } else{
-                    text3.setText(task.getStartDateAndTime().format(formatTime));
+                    text3.setText(task.getStartDateAndTime().format(formatTime)+"\n");
                 }
             } else{
                 text2.setText(" ");
                 text3.setText(" ");
             }
             if(task.getEndYear()!=1){
-                text4.setText(task.getEndDateAndTime().format(formatDate));
-                text5.setText(task.getEndDateAndTime().format(formatTime));
+                text4.setText(task.getEndDateAndTime().format(formatDate)+"\n");
+                text5.setText(task.getEndDateAndTime().format(formatTime)+"\n");
             } else{
                 text4.setText(" ");
                 text5.setText(" ");
             }
 
             if(task.isReminder()){
-                text5.setText(task.getReminderDigit()+" "+ task.getReminderPeriod());
-                if(task.isAlertEmail()) text6.setText("Email alert");
-                else text6.setText("Notification alert.");
+                text5.setText(task.getReminderDigit()+" "+ task.getReminderPeriod()+"\n");
+                if(task.isAlertEmail()) text6.setText("Email alert\n");
+                else text6.setText("Notification alert.\n");
             }else{
                 text5.setText(" ");
                 text6.setText(" ");
@@ -413,6 +433,10 @@ public class MyDayController {
 
             text1.setStyle("-fx-font-size: 12; -fx-fill: darkred;");
             text2.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
+            text3.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
+            text4.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
+            text5.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
+            text6.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
         }
     }
 

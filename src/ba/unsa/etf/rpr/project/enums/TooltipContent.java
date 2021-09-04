@@ -29,5 +29,14 @@ public enum TooltipContent {
             else
                 return "Obriši zadatak";
         }
+    },
+    COLLAPSEDETAILS{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Collaps details";
+            else
+                return "Sakrij detalje";
+        }
     }
 }

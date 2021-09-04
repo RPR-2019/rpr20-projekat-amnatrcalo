@@ -26,6 +26,7 @@ public class LoginController {
     private User user;
     private ArrayList<User> users=new ArrayList<>();
     private AppDAO dao;
+    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
     public LoginController(User user, ArrayList<User>users, AppDAO dao) {
         this.user = user;
@@ -50,7 +51,7 @@ public class LoginController {
         stage.close();
 
         Stage registrationStage=new Stage();
-        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"),bundle);
         RegisterController registerController = new RegisterController(null, users,dao);
@@ -116,7 +117,7 @@ public class LoginController {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
             Stage myDayStage=new Stage();
             Parent root=null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/myDay.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/myDay.fxml"),bundle);
             MyDayController myDayController = new MyDayController(user,dao.lists(user));
             loader.setController(myDayController);
 
@@ -131,7 +132,6 @@ public class LoginController {
             myDayStage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
             Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
             myDayStage.getIcons().add(icon);
-            myDayStage.getScene().getStylesheets().add(this.getClass().getResource("/css/myDay.css").toExternalForm());
             myDayStage.setResizable(true);
             myDayStage.show();
             myDayStage.setOnCloseRequest(event2->{

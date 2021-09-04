@@ -10,11 +10,17 @@
  -fx-max-height: 50px;
 };
 
-
-
-.btn:hover{
- /*-fx-transform: scale(1.5) perspective(1px);*/
+.btnDetails{
+-fx-background-color: #06cbe6;
+-fx-cursor:hand;
 }
+
+.btnDetails:hover{
+-fx-background-color: #f40b59;
+}
+
+
+
 
 /*********************************
 NOTIFICATION STYLE

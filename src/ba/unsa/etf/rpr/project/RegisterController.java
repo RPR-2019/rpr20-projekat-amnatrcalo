@@ -38,6 +38,7 @@ public class RegisterController {
     private ArrayList<User> users=new ArrayList<>();
     private User user;
     private AppDAO dao;
+    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
     public RegisterController(User user,ArrayList<User>users, AppDAO dao) {
         this.user=user;
@@ -61,13 +62,12 @@ public class RegisterController {
         stage.close();
 
         Stage loginStage=new Stage();
-        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"),bundle);
         LoginController loginController = new LoginController(null, users,dao);
         loader.setController(loginController);
         root = loader.load();
-
         loginStage.setTitle("Login");
         loginStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
@@ -178,7 +178,7 @@ public class RegisterController {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000), event -> {
             Stage myDayStage=new Stage();
             Parent root=null;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/myDay.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/myDay.fxml"),bundle);
             MyDayController myDayController = new MyDayController(user,dao.lists(user));
             loader.setController(myDayController);
             try {
