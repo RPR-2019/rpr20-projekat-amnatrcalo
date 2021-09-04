@@ -38,5 +38,98 @@ public enum MyDayMessages {
             else
                 return "Počinje za ";
         }
+    },
+    TEXTFLOWTASKNAME{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Task name: ";
+            else
+                return "Ime zadatka: ";
+        }
+    },
+    TEXTFLOWSTARTDATE{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Start date: ";
+            else
+                return "Datum početka: ";
+        }
+    },
+    TEXTFLOWALLDAYTASK{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "All-day task";
+            else
+                return "Cjelodnevni zadatak";
+        }
+    },
+
+    TEXTFLOWSTARTTIME{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Start time: ";
+            else
+                return "Vrijeme početka: ";
+        }
+    },
+    TEXTFLOWENDDATE{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "End date: ";
+            else
+                return "Datum kraja: ";
+        }
+    },
+    TEXTFLOWENDTIME{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "End time: ";
+            else
+                return "Vrijeme kraja: ";
+        }
+    },
+    TEXTFLOWREMINDERISSET{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Reminder: ";
+            else
+                return "Podsjetnik: ";
+        }
+    },
+    TEXTFLOWREMINDERBEFORE{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return " before";
+            else
+                return " prije";
+        }
+    },
+    TEXTFLOWEMAILALERT{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "email";
+            else
+                return "email";
+        }
+    },
+    TEXTFLOWNOTIFICATIONALERT{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "notification";
+            else
+                return "notifikacija";
+        }
     }
+
+
 }

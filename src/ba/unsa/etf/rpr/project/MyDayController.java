@@ -79,7 +79,9 @@ public class MyDayController {
     public Text text4 = new Text();
     public Text text5 = new Text();
     public Text text6 = new Text();
-
+    public Text text7 = new Text();
+    public Text text8 = new Text();
+    public TextFlow textFlow = new TextFlow(text1, text2, text3, text4, text5,text6,text7,text8);
 
 
     private final int currentHour=LocalDateTime.now().getHour();
@@ -110,9 +112,8 @@ public class MyDayController {
         rightVBox.getChildren().add(0,btnEditTask);
         rightVBox.getChildren().add(1,btnDeleteTask);
         rightVBox.getChildren().add(3,btnRightArrow);
-        TextFlow textFlow = new TextFlow(text1, text2, text3, text4, text5,text6);
-        textFlow.setLineSpacing(1.5);
-        textFlow.setMaxHeight(500);
+
+
         rightVBox.getChildren().add(textFlow);
 
         btnEditTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.EDITTASK.toString()));
@@ -130,6 +131,9 @@ public class MyDayController {
                 text4.setText(" ");
                 text5.setText(" ");
                 text6.setText(" ");
+                text7.setText(" ");
+                text8.setText(" ");
+                textFlow.setStyle("-fx-border: none");
             }
         });
 
@@ -401,42 +405,53 @@ public class MyDayController {
             AlertClass.alertERROR(MyDayMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
         } else{
             rightVBox.setPrefWidth(400);
-            text1.setText(task.getTaskName() + "("+task.getListName()+")\n");
+            text1.setText(MyDayMessages.TEXTFLOWTASKNAME.toString()+task.getTaskName() + " ("+task.getListName()+")\n");
 
             if(task.getStartYear()!=1){
-                text2.setText(task.getStartDateAndTime().format(formatDate)+"\n");
+                text2.setText(MyDayMessages.TEXTFLOWSTARTDATE.toString()+task.getStartDateAndTime().format(formatDate)+"\n");
                 if(task.isAllDay()){
-                    text3.setText("All day\n");
+                    text3.setText(MyDayMessages.TEXTFLOWALLDAYTASK.toString()+"\n");
                 } else{
-                    text3.setText(task.getStartDateAndTime().format(formatTime)+"\n");
+                    text3.setText(MyDayMessages.TEXTFLOWSTARTTIME.toString()+task.getStartDateAndTime().format(formatTime)+"\n");
                 }
             } else{
-                text2.setText(" ");
-                text3.setText(" ");
+                text2.setText("\n");
+                text3.setText("\n");
             }
             if(task.getEndYear()!=1){
-                text4.setText(task.getEndDateAndTime().format(formatDate)+"\n");
-                text5.setText(task.getEndDateAndTime().format(formatTime)+"\n");
+                text4.setText(MyDayMessages.TEXTFLOWENDDATE.toString()+task.getEndDateAndTime().format(formatDate)+"\n");
+                text5.setText(MyDayMessages.TEXTFLOWENDTIME.toString()+task.getEndDateAndTime().format(formatTime)+"\n");
             } else{
-                text4.setText(" ");
-                text5.setText(" ");
+                text4.setText("\n");
+                text5.setText("\n");
             }
 
             if(task.isReminder()){
-                text5.setText(task.getReminderDigit()+" "+ task.getReminderPeriod()+"\n");
-                if(task.isAlertEmail()) text6.setText("Email alert\n");
-                else text6.setText("Notification alert.\n");
+                text6.setText(MyDayMessages.TEXTFLOWREMINDERISSET.toString()+task.getReminderDigit()+" "+ task.getReminderPeriod()+MyDayMessages.TEXTFLOWREMINDERBEFORE.toString());
+                if(task.isAlertEmail()) text7.setText(" ("+MyDayMessages.TEXTFLOWEMAILALERT.toString()+")\n");
+                else text7.setText(" ("+MyDayMessages.TEXTFLOWNOTIFICATIONALERT.toString()+")\n");
             }else{
-                text5.setText(" ");
-                text6.setText(" ");
+                text6.setText("\n");
+                text7.setText("\n");
             }
 
-            text1.setStyle("-fx-font-size: 12; -fx-fill: darkred;");
-            text2.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
-            text3.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
-            text4.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
-            text5.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
-            text6.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
+            if(!task.getNote().trim().isEmpty()){
+                text8.setText("\n"+task.getNote());
+            }else{
+                text8.setText(" ");
+            }
+
+
+            textFlow.setLineSpacing(1.5);
+            textFlow.setStyle("-fx-border-color: black; -fx-padding: 20px; -fx-margin: 10px;");
+            text1.setStyle("-fx-font-size: 16; -fx-fill: darkred; -fx-font-weight:bold;");
+            text2.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
+            text3.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
+            text4.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
+            text5.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
+            text6.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
+            text7.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
+            text8.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
         }
     }
 

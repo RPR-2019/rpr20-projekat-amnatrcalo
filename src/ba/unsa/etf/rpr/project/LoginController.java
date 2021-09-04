@@ -133,6 +133,8 @@ public class LoginController {
             Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
             myDayStage.getIcons().add(icon);
             myDayStage.setResizable(true);
+            myDayStage.setMinHeight(650);
+            myDayStage.setMinWidth(750);
             myDayStage.show();
             myDayStage.setOnCloseRequest(event2->{
                 MyDayController.timelineInfinite.stop();
