@@ -55,15 +55,17 @@ public class DateAndTimeController {
     private ObservableList<String> periods=FXCollections.observableArrayList("minutes", "hours", "days");
     private ObservableList<Integer> valuesBefore=FXCollections.observableArrayList(1,2,3,4,5,10,15,20,25,30);
 
-    public String setEditSprinnerHours(Integer value, Integer year){
+    private String setEditSprinnerHours(Integer value, Integer year){
         if(year==1) return "--";
         else return hours.get(value+1);
     }
 
-    public String setEditSprinnerMins(Integer value, Integer year){
+    private String setEditSprinnerMins(Integer value, Integer year){
         if(year==1) return "--";
         else return mins.get(value+1);
     }
+
+
     @FXML
     public void initialize(){
         SpinnerValueFactory<String> valueFactoryStartHours =new SpinnerValueFactory.ListSpinnerValueFactory<String>(hours);
@@ -82,29 +84,39 @@ public class DateAndTimeController {
         endMins.setValueFactory(valueFactoryEndMins);
         valueFactoryEndMins.setValue("--");
 
+        choicePeriodBefore.setItems(periods);
+        comboValueBefore.setItems(valuesBefore);
+        choicePeriodBefore.getSelectionModel().selectFirst();
+        comboValueBefore.getSelectionModel().select(6);
+
         if(task!=null){
             //edit current task
+            checkBoxAllDayTask.setSelected(task.isAllDay());
+            setAllDay(task.isAllDay());
+            if(task.isAllDay()){
+                selectAllDay=true;
+                setAllDay(true);
+            } else{
+                setAllDay(false);
+
+            }
+
             checkBoxReminder.setSelected(task.isReminder());
             if(task.isReminder()){
                 selectReminder=true;
-                comboValueBefore.setDisable(false);
-                choicePeriodBefore.setDisable(false);
-                radioNotification.setDisable(false);
-                radioEmail.setDisable(false);
+                remDisabled(false);
+                comboValueBefore.getSelectionModel().select(task.getReminderDigit());
+                choicePeriodBefore.getSelectionModel().select(task.getReminderPeriod());
+                radioNotification.setSelected(task.isAlertNotification());
+                radioEmail.setSelected(task.isAlertEmail());
 
             } else{
-                comboValueBefore.setDisable(true);
-                choicePeriodBefore.setDisable(true);
-                radioNotification.setDisable(true);
-                radioEmail.setDisable(true);
+                remDisabled(true);
                 radioNotification.setSelected(true);
                 radioEmail.setSelected(false);
             }
 
-            comboValueBefore.setValue(task.getReminderDigit());
-            choicePeriodBefore.setValue(task.getReminderPeriod());
-            radioNotification.setSelected(task.isAlertNotification());
-            radioEmail.setSelected(task.isAlertEmail());
+
 
             valueFactoryStartHours.setValue(setEditSprinnerHours(task.getStartHour(), task.getStartYear()));
             valueFactoryEndHours.setValue(setEditSprinnerHours(task.getEndHour(),task.getEndYear()));
@@ -126,13 +138,11 @@ public class DateAndTimeController {
             choicePeriodBefore.setDisable(true);
             radioEmail.setDisable(true);
             radioNotification.setDisable(true);
+            /*choicePeriodBefore.getSelectionModel().selectFirst();
+            comboValueBefore.getSelectionModel().select(6);*/
         }
 
 
-        choicePeriodBefore.setItems(periods);
-        choicePeriodBefore.getSelectionModel().selectFirst();
-        comboValueBefore.setItems(valuesBefore);
-        comboValueBefore.getSelectionModel().select(6);
     }
 
     public DateAndTimeController(Task task){
@@ -142,22 +152,24 @@ public class DateAndTimeController {
     public void actionAllDayTask(ActionEvent actionEvent) {
         selectAllDay =!selectAllDay;
         if(selectAllDay){
-            endDatePicker.setDisable(true);
+            /*endDatePicker.setDisable(true);
             endHour.setDisable(true);
             endMins.setDisable(true);
             startHour.setDisable(true);
             startMins.setDisable(true);
             checkBoxReminder.setDisable(true);
-            remDisabled(true);
+            remDisabled(true);*/
+            setAllDay(true);
         }
         if(!selectAllDay){
-            endDatePicker.setDisable(false);
+           /* endDatePicker.setDisable(false);
             endHour.setDisable(false);
             endMins.setDisable(false);
             startHour.setDisable(false);
             startMins.setDisable(false);
             checkBoxReminder.setDisable(false);
-            remDisabled(false);
+            remDisabled(false);*/
+            setAllDay(false);
         }
 
     }
@@ -309,16 +321,27 @@ public class DateAndTimeController {
         task.setReminderPeriod(choicePeriodBefore.getValue());
         task.setAlertNotification(radioNotification.isSelected());
         task.setAlertEmail(radioEmail.isSelected());
+        task.setAllDay(checkBoxAllDayTask.isSelected());
 
         Stage stage = (Stage) radioEmail.getScene().getWindow();
         stage.close();
     }
 
-    public void remDisabled(boolean disable){
+    private void remDisabled(boolean disable){
         comboValueBefore.setDisable(disable);
         choicePeriodBefore.setDisable(disable);
         radioEmail.setDisable(disable);
         radioNotification.setDisable(disable);
+    }
+
+    private void setAllDay(boolean disable){
+        checkBoxReminder.setDisable(disable);
+        remDisabled(disable);
+        startMins.setDisable(disable);
+        startHour.setDisable(disable);
+        endDatePicker.setDisable(disable);
+        endMins.setDisable(disable);
+        endHour.setDisable(disable);
     }
 
     public void actionRemindMe(ActionEvent actionEvent){

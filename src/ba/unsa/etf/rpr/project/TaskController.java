@@ -154,13 +154,14 @@ public class TaskController {
             task.setStartHour(1);
             task.setStartMin(1);
             task.setReminder(false);
-            task.setReminderDigit(1);
+            task.setReminderDigit(-1);
             task.setReminderPeriod("--");
             task.setEndYear(1);
             task.setEndMonth(1);
             task.setEndDay(1);
             task.setEndHour(1);
             task.setEndMin(1);
+            task.setAllDay(false);
         }
         task.setTaskName(fldTaskName.getText());
         task.setUsername(user.getUsername());

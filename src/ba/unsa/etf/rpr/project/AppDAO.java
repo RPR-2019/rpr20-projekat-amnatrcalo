@@ -60,10 +60,10 @@ public class AppDAO {
             getAllTasksStmt=conn.prepareStatement("SELECT *FROM tasks");
             getAllTasksForUserStmt=conn.prepareStatement("SELECT *FROM tasks WHERE username=?");
             setNewIdTaskStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM tasks");
-            addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            addNewTaskStmt =conn.prepareStatement("INSERT INTO tasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             editTaskStmt=conn.prepareStatement("UPDATE tasks SET task_name=?, start_year=?, start_month=?, start_day=?, start_hour=?," +
                     "start_min=?, end_year=?, end_month=?, end_day=?, end_hour=?, end_min=?, note=?, reminder=?, reminder_digit=?," +
-                    "reminder_period=?, alert_notification=?, alert_email=?, list_name=? WHERE id=?");
+                    "reminder_period=?, alert_notification=?, alert_email=?, list_name=?, all_day=? WHERE id=?");
             deleteOneTaskStmt=conn.prepareStatement("DELETE FROM tasks WHERE id=?");
             deleteAllTasksFromListStmt =conn.prepareStatement("DELETE FROM tasks WHERE username=? AND list_name=?");
             deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
@@ -275,6 +275,7 @@ public class AppDAO {
         t.setAlertNotification(rs.getBoolean(18));
         t.setAlertEmail(rs.getBoolean(19));
         t.setListName(rs.getString(20));
+        t.setAllDay(rs.getBoolean(21));
         return t;
     }
 
@@ -346,6 +347,7 @@ public class AppDAO {
             addNewTaskStmt.setBoolean(18, task.isAlertNotification());
             addNewTaskStmt.setBoolean(19,task.isAlertEmail());
             addNewTaskStmt.setString(20,task.getListName());
+            addNewTaskStmt.setBoolean(21,task.isAllDay());
             addNewTaskStmt.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -374,7 +376,9 @@ public class AppDAO {
             editTaskStmt.setBoolean(16, task.isAlertNotification());
             editTaskStmt.setBoolean(17,task.isAlertEmail());
             editTaskStmt.setString(18,task.getListName());
-            editTaskStmt.setInt(19,task.getId());
+            editTaskStmt.setBoolean(19,task.isAllDay());
+            editTaskStmt.setInt(20,task.getId());
+
             editTaskStmt.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();

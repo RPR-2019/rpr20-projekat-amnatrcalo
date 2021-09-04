@@ -20,9 +20,10 @@ public class Task {
     private boolean alertNotification;
     private boolean alertEmail;
     private String listName;
+    private boolean allDay;
 
 
-    public Task(Integer id, String username, String taskName, Integer startYear, Integer startMonth, Integer startDay, Integer startHour, Integer startMin, Integer endYear, Integer endMonth, Integer endDay, Integer endHour, Integer endMin, String note, boolean reminder, Integer reminderDigit, String reminderPeriod, boolean alertNotification, boolean alertEmail, String listName) {
+    public Task(Integer id, String username, String taskName, Integer startYear, Integer startMonth, Integer startDay, Integer startHour, Integer startMin, Integer endYear, Integer endMonth, Integer endDay, Integer endHour, Integer endMin, String note, boolean reminder, Integer reminderDigit, String reminderPeriod, boolean alertNotification, boolean alertEmail, String listName, boolean allday) {
         this.id = id;
         this.username = username;
         this.taskName = new SimpleStringProperty(taskName);
@@ -43,6 +44,7 @@ public class Task {
         this.alertNotification = alertNotification;
         this.alertEmail = alertEmail;
         this.listName=listName;
+        this.allDay=allday;
     }
 
     public Task() {
@@ -231,6 +233,14 @@ public class Task {
 
     public void setListName(String listName) {
         this.listName = listName;
+    }
+
+    public boolean isAllDay() {
+        return allDay;
+    }
+
+    public void setAllDay(boolean allDay) {
+        this.allDay = allDay;
     }
 
     @Override

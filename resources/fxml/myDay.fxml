@@ -101,13 +101,16 @@
       </GridPane>
    </center>
    <right>
-      <VBox fx:id="rightVBox" prefHeight="340.0" prefWidth="103.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="rightVBox" prefHeight="340.0" prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="100.0" />
          </padding>
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
+         <children>
+            <Button fx:id="btnMoreDetails" mnemonicParsing="false" onAction="#actionMoreDetails" text="Button" />
+         </children>
       </VBox>
    </right>
 </BorderPane>

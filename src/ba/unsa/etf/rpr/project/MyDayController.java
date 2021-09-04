@@ -28,6 +28,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
@@ -40,6 +42,7 @@ import java.io.IOException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -68,6 +71,12 @@ public class MyDayController {
     private AppDAO dao;
     private AlertClass alertClass=new AlertClass();
 
+    public Text text1 = new Text();
+    public Text text2 = new Text();
+    public Text text3 = new Text();
+    public Text text4 = new Text();
+    public Text text5 = new Text();
+    public Text text6 = new Text();
 
 
 
@@ -96,11 +105,15 @@ public class MyDayController {
         //set delete task Btn and edit task Btn
         rightVBox.setStyle("-fx-background-color: #faf0f0;");
         rightVBox.setAlignment(Pos.TOP_CENTER);
-        rightVBox.getChildren().add(btnEditTask);
-        rightVBox.getChildren().add(btnDeleteTask);
+        rightVBox.getChildren().add(0,btnEditTask);
+        rightVBox.getChildren().add(1,btnDeleteTask);
+        TextFlow textFlow = new TextFlow(text1, text2, text3, text4, text5,text6);
+        rightVBox.getChildren().add(textFlow);
 
         btnEditTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.EDITTASK.toString()));
         btnDeleteTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETETASK.toString()));
+
+
 
 
         btnDeleteTask.setOnAction(new EventHandler<ActionEvent>() {
@@ -232,25 +245,7 @@ public class MyDayController {
 
         } );
 
-        /*tableViewTasks.getCheckModel().getCheckedItems().addListener(new ListChangeListener<Task>() {
-            @Override
-            public void onChanged(Change<? extends Task> change) {
-                change.next();
-                if(change.wasAdded()) {
-                    for(Task t: change.getAddedSubList()){
-                        System.out.println("Item Checked : " + t.getTaskName());
-                    }
-                    String oldListName= change.getAddedSubList().get(0).getListName();
-                    change.getAddedSubList().get(0).setListName("Completed");
-                    dao.editTask(change.getAddedSubList().get(0));
-                    System.out.println("Item Checked : " + change.getAddedSubList().get(0));
-                } else if (change.wasRemoved()) {
-                    checkedTasks.remove(change.getRemoved().get(0));
-                 //   System.out.println("Item Unchecked : " + change.getRemoved().get(0));
-                }
 
-            }
-        });*/
 
         tableViewTasks.setCellFactory(CheckBoxListCell.forListView(new Callback<Task, ObservableValue<Boolean>>() {
             @Override
@@ -276,6 +271,7 @@ public class MyDayController {
                 return observable ;
             }
         }));
+
 
     }
 
@@ -376,6 +372,48 @@ public class MyDayController {
 
 
 
+    }
+
+    public void actionMoreDetails (ActionEvent event ){
+        DateTimeFormatter formatDate=DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatTime=DateTimeFormatter.ofPattern("HH:mm");
+        Task task = tableViewTasks.getSelectionModel().getSelectedItem();
+        if(task==null){
+            AlertClass.alertERROR(MyDayMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+        } else{
+            text1.setText(task.getTaskName() + "("+task.getListName()+")");
+
+            if(task.getStartYear()!=1){
+                text2.setText(task.getStartDateAndTime().format(formatDate));
+                if(task.isAllDay()){
+                    text3.setText("All day");
+                } else{
+                    text3.setText(task.getStartDateAndTime().format(formatTime));
+                }
+            } else{
+                text2.setText(" ");
+                text3.setText(" ");
+            }
+            if(task.getEndYear()!=1){
+                text4.setText(task.getEndDateAndTime().format(formatDate));
+                text5.setText(task.getEndDateAndTime().format(formatTime));
+            } else{
+                text4.setText(" ");
+                text5.setText(" ");
+            }
+
+            if(task.isReminder()){
+                text5.setText(task.getReminderDigit()+" "+ task.getReminderPeriod());
+                if(task.isAlertEmail()) text6.setText("Email alert");
+                else text6.setText("Notification alert.");
+            }else{
+                text5.setText(" ");
+                text6.setText(" ");
+            }
+
+            text1.setStyle("-fx-font-size: 12; -fx-fill: darkred;");
+            text2.setStyle("-fx-font-size: 10; -fx-fill: goldenrod;");
+        }
     }
 
 
