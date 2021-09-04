@@ -133,7 +133,6 @@ public class MyDayController {
                 text6.setText(" ");
                 text7.setText(" ");
                 text8.setText(" ");
-                textFlow.setStyle("-fx-border: none");
             }
         });
 
@@ -443,7 +442,9 @@ public class MyDayController {
 
 
             textFlow.setLineSpacing(1.5);
-            textFlow.setStyle("-fx-border-color: black; -fx-padding: 20px; -fx-margin: 10px;");
+            textFlow.setPrefWidth(Region.USE_PREF_SIZE);
+            textFlow.setPrefHeight(Region.USE_PREF_SIZE);
+            textFlow.setStyle(" -fx-padding: 20px; -fx-margin: 10px;");
             text1.setStyle("-fx-font-size: 16; -fx-fill: darkred; -fx-font-weight:bold;");
             text2.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
             text3.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
