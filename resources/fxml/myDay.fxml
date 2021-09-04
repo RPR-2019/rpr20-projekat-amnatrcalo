@@ -109,7 +109,10 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <Button fx:id="btnMoreDetails" styleClass="btnDetails" mnemonicParsing="false" onAction="#actionMoreDetails" text="%show_details" />
+            <Button fx:id="btnMoreDetails" mnemonicParsing="false" onAction="#actionMoreDetails" styleClass="btnDetails" text="%show_details" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></Button>
          </children>
       </VBox>
    </right>
