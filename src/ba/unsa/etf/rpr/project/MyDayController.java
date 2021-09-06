@@ -38,6 +38,7 @@ import org.controlsfx.control.CheckListView;
 import org.controlsfx.control.IndexedCheckModel;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.Rating;
+import org.sqlite.util.StringUtils;
 
 import java.io.IOException;
 import java.sql.Time;
@@ -225,9 +226,10 @@ public class MyDayController {
 
 
         //set greeting message
-       if(currentHour<=11) greetingMessage.setText(MyDayMessages.GOODMORNING.toString()+user.getUsername()+"!");
-       else if(currentHour<19) greetingMessage.setText(MyDayMessages.GOODAFTERNOON.toString()+user.getUsername()+"!");
-       else greetingMessage.setText(MyDayMessages.GOODEVENING.toString()+user.getUsername()+"!");
+        String capitalizeUsername=user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1);
+       if(currentHour<=11) greetingMessage.setText(MyDayMessages.GOODMORNING.toString()+capitalizeUsername+"!");
+       else if(currentHour<19) greetingMessage.setText(MyDayMessages.GOODAFTERNOON.toString()+capitalizeUsername+"!");
+       else greetingMessage.setText(MyDayMessages.GOODEVENING.toString()+capitalizeUsername+"!");
 
 
 
