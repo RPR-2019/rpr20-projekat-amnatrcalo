@@ -61,8 +61,8 @@ public class MyDayController {
     public CheckListView<Task> tableViewTasks;
     public ObservableList<CustomList> listLists;
     public VBox rightVBox;
-    public ImageButton btnDeleteTask=new ImageButton(new Image("/img/delete-task.png"), 36, 36);
-    public ImageButton btnEditTask=new ImageButton(new Image("/img/edit-list-and-pen.png"), 36, 36);
+    public ImageButton btnDeleteTask=new ImageButton(new Image("/img/delete-task.png"), 40, 40);
+    public ImageButton btnEditTask=new ImageButton(new Image("/img/edit-list-and-pen.png"), 40, 40);
     public ImageButton btnRightArrow=new ImageButton(new Image("/img/right_arrow.png"),15,15);
     public Text text1 = new Text();
     public Text text2 = new Text();
@@ -84,8 +84,8 @@ public class MyDayController {
 
     static Timeline timelineInfinite=new Timeline();
     private final int currentHour=LocalDateTime.now().getHour();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
-    SimpleDateFormat simpleClockFormat=new SimpleDateFormat("HH:mm");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy");
+    SimpleDateFormat simpleClockFormat=new SimpleDateFormat(MyDayMessages.CLOCK.toString());
 
 
 

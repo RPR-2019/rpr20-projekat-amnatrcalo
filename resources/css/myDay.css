@@ -1,8 +1,7 @@
 .centerBackground{
 /*-fx-background-color: #f5c9eb;*/
 -fx-background-color: #faf0f0;
--fx-color: white;
--fx-font-size: 20px;
+
 }
 
 .leftVBox{
@@ -58,13 +57,16 @@
 -fx-background-color: #f40b59;
 }
 
- /* */
-.list{
- -fx-background-color: #faf0f0;
-}
+ /***************
+  LIST STYLE
+  ***************/
+
 
 .list-cell{
--fx-background-color: #faf0f0;
+/*-fx-background-color: #faf0f0;*/
+-fx-background-color: white;
+-fx-font-size: 20px;
+-fx-text-fill: darkred;
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {

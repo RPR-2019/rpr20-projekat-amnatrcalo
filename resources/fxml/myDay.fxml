@@ -48,11 +48,17 @@
                   <Button fx:id="btnNewList" alignment="CENTER" mnemonicParsing="false" onAction="#actionNewList" styleClass="btnLists" text="%add_list" />
                   <Button fx:id="btnDeleteList" alignment="CENTER" minWidth="72.0" mnemonicParsing="false" onAction="#actionDeleteList" prefHeight="25.0" styleClass="btnLists" text="%delete_list" />
                </buttons>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
             </ButtonBar>
-            <ListView fx:id="listViewLists" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="listViewLists" prefHeight="200.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin></ListView>
          </children>
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="15.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
    </left>
@@ -85,13 +91,16 @@
          <children>
             <VBox alignment="CENTER_LEFT">
                <children>
-                  <Label fx:id="greetingMessage" text="Label">
+                  <Label fx:id="greetingMessage" text="Label" textFill="#ad1d1d">
                      <font>
                         <Font name="SansSerif Italic" size="36.0" />
-                     </font></Label>
-                  <Label fx:id="date" text="Label">
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></Label>
+                  <Label fx:id="date" text="Label" textFill="#ad1d1d">
                      <font>
-                        <Font name="Microsoft Sans Serif" size="24.0" />
+                        <Font name="Dubai Light" size="24.0" />
                      </font></Label>
                </children>
                <GridPane.margin>
@@ -112,7 +121,7 @@
    <right>
       <VBox fx:id="rightVBox" prefHeight="340.0" prefWidth="200.0" spacing="5.0" styleClass="rightVBox" BorderPane.alignment="CENTER">
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="100.0" />
+            <Insets bottom="5.0" left="5.0" right="5.0" top="140.0" />
          </padding>
          <BorderPane.margin>
             <Insets />
@@ -120,7 +129,7 @@
          <children>
             <Button fx:id="btnMoreDetails" mnemonicParsing="false" onAction="#actionMoreDetails" styleClass="btnDetails" text="%show_details" textFill="WHITE">
                <font>
-                  <Font name="System Italic" size="12.0" />
+                  <Font name="System Italic" size="14.0" />
                </font></Button>
          </children>
       </VBox>

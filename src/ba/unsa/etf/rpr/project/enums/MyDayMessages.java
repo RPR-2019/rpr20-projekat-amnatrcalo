@@ -156,6 +156,15 @@ public enum MyDayMessages {
             else
                 return "Dobra večer, ";
         }
+    },
+    CLOCK{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "hh:mm";
+            else
+                return "HH:mm";
+        }
     }
 
 
