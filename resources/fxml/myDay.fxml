@@ -33,11 +33,11 @@
       </MenuBar>
    </top>
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="155.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="340.0" prefWidth="230.0" spacing="10.0" styleClass="leftVBox" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="clock" text="time" textFill="#f40b59">
+            <Label fx:id="clock" styleClass="clock" textFill="WHITE">
                <font>
-                  <Font name="Tahoma" size="36.0" />
+                  <Font name="Tahoma" size="80.0" />
                </font></Label>
             <Button fx:id="addNewTask" alignment="CENTER" mnemonicParsing="false" onAction="#actionAddNewTask" prefHeight="25.0" prefWidth="123.0" styleClass="btnAddTask" text="+">
                <font>
@@ -45,8 +45,8 @@
                </font></Button>
             <ButtonBar buttonMinWidth="25.0">
                <buttons>
-                  <Button fx:id="btnNewList" mnemonicParsing="false" onAction="#actionNewList" text="insert" />
-                  <Button fx:id="btnDeleteList" minWidth="72.0" mnemonicParsing="false" onAction="#actionDeleteList" prefHeight="25.0" text="delete" />
+                  <Button fx:id="btnNewList" alignment="CENTER" mnemonicParsing="false" onAction="#actionNewList" text="insert" />
+                  <Button fx:id="btnDeleteList" alignment="CENTER" minWidth="72.0" mnemonicParsing="false" onAction="#actionDeleteList" prefHeight="25.0" text="delete" />
                </buttons>
             </ButtonBar>
             <ListView fx:id="listViewLists" prefHeight="200.0" prefWidth="200.0" />
@@ -76,13 +76,13 @@
          <children>
             <VBox alignment="CENTER_LEFT">
                <children>
-                  <Label fx:id="greetingMessage" text="Label" textFill="#f40b59">
+                  <Label fx:id="greetingMessage" text="Label">
                      <font>
-                        <Font name="Tahoma" size="24.0" />
+                        <Font name="SansSerif Italic" size="36.0" />
                      </font></Label>
-                  <Label fx:id="date" text="Label" textFill="#f40b59">
+                  <Label fx:id="date" text="Label">
                      <font>
-                        <Font name="Tahoma" size="18.0" />
+                        <Font name="Microsoft Sans Serif" size="24.0" />
                      </font></Label>
                </children>
                <GridPane.margin>

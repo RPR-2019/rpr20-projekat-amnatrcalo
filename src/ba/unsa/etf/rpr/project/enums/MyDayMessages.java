@@ -129,6 +129,33 @@ public enum MyDayMessages {
             else
                 return "notifikacija";
         }
+    },
+    GOODMORNING{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Good morning, ";
+            else
+                return "Dobro jutro, ";
+        }
+    },
+    GOODAFTERNOON{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Good afternoon, ";
+            else
+                return "Dobar dan, ";
+        }
+    },
+    GOODEVENING{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Good evening, ";
+            else
+                return "Dobra večer, ";
+        }
     }
 
 

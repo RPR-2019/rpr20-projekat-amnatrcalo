@@ -55,24 +55,12 @@ public class MyDayController {
     public Label quoteAuthor;
     public Label clock;
     public ListView<CustomList> listViewLists;
-    //public TableColumn<Task,String>colTaskName;
-    //public TableView<Task> tableViewTasks;
     public CheckListView<Task> tableViewTasks;
     public ObservableList<CustomList> listLists;
-    public Button btnNewList;
-    public Button btnDeleteList;
     public VBox rightVBox;
     public ImageButton btnDeleteTask=new ImageButton(new Image("/img/delete-task.png"), 36, 36);
     public ImageButton btnEditTask=new ImageButton(new Image("/img/edit-list-and-pen.png"), 36, 36);
     public ImageButton btnRightArrow=new ImageButton(new Image("/img/right_arrow.png"),15,15);
-    public Button btnMoreDetails;
-    static Timeline timelineInfinite=new Timeline();
-
-    private ObservableList<Task> activeSession = FXCollections.observableArrayList();
-    private User user;
-    private AppDAO dao;
-    private AlertClass alertClass=new AlertClass();
-
     public Text text1 = new Text();
     public Text text2 = new Text();
     public Text text3 = new Text();
@@ -84,6 +72,14 @@ public class MyDayController {
     public TextFlow textFlow = new TextFlow(text1, text2, text3, text4, text5,text6,text7,text8);
 
 
+    private ObservableList<Task> activeSession = FXCollections.observableArrayList();
+    private User user;
+    private AppDAO dao;
+    private AlertClass alertClass=new AlertClass();
+
+
+
+    static Timeline timelineInfinite=new Timeline();
     private final int currentHour=LocalDateTime.now().getHour();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy");
     SimpleDateFormat simpleClockFormat=new SimpleDateFormat("HH:mm");
@@ -97,7 +93,7 @@ public class MyDayController {
 
     }
 
-    public boolean shouldSendNotif(Task t){
+    private boolean shouldSendNotif(Task t){
         return !t.getListName().equals("Completed");
     }
 
@@ -112,8 +108,6 @@ public class MyDayController {
         rightVBox.getChildren().add(0,btnEditTask);
         rightVBox.getChildren().add(1,btnDeleteTask);
         rightVBox.getChildren().add(3,btnRightArrow);
-
-
         rightVBox.getChildren().add(textFlow);
 
         btnEditTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.EDITTASK.toString()));
@@ -124,18 +118,9 @@ public class MyDayController {
         btnRightArrow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                rightVBox.setPrefWidth(200);
-                text1.setText(" ");
-                text2.setText(" ");
-                text3.setText(" ");
-                text4.setText(" ");
-                text5.setText(" ");
-                text6.setText(" ");
-                text7.setText(" ");
-                text8.setText(" ");
+                styleTextFlow(true);
             }
         });
-
 
 
         btnDeleteTask.setOnAction(new EventHandler<ActionEvent>() {
@@ -193,7 +178,7 @@ public class MyDayController {
             }
         });
 
-    //send notification
+        //send notification
         Timeline timelineInfinite = new Timeline(new KeyFrame(Duration.millis(1000), e-> {
             for(Task t: dao.getAllTasksAlertNotification(user)){
                 if(shouldSendNotif(t) && t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
@@ -223,9 +208,9 @@ public class MyDayController {
 
 
         //set greeting message
-       if(currentHour<=11) greetingMessage.setText("Good morning @"+user.getUsername()+"!");
-       else if(currentHour<19) greetingMessage.setText("Good afternoon @"+user.getUsername()+"!");
-       else greetingMessage.setText("Good evening @"+user.getUsername()+"!");
+       if(currentHour<=11) greetingMessage.setText(MyDayMessages.GOODMORNING.toString()+user.getUsername()+"!");
+       else if(currentHour<19) greetingMessage.setText(MyDayMessages.GOODAFTERNOON.toString()+user.getUsername()+"!");
+       else greetingMessage.setText(MyDayMessages.GOODEVENING.toString()+user.getUsername()+"!");
 
 
 
@@ -403,8 +388,8 @@ public class MyDayController {
         if(task==null){
             AlertClass.alertERROR(MyDayMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
         } else{
-            rightVBox.setPrefWidth(400);
-            text1.setText(MyDayMessages.TEXTFLOWTASKNAME.toString()+task.getTaskName() + " ("+task.getListName()+")\n");
+            rightVBox.setPrefWidth(300);
+            text1.setText(task.getTaskName() + " ("+task.getListName()+")\n\n");
 
             if(task.getStartYear()!=1){
                 text2.setText(MyDayMessages.TEXTFLOWSTARTDATE.toString()+task.getStartDateAndTime().format(formatDate)+"\n");
@@ -440,10 +425,24 @@ public class MyDayController {
                 text8.setText(" ");
             }
 
+            styleTextFlow(false);
 
+        }
+    }
+
+    private void styleTextFlow(boolean collapse){
+        if(collapse){
+            rightVBox.setPrefWidth(200);
+            text1.setText(" ");
+            text2.setText(" ");
+            text3.setText(" ");
+            text4.setText(" ");
+            text5.setText(" ");
+            text6.setText(" ");
+            text7.setText(" ");
+            text8.setText(" ");
+        } else{
             textFlow.setLineSpacing(1.5);
-            textFlow.setPrefWidth(Region.USE_PREF_SIZE);
-            textFlow.setPrefHeight(Region.USE_PREF_SIZE);
             textFlow.setStyle(" -fx-padding: 20px; -fx-margin: 10px;");
             text1.setStyle("-fx-font-size: 16; -fx-fill: darkred; -fx-font-weight:bold;");
             text2.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
@@ -454,9 +453,8 @@ public class MyDayController {
             text7.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
             text8.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
         }
+
     }
-
-
 
 
 
