@@ -43,10 +43,10 @@
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <ButtonBar buttonMinWidth="25.0">
+            <ButtonBar buttonMinWidth="0.0" prefHeight="25.0" prefWidth="100.0" translateX="-47.0">
                <buttons>
-                  <Button fx:id="btnNewList" alignment="CENTER" mnemonicParsing="false" onAction="#actionNewList" text="insert" />
-                  <Button fx:id="btnDeleteList" alignment="CENTER" minWidth="72.0" mnemonicParsing="false" onAction="#actionDeleteList" prefHeight="25.0" text="delete" />
+                  <Button fx:id="btnNewList" alignment="CENTER" mnemonicParsing="false" onAction="#actionNewList" styleClass="btnLists" text="%add_list" />
+                  <Button fx:id="btnDeleteList" alignment="CENTER" minWidth="72.0" mnemonicParsing="false" onAction="#actionDeleteList" prefHeight="25.0" styleClass="btnLists" text="%delete_list" />
                </buttons>
             </ButtonBar>
             <ListView fx:id="listViewLists" prefHeight="200.0" prefWidth="200.0" />

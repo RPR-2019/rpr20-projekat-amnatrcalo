@@ -47,5 +47,23 @@ public enum TooltipContent {
             else
                 return "Dodaj novi zadatak";
         }
+    },
+    ADDNEWLIST{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Add new list";
+            else
+                return "Dodaj novu listu";
+        }
+    },
+    DELETELIST{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Delete list";
+            else
+                return "Obriši listu";
+        }
     }
 }

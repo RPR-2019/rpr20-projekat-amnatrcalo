@@ -55,6 +55,8 @@ public class MyDayController {
     public Label quoteAuthor;
     public Label clock;
     public Button btnAddNewTask;
+    public Button btnNewList;
+    public Button btnDeleteList;
     public ListView<CustomList> listViewLists;
     public CheckListView<Task> tableViewTasks;
     public ObservableList<CustomList> listLists;
@@ -115,6 +117,8 @@ public class MyDayController {
         btnDeleteTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETETASK.toString()));
         btnRightArrow.setTooltip(TooltipClass.makeTooltip(TooltipContent.COLLAPSEDETAILS.toString()));
         btnAddNewTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.ADDNEWTASK.toString()));
+        btnNewList.setTooltip(TooltipClass.makeTooltip(TooltipContent.ADDNEWLIST.toString()));
+        btnDeleteList.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETELIST.toString()));
 
         btnRightArrow.setOnAction(new EventHandler<ActionEvent>() {
             @Override

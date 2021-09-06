@@ -134,7 +134,7 @@ public class LoginController {
             myDayStage.getIcons().add(icon);
             myDayStage.setResizable(true);
             myDayStage.setMinHeight(650);
-            myDayStage.setMinWidth(750);
+            myDayStage.setMinWidth(760);
             myDayStage.show();
             myDayStage.setOnCloseRequest(event2->{
                 MyDayController.timelineInfinite.stop();
