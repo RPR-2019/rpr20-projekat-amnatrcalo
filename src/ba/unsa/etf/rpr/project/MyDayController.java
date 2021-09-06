@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -83,6 +84,8 @@ public class MyDayController {
 
 
     static Timeline timelineInfinite=new Timeline();
+    static Timeline timeline2=new Timeline();
+    static Timeline timeline3=new Timeline();
     private final int currentHour=LocalDateTime.now().getHour();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy");
     SimpleDateFormat simpleClockFormat=new SimpleDateFormat(MyDayMessages.CLOCK.toString());
@@ -97,27 +100,37 @@ public class MyDayController {
     }
 
     private boolean shouldSendNotif(Task t){
-        return !t.getListName().equals("Completed");
+        boolean ok=true;
+       if (t.getListName().equals("Completed")) ok=false;
+       else if(!t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))) ok=false;
+       else if (!t.getUsername().equals(user.getUsername())) ok=false;
+       return ok;
     }
 
-
-
-    @FXML
-    public void initialize(){
-
-        //set delete task Btn and edit task Btn
-        rightVBox.setAlignment(Pos.TOP_CENTER);
-        rightVBox.getChildren().add(0,btnEditTask);
-        rightVBox.getChildren().add(1,btnDeleteTask);
-        rightVBox.getChildren().add(3,btnRightArrow);
-        rightVBox.getChildren().add(textFlow);
-
+    private void setTooltips(){
         btnEditTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.EDITTASK.toString()));
         btnDeleteTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETETASK.toString()));
         btnRightArrow.setTooltip(TooltipClass.makeTooltip(TooltipContent.COLLAPSEDETAILS.toString()));
         btnAddNewTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.ADDNEWTASK.toString()));
         btnNewList.setTooltip(TooltipClass.makeTooltip(TooltipContent.ADDNEWLIST.toString()));
         btnDeleteList.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETELIST.toString()));
+    }
+
+
+    private ArrayList<User>sviuseri=new ArrayList<>();
+
+
+    @FXML
+    public void initialize(){
+
+        rightVBox.setAlignment(Pos.TOP_CENTER);
+        rightVBox.getChildren().add(0,btnEditTask);
+        rightVBox.getChildren().add(1,btnDeleteTask);
+        rightVBox.getChildren().add(2,btnRightArrow);
+        rightVBox.getChildren().add(textFlow);
+
+        setTooltips();
+
 
         btnRightArrow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -183,10 +196,10 @@ public class MyDayController {
         });
 
         //send notification
-        Timeline timelineInfinite = new Timeline(new KeyFrame(Duration.millis(1000), e-> {
+         timelineInfinite = new Timeline(new KeyFrame(Duration.millis(1000), e-> {
             for(Task t: dao.getAllTasksAlertNotification(user)){
-                if(shouldSendNotif(t) && t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
-                    Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(2000), event2 -> {
+                if(shouldSendNotif(t)){
+                     timeline2 = new Timeline(new KeyFrame(Duration.millis(2000), event2 -> {
                         NotificationReminder.sendNotification(t);
                     }));
                     timeline2.play();
@@ -194,8 +207,8 @@ public class MyDayController {
             }
 
             for(Task t: dao.getAllTasksEmailNotification(user)){
-                if(shouldSendNotif(t) && t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))){
-                    Timeline timeline3 = new Timeline(new KeyFrame(Duration.millis(2000), event3 -> {
+                if(shouldSendNotif(t)){
+                    timeline3 = new Timeline(new KeyFrame(Duration.millis(2000), event3 -> {
                         try {
                             MailClass.sendMail(t,user);
                         } catch (Exception ex) {
@@ -240,7 +253,6 @@ public class MyDayController {
         listViewLists.getSelectionModel().select(0);
         activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
         tableViewTasks.setItems(activeSession);
-        //colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
 
         listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
             CustomList oldList=(CustomList) oldItem;
@@ -252,7 +264,7 @@ public class MyDayController {
                 activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
             }
                 tableViewTasks.setItems(activeSession);
-                //colTaskName.setCellValueFactory(new PropertyValueFactory("taskName"));
+
 
         } );
 

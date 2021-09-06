@@ -138,6 +138,8 @@ public class LoginController {
             myDayStage.show();
             myDayStage.setOnCloseRequest(event2->{
                 MyDayController.timelineInfinite.stop();
+                MyDayController.timeline2.stop();
+                MyDayController.timeline3.stop();
             });
 
         }));
