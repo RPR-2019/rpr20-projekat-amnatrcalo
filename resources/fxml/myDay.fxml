@@ -57,11 +57,20 @@
       </VBox>
    </left>
    <bottom>
-      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+      <VBox fx:id="bottomVBox" alignment="CENTER" styleClass="bottomVBox" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="randomQuote" alignment="CENTER" contentDisplay="CENTER" text="Label" />
-            <Label fx:id="quoteAuthor" alignment="CENTER" contentDisplay="CENTER" text="Label" />
+            <Label fx:id="randomQuote" alignment="CENTER" contentDisplay="CENTER" text="Label">
+               <font>
+                  <Font name="Bookman Old Style" size="15.0" />
+               </font></Label>
+            <Label fx:id="quoteAuthor" alignment="CENTER" contentDisplay="CENTER" text="Label">
+               <font>
+                  <Font name="Bookman Old Style" size="12.0" />
+               </font></Label>
          </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </VBox>
    </bottom>
    <center>
@@ -101,7 +110,7 @@
       </GridPane>
    </center>
    <right>
-      <VBox fx:id="rightVBox" prefHeight="340.0" prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="rightVBox" prefHeight="340.0" prefWidth="200.0" spacing="5.0" styleClass="rightVBox" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="100.0" />
          </padding>

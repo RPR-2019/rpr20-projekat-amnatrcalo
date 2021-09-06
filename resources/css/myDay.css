@@ -9,6 +9,14 @@
 -fx-background-color:#cdd1ff;
 }
 
+.rightVBox{
+-fx-background-color: #faf0f0;
+}
+
+.bottomVBox{
+-fx-background-color:#faf0f0;
+}
+
 .clock{
 -fx-effect: dropshadow( three-pass-box, rgba(0, 0, 0, 0.6), 10, 0.0, 0, 1);
 -fx-color: white;

@@ -106,7 +106,6 @@ public class MyDayController {
     public void initialize(){
 
         //set delete task Btn and edit task Btn
-        rightVBox.setStyle("-fx-background-color: #faf0f0;");
         rightVBox.setAlignment(Pos.TOP_CENTER);
         rightVBox.getChildren().add(0,btnEditTask);
         rightVBox.getChildren().add(1,btnDeleteTask);
