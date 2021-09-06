@@ -1,11 +1,10 @@
 .centerBackground{
-/*-fx-background-color: #f5c9eb;*/
 -fx-background-color: #faf0f0;
 
 }
 
 .leftVBox{
--fx-background-color:#cdd1ff;
+-fx-background-color:#BFD8B8;
 }
 
 .rightVBox{
@@ -57,6 +56,29 @@
 -fx-background-color: #f40b59;
 }
 
+
+ /***************
+  LIST STYLE
+  ***************/
+
+
+.list-cell{
+-fx-background-color: white;
+-fx-font-size: 20px;
+-fx-text-fill: darkred;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+   -fx-background-color:#f5aec6;
+    -fx-text-fill: white;
+    -fx-weight:bold;
+}
+
+
+.list-cell:filled:hover {
+    -fx-background-color: #f5aec6;
+    -fx-text-fill: white;
+}
 
 
 
@@ -127,28 +149,6 @@ NOTIFICATION STYLE
  }
 
 
- /***************
-  LIST STYLE
-  ***************/
-
-
-.list-cell{
--fx-background-color: white;
--fx-font-size: 20px;
--fx-text-fill: darkred;
-}
-
-.list-cell:filled:selected:focused, .list-cell:filled:selected {
-   -fx-background-color: #ed3774;
-    -fx-text-fill: white;
-    -fx-weight:bold;
-}
-
-
-.list-cell:filled:hover {
-    -fx-background-color: #ed3774;
-    -fx-text-fill: white;
-}
 
 
 
