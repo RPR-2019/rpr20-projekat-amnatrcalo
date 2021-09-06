@@ -38,5 +38,14 @@ public enum TooltipContent {
             else
                 return "Sakrij detalje";
         }
+    },
+    ADDNEWTASK{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Add new task";
+            else
+                return "Dodaj novi zadatak";
+        }
     }
 }
