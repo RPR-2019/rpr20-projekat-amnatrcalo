@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
 import ba.unsa.etf.rpr.project.enums.ListsName;
+import ba.unsa.etf.rpr.project.enums.TaskMessages;
 import ba.unsa.etf.rpr.project.enums.TooltipContent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -222,8 +223,7 @@ public class TaskController {
     public void actionAddFile(ActionEvent actionEvent){
         FileChooser chooser=new FileChooser();
         chooser.setTitle("Izaberite datoteku: ");
-        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Tekstualne " +
-                "datoteke", "*.txt"));
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(TaskMessages.DATATYPE.toString(), "*.txt"));
 
         File file= chooser.showOpenDialog(areaNote.getScene().getWindow());
         if(file==null) return;
@@ -231,14 +231,15 @@ public class TaskController {
             String text= new String(Files.readAllBytes(file.toPath()));
             areaNote.setText(text);
             if(text.length()>=100) {
-                //ne moze puno znakova
+               AlertClass.alertERROR(TaskMessages.TEXTLENGTHERRORHEADER.toString(),TaskMessages.TEXTLENGTHERRORCONTENT.toString(),"/img/road-sign-icon.png");
             }
         } catch (IOException e) {
-            Alert alert=new Alert(Alert.AlertType.ERROR);
+            System.out.println(e.getMessage());
+           /* Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ne mogu učitati datoteku");
             alert.setHeaderText("Došlo je do greške prilikom čitanja "+file.getName());
             alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            alert.showAndWait();*/
         }
 
     }

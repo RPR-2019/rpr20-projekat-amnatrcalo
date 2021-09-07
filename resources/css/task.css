@@ -44,6 +44,7 @@ CHOICEBOX
 .choice-box {
   -fx-background-color: #f5aec6;
   -fx-mark-color: darkred; // arrow color
+  -fx-font-size: 15px;
 }
 .choice-box .context-menu { -fx-background-color: white; }
 .choice-box .menu-item:focused { -fx-background-color: #f5aec6; }

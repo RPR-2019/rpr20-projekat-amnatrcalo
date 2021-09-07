@@ -35,7 +35,7 @@
                </font></Button>
          </buttons>
       </ButtonBar>
-      <ChoiceBox fx:id="listMenu" prefHeight="34.0" prefWidth="129.0" GridPane.columnIndex="2" />
+      <ChoiceBox fx:id="listMenu" prefHeight="27.0" prefWidth="116.0" GridPane.columnIndex="2" />
       <HBox GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets bottom="20.0" left="10.0" top="170.0" />
