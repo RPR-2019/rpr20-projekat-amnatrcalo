@@ -65,5 +65,23 @@ public enum TooltipContent {
             else
                 return "Obriši listu";
         }
+    },
+    CHOOSELIST{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Choose one of Your lists";
+            else
+                return "Izaberite jednu od svojih listi";
+        }
+    },
+    SETDATEANDTIME{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Set date and time of start or end of the task. This is optional";
+            else
+                return "Postavite datum i vrijeme početka ili kraja zadatka. Ovo nije obavezno";
+        }
     }
 }

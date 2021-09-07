@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
 import ba.unsa.etf.rpr.project.enums.ListsName;
+import ba.unsa.etf.rpr.project.enums.TooltipContent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,6 +46,7 @@ public class TaskController {
 
     @FXML
     public void initialize(){
+        listMenu.setTooltip(TooltipClass.makeTooltip(TooltipContent.CHOOSELIST.toString()));
 
         if(task!=null){
             fldTaskName.setText(task.getTaskName());
@@ -57,11 +59,9 @@ public class TaskController {
         }
 
         gridPane.add(btnAddDateAndTime,0,2);
-        Tooltip hoverBtnDateAndTime=new Tooltip("Set date and time of start or end of the task. This is optional.");
-        hoverBtnDateAndTime.setStyle("-fx-background-color: yellow; -fx-text-fill: red;");
-        hoverBtnDateAndTime.setShowDelay(Duration.millis(100));
 
-        btnAddDateAndTime.setTooltip(hoverBtnDateAndTime);
+
+        btnAddDateAndTime.setTooltip(TooltipClass.makeTooltip(TooltipContent.SETDATEANDTIME.toString()));
 
         btnAddDateAndTime.setOnAction(new EventHandler<ActionEvent>() {
             @Override

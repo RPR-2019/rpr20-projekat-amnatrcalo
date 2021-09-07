@@ -551,6 +551,7 @@ public class AppDAO {
             deleteListForUserStmt.setString(1,username);
             deleteListForUserStmt.setString(2,listName);
             deleteListForUserStmt.executeUpdate();
+            deleteTasksFromList(username,listName);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

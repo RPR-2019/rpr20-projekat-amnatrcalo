@@ -41,7 +41,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 
-//kada se poziva postaviti mu minHeight i minwidth od oka
+
 public class MyDayController {
     public Label greetingMessage;
     public Label date;
@@ -70,9 +70,9 @@ public class MyDayController {
 
 
     private ObservableList<Task> activeSession = FXCollections.observableArrayList();
-    private User user;
-    private AppDAO dao;
-
+    private final User user;
+    private final AppDAO dao;
+    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
 
 
@@ -109,8 +109,6 @@ public class MyDayController {
         btnDeleteList.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETELIST.toString()));
     }
 
-
-    private ArrayList<User>sviuseri=new ArrayList<>();
 
 
     @FXML
@@ -204,7 +202,7 @@ public class MyDayController {
 
                 Stage editTask=new Stage();
                 Parent root=null;
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"),bundle);
                 TaskController taskController=new TaskController(task,user,listLists,true);
                 loader.setController(taskController);
                 try {
@@ -296,7 +294,7 @@ public class MyDayController {
 
         Stage addNewTask=new Stage();
         Parent root=null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"),bundle);
         TaskController taskController=new TaskController(null,user,listLists,false);
         loader.setController(taskController);
         try {
@@ -328,7 +326,7 @@ public class MyDayController {
     public void actionNewList(ActionEvent actionEvent) {
         Stage addNewList=new Stage();
         Parent root=null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/list.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/list.fxml"),bundle);
         ListController listController=new ListController(user,null);
         loader.setController(listController);
         try {
@@ -372,7 +370,6 @@ public class MyDayController {
         }
 
         if(AlertClass.alertCONFIRMATION(AlertMessages.DELETETASKCONFIRMATIONHEADER.toString()+selectedListName,AlertMessages.DELETELISTCONFIRMATIONCONTENT.toString(),"/img/todolist-icon.png")){
-            dao.deleteTasksFromList(user.getUsername(),selectedListName);
             dao.deleteList(user.getUsername(),selectedListName);
             listLists.remove(new CustomList(user.getUsername(), selectedListName));
         }

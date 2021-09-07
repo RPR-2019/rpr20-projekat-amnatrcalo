@@ -98,7 +98,7 @@
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin></Label>
-                  <Label fx:id="date" text="Label" textFill="#ad1d1d">
+                  <Label fx:id="date" textFill="#ad1d1d">
                      <font>
                         <Font name="Dubai Light" size="24.0" />
                      </font></Label>
