@@ -14,11 +14,14 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.stream.Collectors;
 
 public class TaskController {
@@ -37,7 +40,7 @@ public class TaskController {
 
     private AppDAO dao;
     private boolean edit=false;
-
+    final int MAX_CHARS = 100 ;
 
     public Task getTask() {
         return task;
@@ -47,6 +50,10 @@ public class TaskController {
     @FXML
     public void initialize(){
         listMenu.setTooltip(TooltipClass.makeTooltip(TooltipContent.CHOOSELIST.toString()));
+       areaNote.setTextFormatter(new TextFormatter<String>(change ->
+                change.getControlNewText().length() <= MAX_CHARS ? change : null));
+
+
 
         if(task!=null){
             fldTaskName.setText(task.getTaskName());
@@ -210,6 +217,30 @@ public class TaskController {
             else if(t.getStartDateAndTime().isBefore(task.getStartDateAndTime()) && t.getEndDateAndTime().isAfter(task.getStartDateAndTime())) overlap=true;
         }
         return overlap;
+    }
+
+    public void actionAddFile(ActionEvent actionEvent){
+        FileChooser chooser=new FileChooser();
+        chooser.setTitle("Izaberite datoteku: ");
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Tekstualne " +
+                "datoteke", "*.txt"));
+
+        File file= chooser.showOpenDialog(areaNote.getScene().getWindow());
+        if(file==null) return;
+        try {
+            String text= new String(Files.readAllBytes(file.toPath()));
+            areaNote.setText(text);
+            if(text.length()>=100) {
+                //ne moze puno znakova
+            }
+        } catch (IOException e) {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ne mogu učitati datoteku");
+            alert.setHeaderText("Došlo je do greške prilikom čitanja "+file.getName());
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+
     }
 
 

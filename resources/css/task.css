@@ -28,14 +28,24 @@
   -fx-background-color: transparent;
 }
 
+.btnAddFile{
+-fx-background-color: white;
+-fx-border: none;
+-fx-cursor:hand;
+}
+
+.btnAddFile:hover{
+-fx-text-fill: black;
+}
+
 /*******************
 CHOICEBOX
 ********************/
 .choice-box {
-  -fx-background-color: #d7edd1;
+  -fx-background-color: #f5aec6;
   -fx-mark-color: darkred; // arrow color
 }
 .choice-box .context-menu { -fx-background-color: white; }
-.choice-box .menu-item:focused { -fx-background-color: #d7edd1; }
+.choice-box .menu-item:focused { -fx-background-color: #f5aec6; }
 .choice-box .menu-item > .label { -fx-text-fill: darkred; -fx-font-size: 15px; }
 .choice-box .menu-item:focused > .label { -fx-text-fill: black; }

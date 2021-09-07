@@ -3,6 +3,7 @@
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -35,6 +36,19 @@
          </buttons>
       </ButtonBar>
       <ChoiceBox fx:id="listMenu" prefHeight="34.0" prefWidth="129.0" GridPane.columnIndex="2" />
+      <HBox GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets bottom="20.0" left="10.0" top="170.0" />
+         </GridPane.margin>
+         <children>
+            <ImageView fitHeight="37.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/add-file-icon.png" />
+               </image>
+            </ImageView>
+            <Button mnemonicParsing="false" onAction="#actionAddFile" styleClass="btnAddFile" text="%add_file" textFill="#ccc8c8" />
+         </children>
+      </HBox>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
