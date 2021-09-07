@@ -195,9 +195,13 @@ public class RegisterController {
             myDayStage.setResizable(true);
             myDayStage.setMinHeight(650);
             myDayStage.setMinWidth(760);
+            String css = NotificationReminder.class.getResource("/css/notificationpopup.css").toExternalForm();
+            myDayStage.getScene().getStylesheets().add(0,css);
             myDayStage.show();
             myDayStage.setOnCloseRequest(event2->{
                 MyDayController.timelineInfinite.stop();
+                MyDayController.timeline2.stop();
+                MyDayController.timeline3.stop();
             });
 
             Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event2 -> {

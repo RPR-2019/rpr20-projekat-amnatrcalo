@@ -257,8 +257,6 @@ public class MyDayController {
         tableViewTasks.setItems(activeSession);
 
         listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
-            CustomList oldList=(CustomList) oldItem;
-            CustomList newList=(CustomList) newItem;
 
             if(newItem.getListName().equals("My day")){
                 activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));

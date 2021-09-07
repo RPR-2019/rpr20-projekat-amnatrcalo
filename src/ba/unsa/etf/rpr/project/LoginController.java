@@ -135,6 +135,8 @@ public class LoginController {
             myDayStage.setResizable(true);
             myDayStage.setMinHeight(650);
             myDayStage.setMinWidth(760);
+            String css = NotificationReminder.class.getResource("/css/notificationpopup.css").toExternalForm();
+            myDayStage.getScene().getStylesheets().add(0,css);
             myDayStage.show();
             myDayStage.setOnCloseRequest(event2->{
                 MyDayController.timelineInfinite.stop();
