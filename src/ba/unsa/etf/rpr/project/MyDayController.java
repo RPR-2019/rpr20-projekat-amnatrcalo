@@ -1,33 +1,29 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.AlertMessages;
 import ba.unsa.etf.rpr.project.enums.ListsName;
 import ba.unsa.etf.rpr.project.enums.MyDayMessages;
 import ba.unsa.etf.rpr.project.enums.TooltipContent;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.CheckBoxListCell;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -36,13 +32,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.CheckListView;
-import org.controlsfx.control.IndexedCheckModel;
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.Rating;
-import org.sqlite.util.StringUtils;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -81,7 +72,7 @@ public class MyDayController {
     private ObservableList<Task> activeSession = FXCollections.observableArrayList();
     private User user;
     private AppDAO dao;
-    private AlertClass alertClass=new AlertClass();
+
 
 
 
@@ -89,7 +80,7 @@ public class MyDayController {
     static Timeline timeline2=new Timeline();
     static Timeline timeline3=new Timeline();
     private final int currentHour=LocalDateTime.now().getHour();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(MyDayMessages.DATE.toString());
     SimpleDateFormat simpleClockFormat=new SimpleDateFormat(MyDayMessages.CLOCK.toString());
 
 
@@ -190,12 +181,12 @@ public class MyDayController {
             public void handle(ActionEvent actionEvent) {
                 Task task = tableViewTasks.getSelectionModel().getSelectedItem();
                 if(task==null) {
-                    AlertClass.alertERROR(MyDayMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+                    AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
                     return;
                 }
                 String listName=task.getListName();
-                if(AlertClass.alertCONFIRMATION( MyDayMessages.DELETECONFIRMATIONHEADER.toString() +" '"+task.getTaskName()+"'?",
-                        MyDayMessages.DELETECONFIRMATIONCONTENT.toString(),"/img/todolist-icon.png")){
+                if(AlertClass.alertCONFIRMATION( AlertMessages.DELETETASKCONFIRMATIONHEADER.toString() +" '"+task.getTaskName()+"'?",
+                        AlertMessages.DELETETASKCONFIRMATIONCONTENT.toString(),"/img/todolist-icon.png")){
                     dao.deleteTask(task);
                     activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
                 }
@@ -207,7 +198,7 @@ public class MyDayController {
             public void handle(ActionEvent actionEvent) {
                 Task task = tableViewTasks.getSelectionModel().getSelectedItem();
                 if(task==null){
-                    AlertClass.alertERROR(MyDayMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+                    AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
                     return;
                 }
 
@@ -222,7 +213,7 @@ public class MyDayController {
                     e.printStackTrace();
                 }
 
-                editTask.setTitle("My Day");
+                editTask.setTitle(" ");
                 editTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
                 Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
                 editTask.getIcons().add(icon);
@@ -270,9 +261,9 @@ public class MyDayController {
 
 
 
-
-
+        //when checkbox is selected, mark task as completed
         tableViewTasks.setCellFactory(CheckBoxListCell.forListView(new Callback<Task, ObservableValue<Boolean>>() {
+
             @Override
             public ObservableValue<Boolean> call(Task task) {
                 BooleanProperty observable=new SimpleBooleanProperty();
@@ -314,7 +305,7 @@ public class MyDayController {
             e.printStackTrace();
         }
 
-        addNewTask.setTitle("My Day");
+        addNewTask.setTitle(" ");
         addNewTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
         addNewTask.getIcons().add(icon);
@@ -346,7 +337,7 @@ public class MyDayController {
             e.printStackTrace();
         }
 
-        addNewList.setTitle("My List");
+        addNewList.setTitle(" ");
         addNewList.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
         addNewList.getIcons().add(icon);
@@ -365,46 +356,35 @@ public class MyDayController {
 
     }
 
+    private boolean shouldDeleteList(String listName){
+        return !listName.equals(ListsName.MYDAY.toString()) && !listName.equals(ListsName.COMPLETED.toString()) && !listName.equals(ListsName.TASKS.toString()) && !listName.equals(ListsName.PLANNED.toString());
+    }
+
 
 
     public void actionDeleteList(ActionEvent actionEvent) {
         String selectedListName=listViewLists.getSelectionModel().getSelectedItem().getListName();
         if(selectedListName==null) return;
 
-        if(selectedListName.equals("Tasks") || selectedListName.equals("My day")||selectedListName.equals("Planned") ||selectedListName.equals("Completed")){
-            alertClass.alertERROR("This list can't be deleted", "Lists: 'My day', 'Tasks', 'Planned'" +
-                    " and 'Completed' can't be deleted.","/img/login-icon.png");
+        if(!shouldDeleteList(selectedListName)){
+            AlertClass.alertERROR(AlertMessages.DELETELISTERRORHEADER.toString(), AlertMessages.DELETELISTERRORCONTENT.toString(),"/img/todolist-icon.png");
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete list");
-        alert.setHeaderText("By deleting this list, all tasks from it will be deleted, too.");
-        alert.setContentText("Are you sure?");
-
-        ButtonType buttonTypeOne = new ButtonType("Yes");
-        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == buttonTypeOne) {
-                dao.deleteTasksFromList(user.getUsername(),selectedListName);
-                dao.deleteList(user.getUsername(),selectedListName);
-                listLists.remove(new CustomList(user.getUsername(), selectedListName));
-            }
-
-
+        if(AlertClass.alertCONFIRMATION(AlertMessages.DELETETASKCONFIRMATIONHEADER.toString()+selectedListName,AlertMessages.DELETELISTCONFIRMATIONCONTENT.toString(),"/img/todolist-icon.png")){
+            dao.deleteTasksFromList(user.getUsername(),selectedListName);
+            dao.deleteList(user.getUsername(),selectedListName);
+            listLists.remove(new CustomList(user.getUsername(), selectedListName));
+        }
 
     }
 
     public void actionMoreDetails (ActionEvent event ){
-        DateTimeFormatter formatDate=DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        DateTimeFormatter formatTime=DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatDate=DateTimeFormatter.ofPattern(MyDayMessages.DATE.toString());
+        DateTimeFormatter formatTime=DateTimeFormatter.ofPattern(MyDayMessages.CLOCK.toString());
         Task task = tableViewTasks.getSelectionModel().getSelectedItem();
         if(task==null){
-            AlertClass.alertERROR(MyDayMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+            AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
         } else{
             rightVBox.setPrefWidth(300);
             text1.setText(task.getTaskName() + " ("+task.getListName()+")\n\n");
@@ -477,14 +457,6 @@ public class MyDayController {
 
 
 
-
-    public boolean sameStart(Task task){
-        boolean same=false;
-        for(Task t: dao.tasks()){
-            if(t.getStartDateAndTime().isEqual(task.getStartDateAndTime())) same=true;
-        }
-        return same;
-    }
 }
 
 
