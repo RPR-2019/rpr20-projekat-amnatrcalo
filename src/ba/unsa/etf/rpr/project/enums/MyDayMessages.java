@@ -30,24 +30,8 @@ public enum MyDayMessages {
                 return "Odabrani zadatak će se obrisati odmah. Brisanje nije moguće poništiti.";
         }
     },
-    REMINDERINFORMATION{
-        @Override
-        public String toString() {
-            if (Locale.getDefault().getCountry().equals("US"))
-                return "Starts in ";
-            else
-                return "Počinje za ";
-        }
-    },
-    TEXTFLOWTASKNAME{
-        @Override
-        public String toString() {
-            if (Locale.getDefault().getCountry().equals("US"))
-                return "Task name: ";
-            else
-                return "Ime zadatka: ";
-        }
-    },
+
+
     TEXTFLOWSTARTDATE{
         @Override
         public String toString() {

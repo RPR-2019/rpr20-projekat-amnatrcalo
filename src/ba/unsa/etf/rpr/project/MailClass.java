@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.NotificationMessages;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -22,9 +24,9 @@ public class MailClass {
         properties.put("mail.smtp.port", "587");
 
         //Your gmail address
-        String myAccountEmail = "xxxxxx";
+        String myAccountEmail = "xxxxx";
         //Your gmail password
-        String password = "xxxxxx";
+        String password = "xxxxx";
 
         //Create a session with account credentials
         Session session = Session.getInstance(properties, new Authenticator() {
@@ -49,9 +51,8 @@ public class MailClass {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setSubject("Reminder: To Do App");
-            //String htmlCode = "<h1> WE LOVE JAVA </h1> <br/> <h2><b>Next Line </b></h2>";
-            String htmlCode="<h1>Upcoming task: "+t.getTaskName()+"</h1> <br/> <h3>Starts in "+t.getReminderDigit()+" "+t.getReminderPeriod()+"</h3>";
+            message.setSubject(NotificationMessages.EMAILSUBJECT.toString());
+            String htmlCode="<h2>"+NotificationMessages.H2MAILTEXT.toString()+t.getTaskName()+"</h2> <br/> <h3>"+NotificationMessages.REMINDERINFORMATION.toString()+t.getReminderDigit()+" "+t.getReminderPeriod()+"</h3>";
             message.setContent(htmlCode, "text/html");
             return message;
         } catch (Exception ex) {

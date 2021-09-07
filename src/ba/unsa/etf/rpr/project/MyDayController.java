@@ -125,6 +125,49 @@ public class MyDayController {
     @FXML
     public void initialize(){
 
+        //set greeting message
+        String capitalizeUsername=user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1);
+        if(currentHour<=11) greetingMessage.setText(MyDayMessages.GOODMORNING.toString()+capitalizeUsername+"!");
+        else if(currentHour<19) greetingMessage.setText(MyDayMessages.GOODAFTERNOON.toString()+capitalizeUsername+"!");
+        else greetingMessage.setText(MyDayMessages.GOODEVENING.toString()+capitalizeUsername+"!");
+
+
+
+        //set qoute
+        Random rand=new Random();
+        int upperbound=dao.quotes().size();
+        int randIndex=rand.nextInt(upperbound);
+        randomQuote.setText(dao.quotes().get(randIndex).getContent());
+        quoteAuthor.setText(dao.quotes().get(randIndex).getAuthor());
+
+        //set date and time
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
+            final Calendar cal = Calendar.getInstance();
+            date.setText(simpleDateFormat.format(cal.getTime()));
+            clock.setText(simpleClockFormat.format(cal.getTime()));
+
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
+        listViewLists.setItems(listLists);
+
+        listViewLists.getSelectionModel().select(0);
+        activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
+        tableViewTasks.setItems(activeSession);
+
+        listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
+
+            if(newItem.getListName().equals(ListsName.MYDAY.toString())){
+                activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
+            } else{
+                activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
+            }
+            tableViewTasks.setItems(activeSession);
+
+
+        } );
+
         rightVBox.setAlignment(Pos.TOP_CENTER);
         rightVBox.getChildren().add(0,btnEditTask);
         rightVBox.getChildren().add(1,btnDeleteTask);
@@ -226,48 +269,6 @@ public class MyDayController {
         timelineInfinite.play();
 
 
-        //set greeting message
-        String capitalizeUsername=user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1);
-       if(currentHour<=11) greetingMessage.setText(MyDayMessages.GOODMORNING.toString()+capitalizeUsername+"!");
-       else if(currentHour<19) greetingMessage.setText(MyDayMessages.GOODAFTERNOON.toString()+capitalizeUsername+"!");
-       else greetingMessage.setText(MyDayMessages.GOODEVENING.toString()+capitalizeUsername+"!");
-
-
-
-       //set qoute
-        Random rand=new Random();
-        int upperbound=dao.quotes().size();
-        int randIndex=rand.nextInt(upperbound);
-        randomQuote.setText(dao.quotes().get(randIndex).getContent());
-        quoteAuthor.setText(dao.quotes().get(randIndex).getAuthor());
-
-       //set date and time
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
-            final Calendar cal = Calendar.getInstance();
-            date.setText(simpleDateFormat.format(cal.getTime()));
-            clock.setText(simpleClockFormat.format(cal.getTime()));
-
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-
-        listViewLists.setItems(listLists);
-
-        listViewLists.getSelectionModel().select(0);
-        activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
-        tableViewTasks.setItems(activeSession);
-
-        listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
-
-            if(newItem.getListName().equals(ListsName.MYDAY.toString())){
-                activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
-            } else{
-                activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
-            }
-                tableViewTasks.setItems(activeSession);
-
-
-        } );
 
 
 

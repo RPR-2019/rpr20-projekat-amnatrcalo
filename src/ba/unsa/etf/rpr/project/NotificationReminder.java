@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
 import ba.unsa.etf.rpr.project.enums.MyDayMessages;
+import ba.unsa.etf.rpr.project.enums.NotificationMessages;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,7 +18,7 @@ public class NotificationReminder {
 
         Notifications notification=Notifications.create()
                 .title(t.getTaskName().toUpperCase(Locale.ROOT))
-                .text(MyDayMessages.REMINDERINFORMATION.toString() +t.getReminderDigit()+" "+t.getReminderPeriod())
+                .text(NotificationMessages.REMINDERINFORMATION.toString() +t.getReminderDigit()+" "+t.getReminderPeriod())
                 .graphic(new ImageView(reminderImage))
                 .hideAfter(Duration.seconds(7))
                 .position(Pos.BOTTOM_RIGHT);
