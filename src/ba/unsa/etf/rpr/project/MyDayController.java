@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.ListsName;
 import ba.unsa.etf.rpr.project.enums.MyDayMessages;
 import ba.unsa.etf.rpr.project.enums.TooltipContent;
 import javafx.animation.Animation;
@@ -258,7 +259,7 @@ public class MyDayController {
 
         listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
 
-            if(newItem.getListName().equals("My day")){
+            if(newItem.getListName().equals(ListsName.MYDAY.toString())){
                 activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
             } else{
                 activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
@@ -276,12 +277,12 @@ public class MyDayController {
                 BooleanProperty observable=new SimpleBooleanProperty();
                 observable.addListener((obs, wasSelected, isNowSelected) ->{
                     if(isNowSelected){
-                        if(!task.getListName().equals("Completed")) {
-                            task.setListName("Completed");
+                        if(!task.getListName().equals(ListsName.COMPLETED.toString())) {
+                            task.setListName(ListsName.COMPLETED.toString());
 
                         } else{
-                            if(TaskController.startDateAndTimeAreSet(task.getStartYear())) task.setListName("Planned");
-                            else task.setListName("Tasks");
+                            if(TaskController.startDateAndTimeAreSet(task.getStartYear())) task.setListName(ListsName.PLANNED.toString());
+                            else task.setListName(ListsName.TASKS.toString());
                         }
                         dao.editTask(task);
                         listViewLists.getSelectionModel().select(new CustomList(user.getUsername(), task.getListName()));
@@ -415,15 +416,15 @@ public class MyDayController {
                     text3.setText(MyDayMessages.TEXTFLOWSTARTTIME.toString()+task.getStartDateAndTime().format(formatTime)+"\n");
                 }
             } else{
-                text2.setText("\n");
-                text3.setText("\n");
+                text2.setText("");
+                text3.setText("");
             }
             if(task.getEndYear()!=1){
                 text4.setText(MyDayMessages.TEXTFLOWENDDATE.toString()+task.getEndDateAndTime().format(formatDate)+"\n");
                 text5.setText(MyDayMessages.TEXTFLOWENDTIME.toString()+task.getEndDateAndTime().format(formatTime)+"\n");
             } else{
-                text4.setText("\n");
-                text5.setText("\n");
+                text4.setText("");
+                text5.setText("");
             }
 
             if(task.isReminder()){
@@ -431,14 +432,14 @@ public class MyDayController {
                 if(task.isAlertEmail()) text7.setText(" ("+MyDayMessages.TEXTFLOWEMAILALERT.toString()+")\n");
                 else text7.setText(" ("+MyDayMessages.TEXTFLOWNOTIFICATIONALERT.toString()+")\n");
             }else{
-                text6.setText("\n");
-                text7.setText("\n");
+                text6.setText("");
+                text7.setText("");
             }
 
             if(!task.getNote().trim().isEmpty()){
                 text8.setText("\n"+task.getNote());
             }else{
-                text8.setText(" ");
+                text8.setText("");
             }
 
             styleTextFlow(false);

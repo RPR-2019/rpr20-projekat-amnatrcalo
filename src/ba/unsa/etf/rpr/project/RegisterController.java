@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.ListsName;
 import ba.unsa.etf.rpr.project.enums.LoginMessages;
 import ba.unsa.etf.rpr.project.enums.TooltipContent;
 import javafx.animation.KeyFrame;
@@ -169,10 +170,10 @@ public class RegisterController {
         Stage stage = (Stage) fldUsername.getScene().getWindow();
         stage.close();
 
-        dao.addList(user.getUsername(),"My day");
-        dao.addList(user.getUsername(),"Planned");
-        dao.addList(user.getUsername(),"Tasks");
-        dao.addList(user.getUsername(),"Completed");
+        dao.addList(user.getUsername(), ListsName.MYDAY.toString());
+        dao.addList(user.getUsername(),ListsName.PLANNED.toString());
+        dao.addList(user.getUsername(),ListsName.TASKS.toString());
+        dao.addList(user.getUsername(),ListsName.COMPLETED.toString());
 
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000), event -> {

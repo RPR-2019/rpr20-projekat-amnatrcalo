@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.ListsName;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -92,7 +93,7 @@ public class TaskController {
 
         });
         ObservableList<CustomList> listsForMenu=listLists.stream().filter(l->
-          !l.getListName().equals("My day") &&  !l.getListName().equals("Planned") && !l.getListName().equals("Tasks") && !l.getListName().equals("Completed"))
+          !l.getListName().equals(ListsName.MYDAY.toString()) &&  !l.getListName().equals(ListsName.PLANNED.toString()) && !l.getListName().equals(ListsName.TASKS.toString()) && !l.getListName().equals(ListsName.COMPLETED.toString()))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         //listMenu.setItems(listLists);
         listMenu.setItems(listsForMenu);
@@ -171,9 +172,9 @@ public class TaskController {
 
         if(listMenu.getValue()==null) {
             if (startDateAndTimeAreSet(task.getStartYear())) {
-                task.setListName("Planned");
+                task.setListName(ListsName.PLANNED.toString());
             } else {
-                task.setListName("Tasks");
+                task.setListName(ListsName.TASKS.toString());
             }
         }else{
             task.setListName(listMenu.getValue().getListName());

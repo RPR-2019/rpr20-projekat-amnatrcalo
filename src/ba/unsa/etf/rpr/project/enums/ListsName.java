@@ -12,5 +12,32 @@ public enum ListsName {
                 return "Moj dan";
         }
     },
+    COMPLETED{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Completed";
+            else
+                return "Dovršeno";
+        }
+    },
+    TASKS{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Tasks";
+            else
+                return "Zadaci";
+        }
+    },
+    PLANNED{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Planned";
+            else
+                return "Planirano";
+        }
+    }
 
 }
