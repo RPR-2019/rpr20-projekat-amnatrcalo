@@ -9,11 +9,12 @@ import java.util.Scanner;
 
 public class AppDAO {
     private static Connection conn;
-    private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteAllUsersStmt,
+    private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
-            getAllTasksStmt, getAllTasksForUserStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, deleteOneTaskStmt, deleteAllTasksFromListStmt, deleteAllTasksStmt,
+            getAllTasksStmt, getAllTasksForUserStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, deleteOneTaskStmt, deleteAllTasksFromListStmt,
+            deleteAllTasksForUserStmt, deleteAllTasksStmt,
             getAllTasksNotificationRemStmt, getAllTasksEmailRemStmt,
-            getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, deleteAllListsStmt, deleteListForUserStmt;
+            getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, deleteAllListsForUserStmt, deleteAllListsStmt, deleteListForUserStmt;
 
 
     private static AppDAO instance=null;
@@ -47,6 +48,7 @@ public class AppDAO {
             setNewIdStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM users");
             addNewUserStmt=conn.prepareStatement("INSERT INTO users VALUES(?,?,?,?,?,?)");
             getUserStmt=conn.prepareStatement("SELECT *FROM users WHERE username=?");
+            deleteUserStmt=conn.prepareStatement("DELETE FROM users WHERE username=?");
             deleteAllUsersStmt =conn.prepareStatement("DELETE FROM users");
 
             //quotes
@@ -66,6 +68,7 @@ public class AppDAO {
                     "reminder_period=?, alert_notification=?, alert_email=?, list_name=?, all_day=? WHERE id=?");
             deleteOneTaskStmt=conn.prepareStatement("DELETE FROM tasks WHERE id=?");
             deleteAllTasksFromListStmt =conn.prepareStatement("DELETE FROM tasks WHERE username=? AND list_name=?");
+            deleteAllTasksForUserStmt=conn.prepareStatement("DELETE FROM tasks WHERE username=?");
             deleteAllTasksStmt =conn.prepareStatement("DELETE FROM tasks");
             getAllTasksNotificationRemStmt =conn.prepareStatement("SELECT *FROM tasks WHERE reminder=1 AND alert_notification=1 AND username=?");
             getAllTasksEmailRemStmt=conn.prepareStatement("SELECT *FROM tasks WHERE reminder=1 AND alert_email=1 AND username=?");
@@ -73,6 +76,7 @@ public class AppDAO {
             getAllListsStmt=conn.prepareStatement("SELECT *FROM lists");
             getAllListsForUserStmt=conn.prepareStatement("SELECT *FROM lists WHERE username=?");
             addNewListForUserStmt=conn.prepareStatement("INSERT INTO lists VALUES (?,?)");
+            deleteAllListsForUserStmt=conn.prepareStatement("DELETE FROM lists WHERE username=?");
             deleteAllListsStmt=conn.prepareStatement("DELETE from lists");
             deleteListForUserStmt=conn.prepareStatement("DELETE from lists WHERE username=? AND list_name=?");
 
@@ -182,6 +186,18 @@ public class AppDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void deleteUser(User user){
+        try {
+            deleteUserStmt.setString(1,user.getUsername());
+            deleteUserStmt.executeUpdate();
+
+            deleteAllListsForUser(user);
+            deleteAllTasksForUser(user);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -417,6 +433,15 @@ public class AppDAO {
         }
     }
 
+    public void deleteAllTasksForUser(User user){
+        try {
+            deleteAllTasksForUserStmt.setString(1,user.getUsername());
+            deleteAllTasksForUserStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public void deleteAllTasks(){
         try {
             deleteAllTasksStmt.executeUpdate();
@@ -499,6 +524,16 @@ public class AppDAO {
             exception.printStackTrace();
         }
 
+    }
+
+    public void deleteAllListsForUser(User user){
+        try {
+            deleteAllListsForUserStmt.setString(1,user.getUsername());
+            deleteAllListsForUserStmt.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        ;
     }
 
 
