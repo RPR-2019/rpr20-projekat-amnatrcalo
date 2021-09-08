@@ -128,7 +128,7 @@ public class LoginController {
             }
 
 
-            myDayStage.setTitle("My Day");
+            myDayStage.setTitle("ToDo App");
             myDayStage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
             Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
             myDayStage.getIcons().add(icon);

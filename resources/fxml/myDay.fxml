@@ -43,10 +43,16 @@
                <font>
                   <Font size="24.0" />
                </font></Button>
-            <ButtonBar buttonMinWidth="0.0" prefHeight="25.0" prefWidth="100.0" translateX="-47.0">
+            <ButtonBar buttonMinWidth="0.0" minHeight="25.0" minWidth="120.0" prefHeight="25.0" prefWidth="100.0" translateX="-50.0">
                <buttons>
-                  <Button fx:id="btnNewList" alignment="CENTER" mnemonicParsing="false" onAction="#actionNewList" styleClass="btnLists" text="%add_list" />
-                  <Button fx:id="btnDeleteList" alignment="CENTER" minWidth="72.0" mnemonicParsing="false" onAction="#actionDeleteList" prefHeight="25.0" styleClass="btnLists" text="%delete_list" />
+                  <Button fx:id="btnNewList" alignment="CENTER" mnemonicParsing="false" onAction="#actionNewList" styleClass="btnLists" text="%add_list">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font></Button>
+                  <Button fx:id="btnDeleteList" alignment="CENTER" minWidth="72.0" mnemonicParsing="false" onAction="#actionDeleteList" prefHeight="25.0" styleClass="btnLists" text="%delete_list">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font></Button>
                </buttons>
                <VBox.margin>
                   <Insets top="15.0" />
@@ -65,11 +71,11 @@
    <bottom>
       <VBox fx:id="bottomVBox" alignment="CENTER" styleClass="bottomVBox" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="randomQuote" alignment="CENTER" contentDisplay="CENTER" text="Label">
+            <Label fx:id="randomQuote" alignment="CENTER" contentDisplay="CENTER" text="Label" textFill="#1a508b">
                <font>
                   <Font name="Bookman Old Style" size="15.0" />
                </font></Label>
-            <Label fx:id="quoteAuthor" alignment="CENTER" contentDisplay="CENTER" text="Label">
+            <Label fx:id="quoteAuthor" alignment="CENTER" contentDisplay="CENTER" text="Label" textFill="#1a508b">
                <font>
                   <Font name="Bookman Old Style" size="12.0" />
                </font></Label>
@@ -91,14 +97,14 @@
          <children>
             <VBox alignment="CENTER_LEFT">
                <children>
-                  <Label fx:id="greetingMessage" text="Label" textFill="#ad1d1d">
+                  <Label fx:id="greetingMessage" text="Label" textFill="#0d335d">
                      <font>
                         <Font name="SansSerif Italic" size="36.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin></Label>
-                  <Label fx:id="date" textFill="#ad1d1d">
+                  <Label fx:id="date" textFill="#1a508b">
                      <font>
                         <Font name="Dubai Light" size="24.0" />
                      </font></Label>
