@@ -305,7 +305,7 @@ public class MyDayController {
 
         addNewTask.setTitle(StageName.YOURTASK.toString());
         addNewTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/todo-list-icon.png"));
+        Image icon=new Image(getClass().getResourceAsStream("/img/todolist-icon.png"));
         addNewTask.getIcons().add(icon);
         addNewTask.setResizable(false);
         addNewTask.show();

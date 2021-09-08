@@ -230,9 +230,6 @@ public class TaskController {
     }
 
 
-
-
-
     public void actionAddFile(ActionEvent actionEvent){
         FileChooser chooser=new FileChooser();
         chooser.setTitle("Izaberite datoteku: ");
