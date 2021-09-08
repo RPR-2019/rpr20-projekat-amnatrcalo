@@ -179,12 +179,12 @@ public class MyDayController {
             public void handle(ActionEvent actionEvent) {
                 Task task = tableViewTasks.getSelectionModel().getSelectedItem();
                 if(task==null) {
-                    AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+                    AlertClass.alertERROR(MyDayAlertMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
                     return;
                 }
                 String listName=task.getListName();
-                if(AlertClass.alertCONFIRMATION( AlertMessages.DELETETASKCONFIRMATIONHEADER.toString() +" '"+task.getTaskName()+"'?",
-                        AlertMessages.DELETETASKCONFIRMATIONCONTENT.toString(),"/img/thinking-face-icon.png")){
+                if(AlertClass.alertCONFIRMATION( MyDayAlertMessages.DELETETASKCONFIRMATIONHEADER.toString() +" '"+task.getTaskName()+"'?",
+                        MyDayAlertMessages.DELETETASKCONFIRMATIONCONTENT.toString(),"/img/thinking-face-icon.png")){
                     dao.deleteTask(task);
                     activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
                 }
@@ -196,7 +196,7 @@ public class MyDayController {
             public void handle(ActionEvent actionEvent) {
                 Task task = tableViewTasks.getSelectionModel().getSelectedItem();
                 if(task==null){
-                    AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/road-sign-icon.png");
+                    AlertClass.alertERROR(MyDayAlertMessages.NOTSELECTED.toString(), " ", "/img/road-sign-icon.png");
                     return;
                 }
 
@@ -365,11 +365,11 @@ public class MyDayController {
         if(selectedListName==null) return;
 
         if(!shouldDeleteList(selectedListName)){
-            AlertClass.alertERROR(AlertMessages.DELETELISTERRORHEADER.toString(), AlertMessages.DELETELISTERRORCONTENT.toString(),"/img/road-sign-icon.png");
+            AlertClass.alertERROR(MyDayAlertMessages.DELETELISTERRORHEADER.toString(), MyDayAlertMessages.DELETELISTERRORCONTENT.toString(),"/img/road-sign-icon.png");
             return;
         }
 
-        if(AlertClass.alertCONFIRMATION(AlertMessages.DELETETASKCONFIRMATIONHEADER.toString()+"'"+selectedListName+"'?",AlertMessages.DELETELISTCONFIRMATIONCONTENT.toString(),"/img/thinking-face-icon.png")){
+        if(AlertClass.alertCONFIRMATION(MyDayAlertMessages.DELETETASKCONFIRMATIONHEADER.toString()+"'"+selectedListName+"'?", MyDayAlertMessages.DELETELISTCONFIRMATIONCONTENT.toString(),"/img/thinking-face-icon.png")){
             dao.deleteList(user.getUsername(),selectedListName);
             listLists.remove(new CustomList(user.getUsername(), selectedListName));
         }
@@ -381,7 +381,7 @@ public class MyDayController {
         DateTimeFormatter formatTime=DateTimeFormatter.ofPattern(MyDayMessages.CLOCK.toString());
         Task task = tableViewTasks.getSelectionModel().getSelectedItem();
         if(task==null){
-            AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/road-sign-icon.png");
+            AlertClass.alertERROR(MyDayAlertMessages.NOTSELECTED.toString(), " ", "/img/road-sign-icon.png");
         } else{
             rightVBox.setPrefWidth(300);
             text1.setText(task.getTaskName() + " ("+task.getListName()+")\n\n");

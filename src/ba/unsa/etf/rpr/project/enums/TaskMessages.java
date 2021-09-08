@@ -12,23 +12,15 @@ public enum TaskMessages {
                 return "Tekstualna datoteka";
         }
     },
-    TEXTLENGTHERRORHEADER{
+    CHOOSE_FILE{
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
-                return "Selected file contains more than 100 characters";
+                return "Choose file: ";
             else
-                return "Odabrani fajl sadrži više od 100 karaktera";
+                return "Izaberite datoteku: ";
         }
     },
-    TEXTLENGTHERRORCONTENT{
-        @Override
-        public String toString() {
-            if (Locale.getDefault().getCountry().equals("US"))
-                return "Max number of characters in this text area is 100.";
-            else
-                return "Max broj karaktera u ovom teksutalnom polju je 100.";
-        }
-    }
+
 
 }

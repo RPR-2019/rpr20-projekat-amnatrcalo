@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.DateAndTimeAlertMessages;
+import ba.unsa.etf.rpr.project.enums.Period;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,26 +27,23 @@ public class DateAndTimeController {
     public ChoiceBox<String> choicePeriodBefore;
     public RadioButton radioNotification;
     public RadioButton radioEmail;
-    public Label startErrorDateMessage;
-    public Button btnSave;
 
-    private AppDAO dao;
+
     private Task task;
-    private AlertClass alertClass=new AlertClass();
+
     private boolean selectAllDay =false;
     private boolean selectReminder=false;
 
-    private final int currentHour= LocalDateTime.now().getHour();
-    private final int currentMins=LocalDateTime.now().getMinute();
+
     private final LocalDate currentDate=LocalDate.now();
 
-    private Integer exampleClass= 10;
 
-    private ObservableList<String> hours = FXCollections.observableArrayList(
+
+    private final ObservableList<String> hours = FXCollections.observableArrayList(
             "--","00", "01", "02", "03", "04", "05", "06", "07",
             "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
             "21", "22", "23");
-    private ObservableList<String> mins = FXCollections.observableArrayList(
+    private final ObservableList<String> mins = FXCollections.observableArrayList(
             "--","00", "01", "02", "03", "04", "05", "06", "07","08", "09", "10",
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
             "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
@@ -52,15 +51,15 @@ public class DateAndTimeController {
             "41", "42", "43", "44", "45", "46", "47", "48", "49", "50",
             "51", "52", "53","54", "55", "56", "57", "58", "59");
 
-    private ObservableList<String> periods=FXCollections.observableArrayList("minutes", "hours", "days");
-    private ObservableList<Integer> valuesBefore=FXCollections.observableArrayList(1,2,3,4,5,10,15,20,25,30);
+    private final ObservableList<String> periods=FXCollections.observableArrayList(Period.MINS.toString(), Period.HOURS.toString(), Period.DAYS.toString());
+    private final ObservableList<Integer> valuesBefore=FXCollections.observableArrayList(1,2,3,4,5,10,15,20,25,30);
 
-    private String setEditSprinnerHours(Integer value, Integer year){
+    private String setSprinnerHours(Integer value, Integer year){
         if(year==1) return "--";
         else return hours.get(value+1);
     }
 
-    private String setEditSprinnerMins(Integer value, Integer year){
+    private String setSprinnerMins(Integer value, Integer year){
         if(year==1) return "--";
         else return mins.get(value+1);
     }
@@ -118,10 +117,10 @@ public class DateAndTimeController {
 
 
 
-            valueFactoryStartHours.setValue(setEditSprinnerHours(task.getStartHour(), task.getStartYear()));
-            valueFactoryEndHours.setValue(setEditSprinnerHours(task.getEndHour(),task.getEndYear()));
-            valueFactoryStartMins.setValue(setEditSprinnerMins(task.getStartMin(),task.getStartYear()));
-            valueFactoryEndMins.setValue(setEditSprinnerMins(task.getEndMin(), task.getEndYear()));
+            valueFactoryStartHours.setValue(setSprinnerHours(task.getStartHour(), task.getStartYear()));
+            valueFactoryEndHours.setValue(setSprinnerHours(task.getEndHour(),task.getEndYear()));
+            valueFactoryStartMins.setValue(setSprinnerMins(task.getStartMin(),task.getStartYear()));
+            valueFactoryEndMins.setValue(setSprinnerMins(task.getEndMin(), task.getEndYear()));
 
             if(task.getStartYear()!=1){
                 startDatePicker.setValue(LocalDate.of(task.getStartYear(),task.getStartMonth(),task.getStartDay()));
@@ -138,8 +137,7 @@ public class DateAndTimeController {
             choicePeriodBefore.setDisable(true);
             radioEmail.setDisable(true);
             radioNotification.setDisable(true);
-            /*choicePeriodBefore.getSelectionModel().selectFirst();
-            comboValueBefore.getSelectionModel().select(6);*/
+
         }
 
 
@@ -152,23 +150,9 @@ public class DateAndTimeController {
     public void actionAllDayTask(ActionEvent actionEvent) {
         selectAllDay =!selectAllDay;
         if(selectAllDay){
-            /*endDatePicker.setDisable(true);
-            endHour.setDisable(true);
-            endMins.setDisable(true);
-            startHour.setDisable(true);
-            startMins.setDisable(true);
-            checkBoxReminder.setDisable(true);
-            remDisabled(true);*/
             setAllDay(true);
         }
         if(!selectAllDay){
-           /* endDatePicker.setDisable(false);
-            endHour.setDisable(false);
-            endMins.setDisable(false);
-            startHour.setDisable(false);
-            startMins.setDisable(false);
-            checkBoxReminder.setDisable(false);
-            remDisabled(false);*/
             setAllDay(false);
         }
 
@@ -202,45 +186,46 @@ public class DateAndTimeController {
 
     public void actionSave(ActionEvent actionEvent) {
         boolean ok=true;
+
         if(startDatePicker.getValue()!=null){
             if(!checkDate(currentDate,startDatePicker.getValue())){
                 ok=false;
-                alertClass.alertERROR("Date error",
-                        "The start of the task can't be before current date","/img/login-icon.png");
+                AlertClass.alertERROR(DateAndTimeAlertMessages.INVALID_START_DATE.toString(),
+                        " ","/img/road-sign-icon.png");
             }
         }
 
         if(selectAllDay){
             if(startDatePicker.getValue()==null){
-                alertClass.alertERROR("The start of the task is not set",
-                        "The start of the task must be set because this is an all day activity.","/img/login-icon.png");
+                AlertClass.alertERROR(DateAndTimeAlertMessages.ALL_DAY_HEADER.toString(),
+                        DateAndTimeAlertMessages.ALL_DAY_CONTENT.toString(),"/img/road-sign-icon.png");
                 ok=false;
             }
         } else{
             if(startDatePicker.getValue()==null && endDatePicker.getValue()!=null){
                 ok=false;
-                alertClass.alertERROR("Start date is not set",
-                        "End date is set, but start date is not.","/img/login-icon.png");
+                AlertClass.alertERROR(DateAndTimeAlertMessages.START_DATE_NOT_SET_HEADER.toString(),
+                        DateAndTimeAlertMessages.START_DATE_NOT_SET_CONTENT.toString(),"/img/road-sign-icon.png");
             }else if((!isTimeNull(startHour.getValue()) || !(isTimeNull(startMins.getValue()))) && startDatePicker.getValue()==null){
                 ok=false;
-                alertClass.alertERROR("Date error",
-                        "Start date is not set proprerly.","/img/login-icon.png");
+                AlertClass.alertERROR(DateAndTimeAlertMessages.START_DATE_ERROR.toString(),
+                        " ","/img/road-sign-icon.png");
             } else if((!isTimeNull(endHour.getValue()) || !(isTimeNull(endMins.getValue()))) && endDatePicker.getValue()==null){
                 ok=false;
-                alertClass.alertERROR("Date error",
-                        "End date is not set proprerly.","/img/login-icon.png");
+                AlertClass.alertERROR(DateAndTimeAlertMessages.END_DATE_ERROR.toString(),
+                        " ","/img/road-sign-icon.png");
             } else if((isTimeNull(startHour.getValue()) || (isTimeNull(startMins.getValue()))) && startDatePicker.getValue()!=null){
                 ok=false;
-                alertClass.alertERROR("Time error",
-                        "Start time is not set proprerly.","/img/login-icon.png");
+                AlertClass.alertERROR(DateAndTimeAlertMessages.START_TIME_ERROR.toString(),
+                        " ","/img/road-sign-icon.png");
             } else if((isTimeNull(endHour.getValue()) || (isTimeNull(endMins.getValue()))) && endDatePicker.getValue()!=null){
                 ok=false;
-                alertClass.alertERROR("Time error",
-                        "End time is not set proprerly.","/img/login-icon.png");
+                AlertClass.alertERROR(DateAndTimeAlertMessages.END_TIME_ERROR.toString(),
+                        " ","/img/road-sign-icon.png");
             } else if(startDatePicker.getValue()!=null && !checkTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS),LocalDateTime.of(startDatePicker.getValue(),LocalTime.of(Integer.parseInt(startHour.getValue()), Integer.parseInt(startMins.getValue()))) )){
                 ok=false;
-                alertClass.alertERROR("Time error",
-                        "The start of the task can't be before current date","/img/login-icon.png");
+                AlertClass.alertERROR(DateAndTimeAlertMessages.INVALID_START_TIME.toString(),
+                        " ","/img/road-sign-icon.png");
             }
             else if (startDatePicker.getValue()!=null && endDatePicker.getValue()!=null){
                LocalDate startDate=LocalDate.of(startDatePicker.getValue().getYear(),startDatePicker.getValue().getMonthValue(),startDatePicker.getValue().getDayOfMonth());
@@ -251,17 +236,17 @@ public class DateAndTimeController {
 
                 if(!checkTime(LocalDateTime.of(startDate,startTime), LocalDateTime.of(endDate,endTime))){
                     ok=false;
-                    alertClass.alertERROR("Date error",
-                            "The end of the task can't be before its start date","/img/login-icon.png");
+                    AlertClass.alertERROR(DateAndTimeAlertMessages.INVALID_END_DATE.toString(),
+                            " ","/img/road-sign-icon.png");
                 } else if(isTimeNull(startHour.getValue()) || isTimeNull(startMins.getValue()) || isTimeNull(endHour.getValue()) || isTimeNull(endMins.getValue())){
                     ok=false;
-                    alertClass.alertERROR("Time error",
-                            "Start time or end time are not set proprerly.","/img/login-icon.png");
+                    AlertClass.alertERROR(DateAndTimeAlertMessages.TIME_ERROR.toString(),
+                            " ","/img/road-sign-icon.png");
                 }
             } else if(selectReminder && (isTimeNull(startMins.getValue()) || isTimeNull(startHour.getValue()) || startDatePicker.getValue()==null)){
                 ok=false;
-                alertClass.alertERROR("Reminder can't be set",
-                        "You didn't specify start time of Your task.","/img/login-icon.png");
+                AlertClass.alertERROR(DateAndTimeAlertMessages.REMINDER_HEADER.toString(),
+                        DateAndTimeAlertMessages.REMINDER_CONTENT.toString(),"/img/road-sign-icon.png");
             }
         }
 
@@ -273,7 +258,6 @@ public class DateAndTimeController {
             task.setStartYear(startDatePicker.getValue().getYear());
             task.setStartMonth(startDatePicker.getValue().getMonthValue());
             task.setStartDay(startDatePicker.getValue().getDayOfMonth());
-
 
         } else{
             task.setStartYear(1);

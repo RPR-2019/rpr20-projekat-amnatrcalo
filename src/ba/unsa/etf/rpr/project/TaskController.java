@@ -128,24 +128,24 @@ public class TaskController {
 
         if(fldTaskName.getText().trim().isEmpty()){
             ok=false;
-            AlertClass.alertERROR(AlertMessages.TASKNAMEREQUIREDHEADER.toString(),
-                    AlertMessages.TASKNAMEREQUIREDCONTENT.toString(),"/img/road-sign-icon.png");
+            AlertClass.alertERROR(TaskAlertMessages.TASKNAMEREQUIREDHEADER.toString(),
+                    TaskAlertMessages.TASKNAMEREQUIREDCONTENT.toString(),"/img/road-sign-icon.png");
         }
 
         if(!edit){
             for(Task t: dao.tasks()){
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getUsername().equals(user.getUsername())){
                     ok=false;
-                   AlertClass.alertERROR(AlertMessages.NAMENOTAPPROVEDHEADER.toString(),
-                            AlertMessages.NAMENOTAPPROVEDCONTENT.toString(),"/img/road-sign-icon.png");
+                   AlertClass.alertERROR(TaskAlertMessages.NAMENOTAPPROVEDHEADER.toString(),
+                            TaskAlertMessages.NAMENOTAPPROVEDCONTENT.toString(),"/img/road-sign-icon.png");
                 }
             }
        } else{
             for(Task t: dao.tasks()){
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getId()!=task.getId() && t.getUsername().equals(user.getUsername())){
                     ok=false;
-                    AlertClass.alertERROR(AlertMessages.NAMENOTAPPROVEDHEADER.toString(),
-                            AlertMessages.NAMENOTAPPROVEDCONTENT.toString(),"/img/road-sign-icon.png");
+                    AlertClass.alertERROR(TaskAlertMessages.NAMENOTAPPROVEDHEADER.toString(),
+                            TaskAlertMessages.NAMENOTAPPROVEDCONTENT.toString(),"/img/road-sign-icon.png");
                 }
             }
         }
@@ -188,7 +188,7 @@ public class TaskController {
         }
 
         if(isOverlaping(task)){
-            if(AlertClass.alertCONFIRMATION( AlertMessages.TASKS_OVERLAPPIN_GHEADER.toString(), AlertMessages.TASKS_OVERLAPPING_CONTENT.toString(), "/img/thinking-face-icon.png")){
+            if(AlertClass.alertCONFIRMATION( TaskAlertMessages.TASKS_OVERLAPPIN_GHEADER.toString(), TaskAlertMessages.TASKS_OVERLAPPING_CONTENT.toString(), "/img/thinking-face-icon.png")){
                 Stage stage = (Stage) areaNote.getScene().getWindow();
                 stage.close();
             }
@@ -232,7 +232,7 @@ public class TaskController {
 
     public void actionAddFile(ActionEvent actionEvent){
         FileChooser chooser=new FileChooser();
-        chooser.setTitle("Izaberite datoteku: ");
+        chooser.setTitle(TaskMessages.CHOOSE_FILE.toString());
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(TaskMessages.DATATYPE.toString(), "*.txt"));
 
         File file= chooser.showOpenDialog(areaNote.getScene().getWindow());
@@ -241,15 +241,12 @@ public class TaskController {
             String text= new String(Files.readAllBytes(file.toPath()));
             areaNote.setText(text);
             if(text.length()>100) {
-               AlertClass.alertERROR(TaskMessages.TEXTLENGTHERRORHEADER.toString(),TaskMessages.TEXTLENGTHERRORCONTENT.toString(),"/img/road-sign-icon.png");
+               AlertClass.alertERROR(TaskAlertMessages.TEXTLENGTHERRORHEADER.toString(),TaskAlertMessages.TEXTLENGTHERRORCONTENT.toString(),"/img/road-sign-icon.png");
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
-           /* Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ne mogu učitati datoteku");
-            alert.setHeaderText("Došlo je do greške prilikom čitanja "+file.getName());
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();*/
+            AlertClass.alertERROR(" ",e.getMessage(),"/img/road-sign-icon.png");
+
         }
 
     }
