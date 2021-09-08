@@ -22,7 +22,10 @@
          <font>
             <Font name="Lucida Handwriting Italic" size="18.0" />
          </font></TextField>
-      <TextArea fx:id="areaNote" prefHeight="200.0" prefWidth="200.0" promptText="%add_note" GridPane.rowIndex="3" />
+      <TextArea fx:id="areaNote" prefHeight="200.0" prefWidth="200.0" promptText="%add_note" GridPane.rowIndex="3">
+         <font>
+            <Font name="Roboto Light" size="12.0" />
+         </font></TextArea>
       <ButtonBar GridPane.rowIndex="4">
          <buttons>
             <Button fx:id="btnCreate" defaultButton="true" mnemonicParsing="false" onAction="#actionCreate" styleClass="btnCreate" text="Create " textFill="WHITE">

@@ -4,13 +4,13 @@
 }
 
 .btnSave{
--fx-background-color: #06cbe6;
+-fx-background-color: #19456B;
 -fx-border: none;
 -fx-cursor:hand;
 }
 
 .btnSave:hover{
--fx-background-color: #f40b59;
+-fx-background-color:  #11698E;
 }
 
 .btnCancel{

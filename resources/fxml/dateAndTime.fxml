@@ -34,9 +34,15 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <CheckBox fx:id="checkBoxAllDayTask" mnemonicParsing="false" onAction="#actionAllDayTask" prefHeight="17.0" prefWidth="185.0" text="%all_day" GridPane.columnSpan="2" />
+      <CheckBox fx:id="checkBoxAllDayTask" mnemonicParsing="false" onAction="#actionAllDayTask" prefHeight="17.0" prefWidth="185.0" text="%all_day" GridPane.columnSpan="2">
+         <font>
+            <Font name="Roboto Light" size="14.0" />
+         </font></CheckBox>
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-      <Label text="%start" GridPane.rowIndex="2" />
+      <Label text="%start" GridPane.rowIndex="2">
+         <font>
+            <Font name="Roboto Light" size="14.0" />
+         </font></Label>
 
             <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
@@ -47,7 +53,10 @@
             </HBox>
 
 
-      <Label text="%end" GridPane.rowIndex="3" />
+      <Label text="%end" GridPane.rowIndex="3">
+         <font>
+            <Font name="Roboto Light" size="14.0" />
+         </font></Label>
 
             <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
@@ -59,17 +68,29 @@
 
 
       <Separator prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-      <CheckBox fx:id="checkBoxReminder" mnemonicParsing="false" onAction="#actionRemindMe" text="%remind_me" GridPane.rowIndex="5" />
+      <CheckBox fx:id="checkBoxReminder" mnemonicParsing="false" onAction="#actionRemindMe" prefHeight="20.0" prefWidth="127.0" text="%remind_me" GridPane.columnSpan="2" GridPane.rowIndex="5">
+         <font>
+            <Font name="Roboto Light" size="14.0" />
+         </font></CheckBox>
       <ComboBox fx:id="comboValueBefore" prefHeight="31.0" prefWidth="95.0" GridPane.rowIndex="7" />
       <ChoiceBox fx:id="choicePeriodBefore" prefHeight="25.0" prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="8" />
-      <Label text="%alert_type" GridPane.rowIndex="9" />
+      <Label text="%alert_type" GridPane.rowIndex="9">
+         <font>
+            <Font name="Roboto Light" size="14.0" />
+         </font></Label>
       <RadioButton fx:id="radioNotification" mnemonicParsing="false" selected="true" text="%notification" GridPane.rowIndex="10">
          <toggleGroup>
             <ToggleGroup fx:id="alertType" />
          </toggleGroup>
+         <font>
+            <Font name="Roboto Light" size="12.0" />
+         </font>
       </RadioButton>
-      <RadioButton fx:id="radioEmail" mnemonicParsing="false" text="E-mail" toggleGroup="$alertType" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <RadioButton fx:id="radioEmail" mnemonicParsing="false" text="E-mail" toggleGroup="$alertType" GridPane.columnIndex="1" GridPane.rowIndex="10">
+         <font>
+            <Font name="Roboto Light" size="12.0" />
+         </font></RadioButton>
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="11" />
       <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="12">
          <buttons>
