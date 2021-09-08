@@ -1,8 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
-import ba.unsa.etf.rpr.project.enums.ListsName;
-import ba.unsa.etf.rpr.project.enums.TaskMessages;
-import ba.unsa.etf.rpr.project.enums.TooltipContent;
+import ba.unsa.etf.rpr.project.enums.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,13 +15,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -33,7 +29,6 @@ public class TaskController {
     public GridPane gridPane;
     public TextField fldTaskName;
     public TextArea areaNote;
-    public Button btnCreate;
     public ChoiceBox<CustomList> listMenu;
 
     private Task task;
@@ -53,10 +48,12 @@ public class TaskController {
 
     @FXML
     public void initialize(){
+
         listMenu.setTooltip(TooltipClass.makeTooltip(TooltipContent.CHOOSELIST.toString()));
+
+        //set max number of chars in textArea
        areaNote.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= MAX_CHARS ? change : null));
-
 
 
         if(task!=null){
@@ -87,9 +84,9 @@ public class TaskController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                addDateAndTimeStage.setTitle("Add Date and Time");
+                addDateAndTimeStage.setTitle(StageName.DATEANDTIME.toString());
                 addDateAndTimeStage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
-                Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+                Image icon=new Image(getClass().getResourceAsStream("/img/date-and-time-icon.png"));
                 addDateAndTimeStage.getIcons().add(icon);
                 addDateAndTimeStage.setResizable(false);
                 addDateAndTimeStage.show();
@@ -103,6 +100,8 @@ public class TaskController {
 
 
         });
+
+        //user can't choose list name from default names-only user's lists will be shown
         ObservableList<CustomList> listsForMenu=listLists.stream().filter(l->
           !l.getListName().equals(ListsName.MYDAY.toString()) &&  !l.getListName().equals(ListsName.PLANNED.toString()) && !l.getListName().equals(ListsName.TASKS.toString()) && !l.getListName().equals(ListsName.COMPLETED.toString()))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
@@ -116,9 +115,6 @@ public class TaskController {
         this.user=user;
         this.listLists=listLists;
         this.edit=edit;
-
-
-
     }
 
     public static boolean startDateAndTimeAreSet (Integer startYear){
@@ -132,24 +128,24 @@ public class TaskController {
 
         if(fldTaskName.getText().trim().isEmpty()){
             ok=false;
-            alertClass.alertERROR("Task name field is required",
-                    "You didn't enter the name of Your task.","/img/login-icon.png");
+            AlertClass.alertERROR(AlertMessages.TASKNAMEREQUIREDHEADER.toString(),
+                    AlertMessages.TASKNAMEREQUIREDCONTENT.toString(),"/img/road-sign-icon.png");
         }
 
         if(!edit){
             for(Task t: dao.tasks()){
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getUsername().equals(user.getUsername())){
                     ok=false;
-                    alertClass.alertERROR("This name is not approved",
-                            "Task with this name already exists","/img/login-icon.png");
+                   AlertClass.alertERROR(AlertMessages.NAMENOTAPPROVEDHEADER.toString(),
+                            AlertMessages.NAMENOTAPPROVEDCONTENT.toString(),"/img/road-sign-icon.png");
                 }
             }
        } else{
             for(Task t: dao.tasks()){
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getId()!=task.getId() && t.getUsername().equals(user.getUsername())){
                     ok=false;
-                    alertClass.alertERROR("This name is not approved",
-                            "Task with this name already exists","/img/login-icon.png");
+                    AlertClass.alertERROR(AlertMessages.NAMENOTAPPROVEDHEADER.toString(),
+                            AlertMessages.NAMENOTAPPROVEDCONTENT.toString(),"/img/road-sign-icon.png");
                 }
             }
         }
@@ -158,7 +154,7 @@ public class TaskController {
 
 
         if(task==null) {
-            //ako nisu podesena vremena i datumi
+            //if date and time is not set
             task=new Task();
             task.setStartYear(1);
             task.setStartMonth(1);
@@ -192,7 +188,7 @@ public class TaskController {
         }
 
         if(isOverlaping(task)){
-            if(alertClass.alertCONFIRMATION( "This task overlaps with another task.", "Are You ok with this?", "/img/todolist-icon.png")){
+            if(AlertClass.alertCONFIRMATION( AlertMessages.TASKS_OVERLAPPIN_GHEADER.toString(), AlertMessages.TASKS_OVERLAPPING_CONTENT.toString(), "/img/thinking-face-icon.png")){
                 Stage stage = (Stage) areaNote.getScene().getWindow();
                 stage.close();
             }
@@ -216,20 +212,24 @@ public class TaskController {
         return defaultName;
     }
 
+    private boolean isOverlaping(Task task){
+        boolean overlap=false;
+        for(Task t: dao.allTasksForUser(user)){
+            if(startDateAndTimeAreSet(task.getStartYear()) && t.getId()!=task.getId()){
+                if(t.getStartDateAndTime().isEqual(task.getStartDateAndTime())) overlap=true;
+                else if(t.getStartDateAndTime().isBefore(task.getStartDateAndTime()) && t.getEndDateAndTime().isAfter(task.getStartDateAndTime())) overlap=true;
+            }
+        }
+        return overlap;
+    }
+
     public void actionCancel(ActionEvent actionEvent)  {
 
         Stage stage= (Stage) areaNote.getScene().getWindow();
         stage.close();
     }
 
-    public boolean isOverlaping(Task task){
-        boolean overlap=false;
-        for(Task t: dao.allTasksForUser(user)){
-            if(t.getStartDateAndTime().isEqual(task.getStartDateAndTime())) overlap=true;
-            else if(t.getStartDateAndTime().isBefore(task.getStartDateAndTime()) && t.getEndDateAndTime().isAfter(task.getStartDateAndTime())) overlap=true;
-        }
-        return overlap;
-    }
+
 
 
 

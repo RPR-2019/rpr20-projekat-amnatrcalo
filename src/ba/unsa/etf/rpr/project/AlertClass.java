@@ -22,14 +22,7 @@ public class AlertClass {
         alert.showAndWait();
     }
 
-    private static void styleAlert(Alert alert, String image) {
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(AlertClass.class.getResource(image).toExternalForm()));
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(AlertClass.class.getResource("/css/alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("alert-pane");
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-    }
+
 
     public static boolean alertCONFIRMATION( String header, String content, String image){
         boolean ok=false;
@@ -52,6 +45,15 @@ public class AlertClass {
         alert.setContentText(content);
         styleAlert(alert,image);
         alert.show();
+    }
+
+    private static void styleAlert(Alert alert, String image) {
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(AlertClass.class.getResource(image).toExternalForm()));
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(AlertClass.class.getResource("/css/alert.css").toExternalForm());
+        dialogPane.getStyleClass().add("alert-pane");
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
     }
 
 
