@@ -37,7 +37,7 @@
 -fx-border: none;
 -fx-cursor:hand;
 -fx-background-color:#fcf2f2;
--fx-weight:italic;
+
 }
 
 .btnLists:hover{
@@ -63,25 +63,23 @@
 
 .list-cell{
 -fx-background-color: white;
--fx-font-size: 20px;
--fx-text-fill: darkred;
+-fx-font-size: 17px;
+-fx-text-fill: black;
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
-   -fx-background-color:#f5aec6;
+   -fx-background-color:#19456B;
     -fx-text-fill: white;
-    -fx-weight:bold;
+    -fx-font-weight:bold;
 }
 
 
 .list-cell:filled:hover {
-    -fx-background-color: #f5aec6;
+    -fx-background-color: #11698E;
     -fx-text-fill: white;
 }
 
-.input[type="checkbox"]:checked {
-  box-shadow: 0 0 0 3px hotpink;
-}
+
 
 
 
