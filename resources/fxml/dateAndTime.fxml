@@ -34,7 +34,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <CheckBox fx:id="checkBoxAllDayTask" mnemonicParsing="false" onAction="#actionAllDayTask" text="%all_day" />
+      <CheckBox fx:id="checkBoxAllDayTask" mnemonicParsing="false" onAction="#actionAllDayTask" prefHeight="17.0" prefWidth="185.0" text="%all_day" GridPane.columnSpan="2" />
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
       <Label text="%start" GridPane.rowIndex="2" />
 
@@ -60,7 +60,7 @@
 
       <Separator prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="4" />
       <CheckBox fx:id="checkBoxReminder" mnemonicParsing="false" onAction="#actionRemindMe" text="%remind_me" GridPane.rowIndex="5" />
-      <ComboBox fx:id="comboValueBefore" prefWidth="150.0" GridPane.rowIndex="7" />
+      <ComboBox fx:id="comboValueBefore" prefHeight="31.0" prefWidth="95.0" GridPane.rowIndex="7" />
       <ChoiceBox fx:id="choicePeriodBefore" prefHeight="25.0" prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="8" />
       <Label text="%alert_type" GridPane.rowIndex="9" />
