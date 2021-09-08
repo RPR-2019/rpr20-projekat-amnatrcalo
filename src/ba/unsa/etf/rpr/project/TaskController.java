@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 public class TaskController {
 
-    public ImageButton btnAddDateAndTime = new ImageButton(new Image("/img/date-and-time-icon.png"), 16, 16);
+    public ImageButton btnAddDateAndTime = new ImageButton(new Image("/img/clock-icon.jpg"), 36, 36);
     public GridPane gridPane;
     public TextField fldTaskName;
     public TextArea areaNote;
