@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.project.enums;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public enum ListsName {
@@ -38,6 +39,15 @@ public enum ListsName {
             else
                 return "Planirano";
         }
+    };
+
+    public static ArrayList<String> defaultListsName(){
+       ArrayList<String> res=new ArrayList<>();
+       res.add(MYDAY.toString());
+       res.add(TASKS.toString());
+       res.add(COMPLETED.toString());
+       res.add(PLANNED.toString());
+       return res;
     }
 
 }

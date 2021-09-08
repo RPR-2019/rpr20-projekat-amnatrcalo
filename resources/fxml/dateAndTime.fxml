@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane hgap="10.0" prefHeight="400.0" prefWidth="600.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane hgap="10.0" prefHeight="400.0" prefWidth="600.0" styleClass="gridPane" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@/css/dateAndTime.css" />
+   </stylesheets>
    <columnConstraints>
       <ColumnConstraints maxWidth="195.0" minWidth="95.00000000000001" prefWidth="95.00000000000001" />
       <ColumnConstraints maxWidth="305.0" minWidth="205.00000000000003" prefWidth="305.0" />
@@ -29,9 +34,9 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <CheckBox fx:id="checkBoxAllDayTask" mnemonicParsing="false" onAction="#actionAllDayTask" text="All day task" />
+      <CheckBox fx:id="checkBoxAllDayTask" mnemonicParsing="false" onAction="#actionAllDayTask" text="%all_day" />
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-      <Label text="Start" GridPane.rowIndex="2" />
+      <Label text="%start" GridPane.rowIndex="2" />
 
             <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
@@ -42,7 +47,7 @@
             </HBox>
 
 
-      <Label text="End" GridPane.rowIndex="3" />
+      <Label text="%end" GridPane.rowIndex="3" />
 
             <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
@@ -54,13 +59,12 @@
 
 
       <Separator prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-      <CheckBox fx:id="checkBoxReminder" mnemonicParsing="false" onAction="#actionRemindMe" text="Remind me" GridPane.rowIndex="5" />
-      <Label text="tekst remindera" GridPane.rowIndex="6" />
+      <CheckBox fx:id="checkBoxReminder" mnemonicParsing="false" onAction="#actionRemindMe" text="%remind_me" GridPane.rowIndex="5" />
       <ComboBox fx:id="comboValueBefore" prefWidth="150.0" GridPane.rowIndex="7" />
       <ChoiceBox fx:id="choicePeriodBefore" prefHeight="25.0" prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="8" />
-      <Label text="Alert type" GridPane.rowIndex="9" />
-      <RadioButton fx:id="radioNotification" mnemonicParsing="false" selected="true" text="Notification" GridPane.rowIndex="10">
+      <Label text="%alert_type" GridPane.rowIndex="9" />
+      <RadioButton fx:id="radioNotification" mnemonicParsing="false" selected="true" text="%notification" GridPane.rowIndex="10">
          <toggleGroup>
             <ToggleGroup fx:id="alertType" />
          </toggleGroup>
@@ -69,8 +73,14 @@
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="11" />
       <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="12">
          <buttons>
-            <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#actionSave" text="Save" />
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" text="Cancel" />
+            <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#actionSave" styleClass="btnSave" text="Save" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></Button>
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" styleClass="btnCancel" text="Cancel">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></Button>
          </buttons>
       </ButtonBar>
    </children>

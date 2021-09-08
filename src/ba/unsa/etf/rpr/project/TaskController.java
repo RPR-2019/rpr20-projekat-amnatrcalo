@@ -23,6 +23,8 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class TaskController {
@@ -42,6 +44,7 @@ public class TaskController {
     private AppDAO dao;
     private boolean edit=false;
     final int MAX_CHARS = 100 ;
+    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
     public Task getTask() {
         return task;
@@ -76,7 +79,7 @@ public class TaskController {
             public void handle(ActionEvent actionEvent) {
                 Stage addDateAndTimeStage=new Stage();
                 Parent root=null;
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dateAndTime.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dateAndTime.fxml"),bundle);
                 DateAndTimeController dateAndTimeController = new DateAndTimeController(task);
                 loader.setController(dateAndTimeController);
                 try {
@@ -178,7 +181,7 @@ public class TaskController {
         if(areaNote.getText()!=null && !areaNote.getText().trim().isEmpty()) task.setNote(areaNote.getText());
         else task.setNote(" ");
 
-        if(listMenu.getValue()==null) {
+        if(listMenu.getValue()==null || isListNameDefault(listMenu.getValue().getListName())) {
             if (startDateAndTimeAreSet(task.getStartYear())) {
                 task.setListName(ListsName.PLANNED.toString());
             } else {
@@ -205,6 +208,14 @@ public class TaskController {
 
     }
 
+    private boolean isListNameDefault(String listName){
+        boolean defaultName=false;
+        for(String s: ListsName.defaultListsName()){
+            if(listName.equals(s)) defaultName=true;
+        }
+        return defaultName;
+    }
+
     public void actionCancel(ActionEvent actionEvent)  {
 
         Stage stage= (Stage) areaNote.getScene().getWindow();
@@ -220,6 +231,8 @@ public class TaskController {
         return overlap;
     }
 
+
+
     public void actionAddFile(ActionEvent actionEvent){
         FileChooser chooser=new FileChooser();
         chooser.setTitle("Izaberite datoteku: ");
@@ -230,7 +243,7 @@ public class TaskController {
         try {
             String text= new String(Files.readAllBytes(file.toPath()));
             areaNote.setText(text);
-            if(text.length()>=100) {
+            if(text.length()>100) {
                AlertClass.alertERROR(TaskMessages.TEXTLENGTHERRORHEADER.toString(),TaskMessages.TEXTLENGTHERRORCONTENT.toString(),"/img/road-sign-icon.png");
             }
         } catch (IOException e) {
