@@ -1,6 +1,5 @@
 .gridPane{
--fx-background-color: #faf0f0;
-
+-fx-background-color: #d0c1de;
 }
 
 .btnCreate{
@@ -10,7 +9,8 @@
 }
 
 .btnCreate:hover{
--fx-background-color: #f40b59;
+-fx-background-color: white;
+-fx-text-fill: black;
 }
 
 .btnCancel{
@@ -24,7 +24,7 @@
 }
 
 .text-field {
-  -fx-border-color: grey;
+  -fx-border-color: #7F7C82;
   -fx-border-width: 0 0 1 0;
   -fx-background-color: transparent;
 }
@@ -43,11 +43,11 @@
 CHOICEBOX
 ********************/
 .choice-box {
-  -fx-background-color: #f5aec6;
+  -fx-background-color: #F3F1F5;
   -fx-mark-color: darkred; // arrow color
   -fx-font-size: 15px;
 }
 .choice-box .context-menu { -fx-background-color: white; }
-.choice-box .menu-item:focused { -fx-background-color: #f5aec6; }
+.choice-box .menu-item:focused { -fx-background-color: #F3F1F5; }
 .choice-box .menu-item > .label { -fx-text-fill: darkred; -fx-font-size: 15px; }
 .choice-box .menu-item:focused > .label { -fx-text-fill: black; }
