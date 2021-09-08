@@ -95,5 +95,40 @@ COMBOBOX
     -fx-color: #F6E7E6;
 }
 
+/**********************
+CHECKBOX
+**********************/
 
+.check-box .box {
 
+-fx-background-color: white;
+-fx-border-color:grey;
+-fx-border-radius:3px;
+
+}
+
+.check-box:selected .mark {
+
+-fx-background-color: white;
+
+}
+
+.check-box:selected .box {
+
+-fx-background-color: #BFD8B8;
+}
+
+/**********************
+RADIOBUTTON
+**********************/
+
+.radio-button .radio:hover {
+    -fx-border-color: #BFD8B8; /*gives the button a square border*/
+    -fx-border-radius: 130px;  /*rounds the border around the button, "faking" a nice round outline*/
+}
+
+.radio-button:selected .radio {
+    -fx-border-color: #BFD8B8;
+    -fx-border-radius: 130px;
+    -fx-background-color: #BFD8B8;
+}
