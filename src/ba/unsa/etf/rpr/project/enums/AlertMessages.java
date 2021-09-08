@@ -7,9 +7,9 @@ public enum AlertMessages {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
-                return "No tasks are selected.";
+                return "No tasks are selected";
             else
-                return "Nije odabran ni jedan zadatak.";
+                return "Nije odabran ni jedan zadatak";
         }
     },
     DELETETASKCONFIRMATIONHEADER {
@@ -36,7 +36,7 @@ public enum AlertMessages {
             if (Locale.getDefault().getCountry().equals("US"))
                 return "This list can't be deleted";
             else
-                return "Odabrana lista se ne može izbrisati.";
+                return "Odabrana lista se ne može izbrisati";
         }
     },
     DELETELISTERRORCONTENT {

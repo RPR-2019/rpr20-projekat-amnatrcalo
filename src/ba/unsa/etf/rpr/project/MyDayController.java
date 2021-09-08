@@ -1,9 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
-import ba.unsa.etf.rpr.project.enums.AlertMessages;
-import ba.unsa.etf.rpr.project.enums.ListsName;
-import ba.unsa.etf.rpr.project.enums.MyDayMessages;
-import ba.unsa.etf.rpr.project.enums.TooltipContent;
+import ba.unsa.etf.rpr.project.enums.*;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -154,6 +151,9 @@ public class MyDayController {
             }
             tableViewTasks.setItems(activeSession);
 
+            //stage title is selected list-name
+            Stage stage = (Stage) btnDeleteList.getScene().getWindow();
+            stage.setTitle(newItem.getListName());
 
         } );
 
@@ -184,7 +184,7 @@ public class MyDayController {
                 }
                 String listName=task.getListName();
                 if(AlertClass.alertCONFIRMATION( AlertMessages.DELETETASKCONFIRMATIONHEADER.toString() +" '"+task.getTaskName()+"'?",
-                        AlertMessages.DELETETASKCONFIRMATIONCONTENT.toString(),"/img/todolist-icon.png")){
+                        AlertMessages.DELETETASKCONFIRMATIONCONTENT.toString(),"/img/thinking-face-icon.png")){
                     dao.deleteTask(task);
                     activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
                 }
@@ -196,7 +196,7 @@ public class MyDayController {
             public void handle(ActionEvent actionEvent) {
                 Task task = tableViewTasks.getSelectionModel().getSelectedItem();
                 if(task==null){
-                    AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+                    AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/road-sign-icon.png");
                     return;
                 }
 
@@ -303,9 +303,9 @@ public class MyDayController {
             e.printStackTrace();
         }
 
-        addNewTask.setTitle(" ");
+        addNewTask.setTitle(StageName.YOURTASK.toString());
         addNewTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        Image icon=new Image(getClass().getResourceAsStream("/img/todo-list-icon.png"));
         addNewTask.getIcons().add(icon);
         addNewTask.setResizable(false);
         addNewTask.show();
@@ -335,9 +335,9 @@ public class MyDayController {
             e.printStackTrace();
         }
 
-        addNewList.setTitle(" ");
+        addNewList.setTitle(StageName.YOURLIST.toString());
         addNewList.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        Image icon=new Image(getClass().getResourceAsStream("/img/todo-list-icon.png"));
         addNewList.getIcons().add(icon);
         addNewList.setResizable(false);
         addNewList.show();
@@ -365,11 +365,11 @@ public class MyDayController {
         if(selectedListName==null) return;
 
         if(!shouldDeleteList(selectedListName)){
-            AlertClass.alertERROR(AlertMessages.DELETELISTERRORHEADER.toString(), AlertMessages.DELETELISTERRORCONTENT.toString(),"/img/todolist-icon.png");
+            AlertClass.alertERROR(AlertMessages.DELETELISTERRORHEADER.toString(), AlertMessages.DELETELISTERRORCONTENT.toString(),"/img/road-sign-icon.png");
             return;
         }
 
-        if(AlertClass.alertCONFIRMATION(AlertMessages.DELETETASKCONFIRMATIONHEADER.toString()+selectedListName,AlertMessages.DELETELISTCONFIRMATIONCONTENT.toString(),"/img/todolist-icon.png")){
+        if(AlertClass.alertCONFIRMATION(AlertMessages.DELETETASKCONFIRMATIONHEADER.toString()+"'"+selectedListName+"'?",AlertMessages.DELETELISTCONFIRMATIONCONTENT.toString(),"/img/thinking-face-icon.png")){
             dao.deleteList(user.getUsername(),selectedListName);
             listLists.remove(new CustomList(user.getUsername(), selectedListName));
         }
@@ -381,7 +381,7 @@ public class MyDayController {
         DateTimeFormatter formatTime=DateTimeFormatter.ofPattern(MyDayMessages.CLOCK.toString());
         Task task = tableViewTasks.getSelectionModel().getSelectedItem();
         if(task==null){
-            AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+            AlertClass.alertERROR(AlertMessages.NOTSELECTED.toString(), " ", "/img/road-sign-icon.png");
         } else{
             rightVBox.setPrefWidth(300);
             text1.setText(task.getTaskName() + " ("+task.getListName()+")\n\n");

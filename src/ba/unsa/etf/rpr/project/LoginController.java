@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
 import ba.unsa.etf.rpr.project.enums.LoginMessages;
+import ba.unsa.etf.rpr.project.enums.StageName;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -28,7 +29,7 @@ public class LoginController {
     private AppDAO dao;
     private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
-    public LoginController(User user, ArrayList<User>users, AppDAO dao) {
+    public LoginController(User user, ArrayList<User>users,AppDAO dao) {
         this.user = user;
         this.users=users;
         this.dao=dao;
@@ -58,7 +59,7 @@ public class LoginController {
         loader.setController(registerController);
         root = loader.load();
 
-        registrationStage.setTitle("Sign Up");
+        registrationStage.setTitle(StageName.SIGNUP.toString());
         registrationStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
         registrationStage.getIcons().add(icon);
@@ -138,6 +139,7 @@ public class LoginController {
             String css = NotificationReminder.class.getResource("/css/notificationpopup.css").toExternalForm();
             myDayStage.getScene().getStylesheets().add(0,css);
             myDayStage.show();
+
             myDayStage.setOnCloseRequest(event2->{
                 MyDayController.timelineInfinite.stop();
                 MyDayController.timeline2.stop();

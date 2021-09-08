@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.MyDayMessages;
+import ba.unsa.etf.rpr.project.enums.StageName;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,8 +17,9 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class HomeController {
-    private AppDAO dao;
-    public Button btnLogin;
+    private  AppDAO dao;
+    public static Button btnLogin=new Button();
+
 
     private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
@@ -31,19 +34,16 @@ public class HomeController {
         Stage loginStage=new Stage();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"),bundle);
-        LoginController loginController = new LoginController(null, dao.users(),  dao);
+        LoginController loginController = new LoginController(null, dao.users(),dao);
         loader.setController(loginController);
         root = loader.load();
 
-        loginStage.setTitle("Login");
+        loginStage.setTitle(StageName.LOGIN.toString());
         loginStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
         loginStage.getIcons().add(icon);
         loginStage.setResizable(false);
         loginStage.show();
-
-
-
     }
 
     public void registrationAction(ActionEvent actionEvent) throws IOException {
@@ -55,7 +55,7 @@ public class HomeController {
         loader.setController(registerController);
         root = loader.load();
 
-        registrationStage.setTitle("Sign Up");
+        registrationStage.setTitle(StageName.SIGNUP.toString());
         registrationStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
         registrationStage.getIcons().add(icon);
@@ -74,6 +74,7 @@ public class HomeController {
 
 
     }
+
 
 
 

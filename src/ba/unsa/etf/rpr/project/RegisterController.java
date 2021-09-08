@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.project;
 
 import ba.unsa.etf.rpr.project.enums.ListsName;
 import ba.unsa.etf.rpr.project.enums.LoginMessages;
+import ba.unsa.etf.rpr.project.enums.StageName;
 import ba.unsa.etf.rpr.project.enums.TooltipContent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -69,7 +70,7 @@ public class RegisterController {
         LoginController loginController = new LoginController(null, users,dao);
         loader.setController(loginController);
         root = loader.load();
-        loginStage.setTitle("Login");
+        loginStage.setTitle(StageName.LOGIN.toString());
         loginStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
         loginStage.getIcons().add(icon);
