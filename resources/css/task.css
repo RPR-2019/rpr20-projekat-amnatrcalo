@@ -2,18 +2,17 @@
 -fx-background-color: #d0c1de;
 -fx-background-color: #E7D9EA;
 -fx-background-color: #418fb0;
--fx-background-color: #5f9eb8;
+-fx-background-color: #BFD8B8;
 }
 
 .btnCreate{
--fx-background-color: #06cbe6;
+-fx-background-color: #19456B;
 -fx-border: none;
 -fx-cursor:hand;
 }
 
 .btnCreate:hover{
--fx-background-color: white;
--fx-text-fill: black;
+-fx-background-color:  #11698E;
 }
 
 .btnCancel{
