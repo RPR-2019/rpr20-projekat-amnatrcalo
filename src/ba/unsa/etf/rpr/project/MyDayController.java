@@ -56,9 +56,8 @@ public class MyDayController {
     public ImageButton btnEditTask=new ImageButton(new Image("/img/edit-list-and-pen.png"), 40, 40);
     public ImageButton btnRightArrow=new ImageButton(new Image("/img/right_arrow.png"),15,15);
     public Text text1 = new Text();
-    public Text text2 = new Text();
 
-    public TextFlow textFlow = new TextFlow(text1, text2);
+    public TextFlow textFlow = new TextFlow(text1);
 
 
     private ObservableList<Task> activeSession = FXCollections.observableArrayList();
@@ -373,8 +372,7 @@ public class MyDayController {
 
     public void actionMoreDetails (ActionEvent event ){
 
-            text1.setText(tableViewTasks.getSelectionModel().getSelectedItem().getTaskName()+"\n");
-            text2.setText(tableViewTasks.getSelectionModel().getSelectedItem().getAllDetails());
+            text1.setText(tableViewTasks.getSelectionModel().getSelectedItem().getAllDetails());
             styleTextFlow(false);
     }
 
@@ -382,13 +380,12 @@ public class MyDayController {
         if(collapse){
             rightVBox.setPrefWidth(200);
            text1.setText(" ");
-           text2.setText(" ");
+
         } else{
             rightVBox.setPrefWidth(300);
             textFlow.setLineSpacing(1.5);
             textFlow.setStyle(" -fx-padding: 20px; -fx-margin: 10px;");
             text1.setStyle("-fx-font-size: 16; -fx-fill: darkred; -fx-font-weight:bold;");
-            text2.setStyle("-fx-font-size: 14; -fx-fill: goldenrod;");
 
         }
 

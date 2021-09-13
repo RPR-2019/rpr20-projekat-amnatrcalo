@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Task {
     private Integer id;
@@ -24,6 +25,9 @@ public class Task {
     private boolean alertEmail;
     private String listName;
     private boolean allDay;
+
+    private final DateTimeFormatter formatDate=DateTimeFormatter.ofPattern(MyDayMessages.DATE.toString());
+    private final DateTimeFormatter formatTime=DateTimeFormatter.ofPattern(MyDayMessages.CLOCK.toString());
 
 
     public Task(Integer id, String username, String taskName, Integer startYear, Integer startMonth, Integer startDay, Integer startHour, Integer startMin, Integer endYear, Integer endMonth, Integer endDay, Integer endHour, Integer endMin, String note, boolean reminder, Integer reminderDigit, String reminderPeriod, boolean alertNotification, boolean alertEmail, String listName, boolean allday) {
@@ -248,7 +252,12 @@ public class Task {
 
     @Override
     public String toString(){
-        return taskName.get();
+        StringBuilder sb=new StringBuilder();
+        sb.append(taskName.get().toUpperCase(Locale.ROOT)).append("\n");
+        if(getStartYear()!=1){
+            sb.append(getStartDateAndTime().format(formatDate)).append(" ").append(getStartDateAndTime().format(formatTime));
+        }
+        return sb.toString();
     }
 
     @Override
@@ -267,10 +276,9 @@ public class Task {
     }
 
     public String getAllDetails(){
-        DateTimeFormatter formatDate=DateTimeFormatter.ofPattern(MyDayMessages.DATE.toString());
-        DateTimeFormatter formatTime=DateTimeFormatter.ofPattern(MyDayMessages.CLOCK.toString());
+
         StringBuilder sb=new StringBuilder();
-        sb.append(getTaskName()).append(" (").append(getListName()).append(")\n");
+        sb.append(getTaskName().toUpperCase(Locale.ROOT)).append(" (").append(getListName()).append(")\n");
 
         if(getStartYear()!=1){
             sb.append(TaskMessages.START_DATE.toString()+getStartDateAndTime().format(formatDate)+"\n");
