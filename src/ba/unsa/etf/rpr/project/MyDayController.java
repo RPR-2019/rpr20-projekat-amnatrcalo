@@ -21,6 +21,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -280,6 +282,16 @@ public class MyDayController {
             }
         }));
 
+        tableViewTasks.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    if(tableViewTasks.getSelectionModel().getSelectedItem()==null) return;
+                    text1.setText(tableViewTasks.getSelectionModel().getSelectedItem().getAllDetails());
+                    styleTextFlow(false);
+                }
+            }
+        });
 
     }
 
@@ -371,7 +383,7 @@ public class MyDayController {
     }
 
     public void actionMoreDetails (ActionEvent event ){
-
+            if(tableViewTasks.getSelectionModel().getSelectedItem()==null) return;
             text1.setText(tableViewTasks.getSelectionModel().getSelectedItem().getAllDetails());
             styleTextFlow(false);
     }

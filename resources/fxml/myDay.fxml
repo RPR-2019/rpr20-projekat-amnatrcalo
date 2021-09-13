@@ -39,7 +39,7 @@
                <font>
                   <Font name="Tahoma" size="80.0" />
                </font></Label>
-            <Button fx:id="btnAddNewTask" alignment="CENTER" mnemonicParsing="false" onAction="#actionAddNewTask" prefHeight="25.0" prefWidth="123.0" styleClass="btnAddTask" text="+">
+            <Button fx:id="btnAddNewTask" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#actionAddNewTask" prefHeight="25.0" prefWidth="123.0" styleClass="btnAddTask" text="+">
                <font>
                   <Font size="24.0" />
                </font></Button>

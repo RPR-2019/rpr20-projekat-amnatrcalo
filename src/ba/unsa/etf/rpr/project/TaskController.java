@@ -32,14 +32,14 @@ public class TaskController {
     public ChoiceBox<CustomList> listMenu;
 
     private Task task;
-    private User user;
-    private AlertClass alertClass=new AlertClass();
+    private final User user;
+
     private ObservableList<CustomList> listLists= FXCollections.observableArrayList();
 
-    private AppDAO dao;
-    private boolean edit=false;
+    private final AppDAO dao;
+    private final boolean edit;
     final int MAX_CHARS = 100 ;
-    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+    private final ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
     public Task getTask() {
         return task;
@@ -105,7 +105,7 @@ public class TaskController {
         ObservableList<CustomList> listsForMenu=listLists.stream().filter(l->
           !l.getListName().equals(ListsName.MYDAY.toString()) &&  !l.getListName().equals(ListsName.PLANNED.toString()) && !l.getListName().equals(ListsName.TASKS.toString()) && !l.getListName().equals(ListsName.COMPLETED.toString()))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        //listMenu.setItems(listLists);
+
         listMenu.setItems(listsForMenu);
     }
 
@@ -141,6 +141,7 @@ public class TaskController {
                 }
             }
        } else{
+            //don't show alert if edit name is the same as original name
             for(Task t: dao.tasks()){
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getId()!=task.getId() && t.getUsername().equals(user.getUsername())){
                     ok=false;
@@ -207,7 +208,10 @@ public class TaskController {
     private boolean isListNameDefault(String listName){
         boolean defaultName=false;
         for(String s: ListsName.defaultListsName()){
-            if(listName.equals(s)) defaultName=true;
+            if (listName.equals(s)) {
+                defaultName = true;
+                break;
+            }
         }
         return defaultName;
     }
