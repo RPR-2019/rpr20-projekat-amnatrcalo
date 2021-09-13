@@ -1,11 +1,14 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.MyDayMessages;
+import ba.unsa.etf.rpr.project.enums.TaskMessages;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     private Integer id;
@@ -261,6 +264,39 @@ public class Task {
         Task t = (Task) o;
 
         return t.getTaskName().equals(((Task) o).getTaskName()) && t.getUsername().equals(((Task) o).getUsername());
+    }
+
+    public String getAllDetails(){
+        DateTimeFormatter formatDate=DateTimeFormatter.ofPattern(MyDayMessages.DATE.toString());
+        DateTimeFormatter formatTime=DateTimeFormatter.ofPattern(MyDayMessages.CLOCK.toString());
+        StringBuilder sb=new StringBuilder();
+        sb.append(getTaskName()).append(" (").append(getListName()).append(")\n");
+
+        if(getStartYear()!=1){
+            sb.append(TaskMessages.START_DATE.toString()+getStartDateAndTime().format(formatDate)+"\n");
+            if(isAllDay()){
+               sb.append(TaskMessages.ALL_DAY.toString()+"\n");
+            } else{
+                sb.append(TaskMessages.START_TIME.toString()+getStartDateAndTime().format(formatTime)+"\n");
+            }
+        }
+        if(getEndYear()!=1){
+            sb.append(TaskMessages.END_DATE.toString()+getEndDateAndTime().format(formatDate)+"\n");
+            sb.append(TaskMessages.END_TIME.toString()+getEndDateAndTime().format(formatTime)+"\n");
+        }
+
+        if(isReminder()){
+            sb.append(TaskMessages.REMINDER_SET.toString()+getReminderDigit()+" "+ getReminderPeriod()+TaskMessages.REMINDER_BEFORE.toString());
+            if(isAlertEmail()) sb.append(" (").append(TaskMessages.EMAIL_ALERT.toString()).append(")\n");
+            else sb.append(" (").append(TaskMessages.NOTIFICATION_ALERT.toString()).append(")\n");
+        }
+
+        if(!getNote().trim().isEmpty()){
+            sb.append("\n"+getNote());
+        }
+
+        return sb.toString();
+
     }
 
 }

@@ -233,7 +233,7 @@ public class TaskController {
     public void actionAddFile(ActionEvent actionEvent){
         FileChooser chooser=new FileChooser();
         chooser.setTitle(TaskMessages.CHOOSE_FILE.toString());
-        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(TaskMessages.DATATYPE.toString(), "*.txt"));
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(TaskMessages.DATA_TYPE.toString(), "*.txt"));
 
         File file= chooser.showOpenDialog(areaNote.getScene().getWindow());
         if(file==null) return;
