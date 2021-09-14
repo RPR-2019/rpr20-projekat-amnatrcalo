@@ -136,7 +136,10 @@
             <Button fx:id="btnMoreDetails" mnemonicParsing="false" onAction="#actionMoreDetails" styleClass="btnDetails" text="%show_details" textFill="WHITE">
                <font>
                   <Font name="System Italic" size="14.0" />
-               </font></Button>
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></Button>
          </children>
       </VBox>
    </right>

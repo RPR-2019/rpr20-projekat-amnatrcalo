@@ -154,9 +154,9 @@ public class MyDayController {
         } );
 
         rightVBox.setAlignment(Pos.TOP_CENTER);
-        rightVBox.getChildren().add(0,btnEditTask);
-        rightVBox.getChildren().add(1,btnDeleteTask);
-        rightVBox.getChildren().add(2,btnRightArrow);
+        rightVBox.getChildren().add(btnRightArrow);
+        rightVBox.getChildren().add(btnEditTask);
+        rightVBox.getChildren().add(btnDeleteTask);
         rightVBox.getChildren().add(textFlow);
 
         setTooltips();
