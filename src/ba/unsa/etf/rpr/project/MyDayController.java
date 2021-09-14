@@ -27,18 +27,22 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.CheckListView;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class MyDayController {
@@ -401,6 +405,46 @@ public class MyDayController {
 
         }
 
+    }
+
+    public void actionClose (ActionEvent actionEvent){
+        Stage stage=(Stage) btnNewList.getScene().getWindow();
+        stage.close();
+    }
+
+    private String exportTasks(){
+        StringBuilder sb=new StringBuilder();
+        for(Task t: dao.allTasksForUser(user)){
+            sb.append(t.getAllDetails()).append("\n\n");
+        }
+        return sb.toString();
+    }
+
+    public void actionSave(ActionEvent actionEvent){
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter for text files
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(btnAddNewTask.getScene().getWindow());
+
+        if (file != null) {
+            saveTextToFile(exportTasks(), file);
+        }
+    }
+
+
+    private void saveTextToFile(String content, File file) {
+        try {
+            PrintWriter writer;
+            writer = new PrintWriter(file);
+            writer.println(content);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(MyDayController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 

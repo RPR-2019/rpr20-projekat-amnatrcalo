@@ -281,26 +281,26 @@ public class Task {
         sb.append(getTaskName().toUpperCase(Locale.ROOT)).append(" (").append(getListName()).append(")\n");
 
         if(getStartYear()!=1){
-            sb.append(TaskMessages.START_DATE.toString()+getStartDateAndTime().format(formatDate)+"\n");
+            sb.append(TaskMessages.START_DATE.toString()).append(getStartDateAndTime().format(formatDate)).append("\n");
             if(isAllDay()){
-               sb.append(TaskMessages.ALL_DAY.toString()+"\n");
+               sb.append(TaskMessages.ALL_DAY.toString()).append("\n");
             } else{
-                sb.append(TaskMessages.START_TIME.toString()+getStartDateAndTime().format(formatTime)+"\n");
+                sb.append(TaskMessages.START_TIME.toString()).append(getStartDateAndTime().format(formatTime)).append("\n");
             }
         }
         if(getEndYear()!=1){
-            sb.append(TaskMessages.END_DATE.toString()+getEndDateAndTime().format(formatDate)+"\n");
-            sb.append(TaskMessages.END_TIME.toString()+getEndDateAndTime().format(formatTime)+"\n");
+            sb.append(TaskMessages.END_DATE.toString()).append(getEndDateAndTime().format(formatDate)).append("\n");
+            sb.append(TaskMessages.END_TIME.toString()).append(getEndDateAndTime().format(formatTime)).append("\n");
         }
 
         if(isReminder()){
-            sb.append(TaskMessages.REMINDER_SET.toString()+getReminderDigit()+" "+ getReminderPeriod()+TaskMessages.REMINDER_BEFORE.toString());
+            sb.append(TaskMessages.REMINDER_SET.toString()).append(getReminderDigit()).append(" ").append(getReminderPeriod()).append(TaskMessages.REMINDER_BEFORE.toString());
             if(isAlertEmail()) sb.append(" (").append(TaskMessages.EMAIL_ALERT.toString()).append(")\n");
             else sb.append(" (").append(TaskMessages.NOTIFICATION_ALERT.toString()).append(")\n");
         }
 
         if(!getNote().trim().isEmpty()){
-            sb.append("\n"+getNote());
+            sb.append(getNote()).append("\n");
         }
 
         return sb.toString();
