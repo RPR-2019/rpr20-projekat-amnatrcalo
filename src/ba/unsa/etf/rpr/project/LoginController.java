@@ -61,7 +61,7 @@ public class LoginController {
 
         registrationStage.setTitle(StageName.SIGNUP.toString());
         registrationStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        Image icon=new Image(getClass().getResourceAsStream("/img/login-icon.png"));
         registrationStage.getIcons().add(icon);
         registrationStage.setResizable(false);
         registrationStage.show();
@@ -93,13 +93,13 @@ public class LoginController {
 
         if(fldUsername.getText().trim().isEmpty() || fldPassword.getText().trim().isEmpty())
         {
-            AlertClass.alertERROR(LoginMessages.LOGINFAILEDHEADER.toString(),LoginMessages.LOGINFAILEDCONTENT.toString(),"/img/login-icon.png");
+            AlertClass.alertERROR(LoginMessages.LOGINFAILEDHEADER.toString(),LoginMessages.LOGINFAILEDCONTENT.toString(),"/img/road-sign-icon.png");
             fldUsername.clear();
             fldPassword.clear();
             ok=false;
 
         } else if(!checkLogin(fldUsername.getText(), fldPassword.getText())){
-            AlertClass.alertERROR(LoginMessages.LOGINFAILEDHEADER.toString(),LoginMessages.LOGINFAILEDCONTENT.toString(),"/img/login-icon.png");
+            AlertClass.alertERROR(LoginMessages.LOGINFAILEDHEADER.toString(),LoginMessages.LOGINFAILEDCONTENT.toString(),"/img/road-sign-icon.png");
             fldUsername.clear();
             fldPassword.clear();
             ok=false;

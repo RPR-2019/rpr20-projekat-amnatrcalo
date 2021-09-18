@@ -131,6 +131,7 @@ public class RegisterController {
             ok = false;
         }else if(!emailValidation(fldMail.getText())){
            errorMail.setText(LoginMessages.INVALIDMAIL.toString());
+           ok=false;
         } else{
             errorMail.setText(" ");
         }
@@ -192,7 +193,7 @@ public class RegisterController {
 
             myDayStage.setTitle("ToDo App");
             myDayStage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
-            Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+            Image icon=new Image(getClass().getResourceAsStream("/img/login-icon.png"));
             myDayStage.getIcons().add(icon);
             myDayStage.setResizable(true);
             myDayStage.setMinHeight(650);

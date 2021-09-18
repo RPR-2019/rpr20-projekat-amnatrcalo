@@ -40,7 +40,7 @@ public class HomeController {
 
         loginStage.setTitle(StageName.LOGIN.toString());
         loginStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        Image icon=new Image(getClass().getResourceAsStream("/img/login-icon.png"));
         loginStage.getIcons().add(icon);
         loginStage.setResizable(false);
         loginStage.show();
@@ -57,7 +57,7 @@ public class HomeController {
 
         registrationStage.setTitle(StageName.SIGNUP.toString());
         registrationStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        Image icon=new Image(getClass().getResourceAsStream("/img/login-icon.png"));
         registrationStage.getIcons().add(icon);
         registrationStage.setResizable(false);
         registrationStage.show();

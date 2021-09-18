@@ -56,6 +56,8 @@ public class HelpTaskController {
                 helpListStage.getIcons().add(icon);
                 helpListStage.setResizable(false);
                 helpListStage.show();
+                Stage stage=(Stage) arrow.getScene().getWindow();
+                stage.close();
             }
         });
 
