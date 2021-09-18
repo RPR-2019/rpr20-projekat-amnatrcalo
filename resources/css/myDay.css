@@ -55,6 +55,22 @@
 -fx-background-color:  #11698E;
 }
 
+ /***************
+  MENU STYLE
+  ***************/
+#mniSave > .label{
+ -fx-graphic: url("/img/save-icon.jpg");
+}
+#mniSave .accelerator-text{
+ -fx-graphic: none;
+}
+
+#mniHelp > .label{
+ -fx-graphic: url("/img/help-icon.jpg");
+}
+#mniHelp .accelerator-text{
+ -fx-graphic: none;
+}
 
  /***************
   LIST STYLE

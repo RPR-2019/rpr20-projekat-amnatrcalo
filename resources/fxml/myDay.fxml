@@ -17,11 +17,12 @@
         <menus>
           <Menu text="%_file">
             <items>
-                  <MenuItem fx:id="itemSave" onAction="#actionSave" text="%_save">
+                  <MenuItem fx:id="mniSave" onAction="#actionSave" text="%_save">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem fx:id="itemClose" onAction="#actionClose" text="%e_xit">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
@@ -31,18 +32,14 @@
                   <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                </accelerator>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
           <Menu text="%_help">
             <items>
               <MenuItem onAction="#actionAbout" text="%_about">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#actionHelp" text="%_help">
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="mniHelp" mnemonicParsing="false" onAction="#actionHelp" text="%_help">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
