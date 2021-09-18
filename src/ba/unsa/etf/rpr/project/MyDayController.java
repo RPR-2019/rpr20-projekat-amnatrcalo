@@ -347,7 +347,7 @@ public class MyDayController {
 
         addNewList.setTitle(StageName.YOURLIST.toString());
         addNewList.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/todo-list-icon.png"));
+        Image icon=new Image(getClass().getResourceAsStream("/img/todolist-icon.png"));
         addNewList.getIcons().add(icon);
         addNewList.setResizable(false);
         addNewList.show();
@@ -447,7 +447,21 @@ public class MyDayController {
         }
     }
 
+    public void actionAbout(ActionEvent actionEvent) throws IOException {
+        Stage aboutStage=new Stage();
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"),bundle);
+        AboutController aboutController=new AboutController();
+        loader.setController(aboutController);
+        root = loader.load();
 
+        aboutStage.setTitle(StageName.ABOUT.toString());
+        aboutStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        aboutStage.getIcons().add(icon);
+        aboutStage.setResizable(false);
+        aboutStage.show();
+    }
 
 
 }

@@ -37,8 +37,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="fldUsername" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="150.0" promptText="%username" GridPane.rowIndex="2" />
-                  <Label fx:id="lblWhatToEnter" styleClass="subheading" textFill="#f40b59" GridPane.rowIndex="1" />
+                  <TextField fx:id="fldUsername" alignment="CENTER"  prefHeight="25.0" prefWidth="150.0" promptText="%username" GridPane.rowIndex="2" />
+                   <PasswordField fx:id="fldPassword" alignment="CENTER" promptText="%password"  GridPane.rowIndex="3" />
+                   <Label fx:id="lblWhatToEnter" styleClass="subheading" textFill="#f40b59" GridPane.rowIndex="1" />
                   <Button defaultButton="true" mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="%log_in" textFill="WHITE" GridPane.rowIndex="4">
                      <font>
                         <Font name="System Italic" size="12.0" />
@@ -61,7 +62,7 @@
                         <Hyperlink onAction="#hyperlinkAction" text="%sign_up" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-            <PasswordField fx:id="fldPassword" alignment="CENTER" promptText="%password" GridPane.rowIndex="3" />
+
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

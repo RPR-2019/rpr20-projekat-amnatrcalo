@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
 import ba.unsa.etf.rpr.project.enums.MyDayMessages;
+import ba.unsa.etf.rpr.project.enums.Period;
 import ba.unsa.etf.rpr.project.enums.TaskMessages;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -69,9 +70,9 @@ public class Task {
 
 
     public LocalDateTime getReminderDateAndTime(){
-        if(reminderPeriod.equals("minutes")){
+        if(reminderPeriod.equals(Period.MINS.toString())){
             return getStartDateAndTime().minusMinutes(reminderDigit);
-        } else if(reminderPeriod.equals("hours")){
+        } else if(reminderPeriod.equals(Period.HOURS.toString())){
             return getStartDateAndTime().minusHours(reminderDigit);
         } else return getStartDateAndTime().minusDays(reminderDigit);
     }

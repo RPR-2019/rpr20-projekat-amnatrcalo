@@ -47,5 +47,14 @@ public enum StageName {
             else
                 return "Datum i vrijeme";
         }
+    },
+    ABOUT{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "About";
+            else
+                return "O nama";
+        }
     }
 }
