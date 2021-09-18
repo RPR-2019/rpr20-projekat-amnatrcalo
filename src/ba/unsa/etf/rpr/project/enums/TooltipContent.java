@@ -83,5 +83,14 @@ public enum TooltipContent {
             else
                 return "Postavite datum i vrijeme početka ili kraja zadatka. Ovo nije obavezno";
         }
+    },
+    NEXT{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Next";
+            else
+                return "Dalje";
+        }
     }
 }

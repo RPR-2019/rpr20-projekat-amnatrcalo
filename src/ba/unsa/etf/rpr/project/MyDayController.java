@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.logging.Level;
@@ -461,6 +460,22 @@ public class MyDayController {
         aboutStage.getIcons().add(icon);
         aboutStage.setResizable(false);
         aboutStage.show();
+    }
+
+    public void actionHelp(ActionEvent actionEvent) throws IOException {
+        Stage helpStage=new Stage();
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/helpTask.fxml"),bundle);
+        HelpTaskController helpController=new HelpTaskController();
+        loader.setController(helpController);
+        root = loader.load();
+
+        helpStage.setTitle(StageName.HELP.toString());
+        helpStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        helpStage.getIcons().add(icon);
+        helpStage.setResizable(false);
+        helpStage.show();
     }
 
 
