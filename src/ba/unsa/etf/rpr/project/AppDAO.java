@@ -9,12 +9,12 @@ import java.util.Scanner;
 
 public class AppDAO {
     private static Connection conn;
-    private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, getUserStmt, deleteUserStmt, deleteAllUsersStmt,
+    private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, editUserStmt, getUserStmt, deleteUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
-            getAllTasksStmt, getAllTasksForUserStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, deleteOneTaskStmt, deleteAllTasksFromListStmt,
+            getAllTasksStmt, getAllTasksForUserStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, changeTaskUsername, deleteOneTaskStmt, deleteAllTasksFromListStmt,
             deleteAllTasksForUserStmt, deleteAllTasksStmt,
             getAllTasksNotificationRemStmt, getAllTasksEmailRemStmt,
-            getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, deleteAllListsForUserStmt, deleteAllListsStmt, deleteListForUserStmt;
+            getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, changeListUsername, deleteAllListsForUserStmt, deleteAllListsStmt, deleteListForUserStmt;
 
 
     private static AppDAO instance=null;
@@ -47,6 +47,8 @@ public class AppDAO {
         try {
             setNewIdStmt=conn.prepareStatement("SELECT MAX(id)+1 FROM users");
             addNewUserStmt=conn.prepareStatement("INSERT INTO users VALUES(?,?,?,?,?,?)");
+            editUserStmt=conn.prepareStatement("UPDATE users SET first_name=?, last_name=?," +
+                    "username=?, mail=?, password=? WHERE id=?");
             getUserStmt=conn.prepareStatement("SELECT *FROM users WHERE username=?");
             deleteUserStmt=conn.prepareStatement("DELETE FROM users WHERE username=?");
             deleteAllUsersStmt =conn.prepareStatement("DELETE FROM users");
@@ -66,6 +68,7 @@ public class AppDAO {
             editTaskStmt=conn.prepareStatement("UPDATE tasks SET task_name=?, start_year=?, start_month=?, start_day=?, start_hour=?," +
                     "start_min=?, end_year=?, end_month=?, end_day=?, end_hour=?, end_min=?, note=?, reminder=?, reminder_digit=?," +
                     "reminder_period=?, alert_notification=?, alert_email=?, list_name=?, all_day=? WHERE id=?");
+            changeTaskUsername=conn.prepareStatement("UPDATE tasks SET username=? WHERE username=?");
             deleteOneTaskStmt=conn.prepareStatement("DELETE FROM tasks WHERE id=?");
             deleteAllTasksFromListStmt =conn.prepareStatement("DELETE FROM tasks WHERE username=? AND list_name=?");
             deleteAllTasksForUserStmt=conn.prepareStatement("DELETE FROM tasks WHERE username=?");
@@ -76,6 +79,7 @@ public class AppDAO {
             getAllListsStmt=conn.prepareStatement("SELECT *FROM lists");
             getAllListsForUserStmt=conn.prepareStatement("SELECT *FROM lists WHERE username=?");
             addNewListForUserStmt=conn.prepareStatement("INSERT INTO lists VALUES (?,?)");
+            changeListUsername=conn.prepareStatement("UPDATE lists SET username=? WHERE username=?");
             deleteAllListsForUserStmt=conn.prepareStatement("DELETE FROM lists WHERE username=?");
             deleteAllListsStmt=conn.prepareStatement("DELETE from lists");
             deleteListForUserStmt=conn.prepareStatement("DELETE from lists WHERE username=? AND list_name=?");
@@ -174,6 +178,30 @@ public class AppDAO {
             exception.printStackTrace();
         }
 
+
+    }
+
+
+    public void editUser(User user, String exUsername){
+        try {
+            editUserStmt.setString(1,user.getFirstName());
+            editUserStmt.setString(2,user.getLastName());
+            editUserStmt.setString(3,user.getUsername());
+            editUserStmt.setString(4,user.getMail());
+            editUserStmt.setString(5,user.getPassword());
+            editUserStmt.setInt(6,user.getId());
+            editUserStmt.executeUpdate();
+
+            changeTaskUsername.setString(1,user.getUsername());
+            changeTaskUsername.setString(2,exUsername);
+            changeTaskUsername.executeUpdate();
+
+            changeListUsername.setString(1,user.getUsername());
+            changeListUsername.setString(2,exUsername);
+            changeListUsername.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
 
     }
 

@@ -65,5 +65,14 @@ public enum StageName {
             else
                 return "Pomoć";
         }
+    },
+    MY_PROFILE{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "My profile";
+            else
+                return "Moj profil";
+        }
     }
 }

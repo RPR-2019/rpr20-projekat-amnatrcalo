@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="380.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/css/signup.css" />
+    </stylesheets>
+
+    <children>
+        <StackPane prefHeight="50.0" prefWidth="50.0" styleClass="logo">
+            <children>
+                <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/plan-your-day-icon.png" />
+                    </image>
+                    <StackPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </StackPane.margin>
+                </ImageView>
+            </children>
+        </StackPane>
+        <GridPane hgap="10.0" layoutX="75.0" layoutY="75.0" prefWidth="239.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <VBox GridPane.rowIndex="2">
+                    <children>
+                        <TextField fx:id="fldFirstName" alignment="CENTER" promptText="%first_name" />
+                        <Label fx:id="errorFirstName" styleClass="errorMessages"  />
+                    </children>
+                </VBox>
+                <VBox GridPane.rowIndex="3">
+                    <children>
+                        <TextField fx:id="fldLastName" alignment="CENTER" promptText="%last_name" />
+                        <Label fx:id="errorLastName" styleClass="errorMessages"  />
+                    </children>
+                </VBox>
+                <VBox GridPane.rowIndex="4">
+                    <children>
+                        <TextField fx:id="fldUsername" alignment="CENTER"  prefHeight="25.0" prefWidth="150.0" promptText="%username" />
+                        <Label fx:id="errorUsername" styleClass="errorMessages"  />
+                    </children>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="5">
+                    <children>
+                        <TextField fx:id="fldMail" alignment="CENTER" promptText="Mail" />
+                        <Label fx:id="errorMail" styleClass="errorMessages"  />
+                    </children>
+                </VBox>
+                <VBox GridPane.rowIndex="6">
+                    <children>
+                        <PasswordField fx:id="fldPassword" alignment="CENTER" promptText="%password" />
+                        <Label fx:id="errorPassword" styleClass="errorMessages"  />
+                    </children>
+                </VBox>
+                <VBox GridPane.rowIndex="7">
+                    <children>
+                        <PasswordField fx:id="fldConfirmPassword" alignment="CENTER" promptText="%confirm_password" />
+                        <Label fx:id="errorConfirmPassword" styleClass="errorMessages"  />
+                    </children>
+                </VBox>
+
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="%save" textFill="WHITE" GridPane.rowIndex="8">
+                    <font>
+                        <Font name="System Italic" size="12.0" />
+                    </font></Button>
+
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </GridPane>
+    </children>
+</AnchorPane>

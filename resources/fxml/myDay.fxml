@@ -45,6 +45,15 @@
                      </accelerator></MenuItem>
             </items>
           </Menu>
+            <Menu text="%use_r">
+              <items>
+                <MenuItem onAction="#actionEdit" text="%_edit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>

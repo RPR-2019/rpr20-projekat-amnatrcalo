@@ -478,6 +478,22 @@ public class MyDayController {
         helpStage.show();
     }
 
+    public void actionEdit(ActionEvent actionEvent) throws IOException {
+        Stage editStage=new Stage();
+        Parent root=null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editProfile.fxml"),bundle);
+        EditProfileController editProfileController=new EditProfileController(user, dao.users(), dao);
+        loader.setController(editProfileController);
+        root = loader.load();
+
+        editStage.setTitle(StageName.MY_PROFILE.toString());
+        editStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/login-icon.png"));
+        editStage.getIcons().add(icon);
+        editStage.setResizable(false);
+        editStage.show();
+    }
+
 
 }
 

@@ -175,7 +175,7 @@ public enum LoginMessages {
             }
 
             else{
-              return "Ako trebate pomoć, provjerite Help menu u gornjem lijevom ćošku ekrana.\nUživajte u planiranju Vašeg dana!";
+              return "Ako trebate pomoć, provjerite menu Pomoć u gornjem lijevom ćošku ekrana.\nUživajte u planiranju Vašeg dana!";
 
             }
 
