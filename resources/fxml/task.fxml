@@ -28,11 +28,11 @@
          </font></TextArea>
       <ButtonBar GridPane.rowIndex="4">
          <buttons>
-            <Button fx:id="btnCreate" defaultButton="true" mnemonicParsing="false" onAction="#actionCreate" styleClass="btnCreate" text="Create " textFill="WHITE">
+            <Button fx:id="btnCreate" defaultButton="true" mnemonicParsing="false" onAction="#actionCreate" styleClass="btnCreate" text="%create" textFill="WHITE">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></Button>
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" styleClass="btnCancel" text="Cancel">
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" styleClass="btnCancel" text="%cancel">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></Button>

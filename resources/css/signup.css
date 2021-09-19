@@ -32,5 +32,15 @@
 -fx-font-size:9.0px;
 }
 
+.btnCancel{
+-fx-background-color: white;
+-fx-border: none;
+-fx-cursor:hand;
+}
+
+.btnCancel:hover{
+-fx-background-color:#ccc8c8;
+}
+
 
 

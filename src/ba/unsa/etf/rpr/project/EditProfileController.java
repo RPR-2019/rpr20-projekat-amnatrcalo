@@ -41,7 +41,7 @@ public class EditProfileController {
         public Label errorConfirmPassword;
 
         private ArrayList<User> users=new ArrayList<>();
-        private String exUsername;
+        private final String exUsername;
         private final User user;
         private final AppDAO dao;
 
@@ -168,6 +168,11 @@ public class EditProfileController {
             stage.close();
 
 
+        }
+
+        public void actionCancel(ActionEvent actionEvent){
+            Stage stage = (Stage) fldUsername.getScene().getWindow();
+            stage.close();
         }
 
 

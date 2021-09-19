@@ -94,11 +94,11 @@
       <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="11" />
       <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="12">
          <buttons>
-            <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#actionSave" styleClass="btnSave" text="Save" textFill="WHITE">
+            <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#actionSave" styleClass="btnSave" text="%save" textFill="WHITE">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></Button>
-            <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" styleClass="btnCancel" text="Cancel">
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" styleClass="btnCancel" text="%cancel">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></Button>

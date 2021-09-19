@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="450.0" prefWidth="380.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="380.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/css/signup.css" />
     </stylesheets>
@@ -37,52 +37,58 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <VBox GridPane.rowIndex="2">
+                <VBox>
                     <children>
                         <TextField fx:id="fldFirstName" alignment="CENTER" promptText="%first_name" />
-                        <Label fx:id="errorFirstName" styleClass="errorMessages"  />
+                        <Label fx:id="errorFirstName" styleClass="errorMessages" />
                     </children>
                 </VBox>
-                <VBox GridPane.rowIndex="3">
+                <VBox GridPane.rowIndex="1">
                     <children>
                         <TextField fx:id="fldLastName" alignment="CENTER" promptText="%last_name" />
-                        <Label fx:id="errorLastName" styleClass="errorMessages"  />
+                        <Label fx:id="errorLastName" styleClass="errorMessages" />
+                    </children>
+                </VBox>
+                <VBox GridPane.rowIndex="2">
+                    <children>
+                        <TextField fx:id="fldUsername" alignment="CENTER" prefHeight="25.0" prefWidth="150.0" promptText="%username" />
+                        <Label fx:id="errorUsername" styleClass="errorMessages" />
+                    </children>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
+                    <children>
+                        <TextField fx:id="fldMail" alignment="CENTER" promptText="Mail" />
+                        <Label fx:id="errorMail" styleClass="errorMessages" />
                     </children>
                 </VBox>
                 <VBox GridPane.rowIndex="4">
                     <children>
-                        <TextField fx:id="fldUsername" alignment="CENTER"  prefHeight="25.0" prefWidth="150.0" promptText="%username" />
-                        <Label fx:id="errorUsername" styleClass="errorMessages"  />
-                    </children>
-                </VBox>
-                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="5">
-                    <children>
-                        <TextField fx:id="fldMail" alignment="CENTER" promptText="Mail" />
-                        <Label fx:id="errorMail" styleClass="errorMessages"  />
-                    </children>
-                </VBox>
-                <VBox GridPane.rowIndex="6">
-                    <children>
                         <PasswordField fx:id="fldPassword" alignment="CENTER" promptText="%password" />
-                        <Label fx:id="errorPassword" styleClass="errorMessages"  />
+                        <Label fx:id="errorPassword" styleClass="errorMessages" />
                     </children>
                 </VBox>
-                <VBox GridPane.rowIndex="7">
+                <VBox GridPane.rowIndex="5">
                     <children>
                         <PasswordField fx:id="fldConfirmPassword" alignment="CENTER" promptText="%confirm_password" />
-                        <Label fx:id="errorConfirmPassword" styleClass="errorMessages"  />
+                        <Label fx:id="errorConfirmPassword" styleClass="errorMessages" />
                     </children>
                 </VBox>
-
-                <Button defaultButton="true" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="%save" textFill="WHITE" GridPane.rowIndex="8">
-                    <font>
+            <ButtonBar translateX="-7.5" GridPane.rowIndex="6">
+               <buttons>
+      
+                      <Button defaultButton="true" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="%save" textFill="WHITE">
+                          <font>
+                              <Font name="System Italic" size="12.0" />
+                          </font>
+                  </Button>
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" styleClass="btnCancel" text="%cancel">
+                     <font>
                         <Font name="System Italic" size="12.0" />
-                    </font></Button>
+                     </font></Button>
+               </buttons>
+            </ButtonBar>
 
             </children>
             <padding>
