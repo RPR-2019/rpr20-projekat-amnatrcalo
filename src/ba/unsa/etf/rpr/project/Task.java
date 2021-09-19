@@ -256,7 +256,10 @@ public class Task {
         StringBuilder sb=new StringBuilder();
         sb.append(taskName.get().toUpperCase(Locale.ROOT)).append("\n");
         if(getStartYear()!=1){
-            sb.append(getStartDateAndTime().format(formatDate)).append(" ").append(getStartDateAndTime().format(formatTime));
+            if(!allDay)
+                sb.append(getStartDateAndTime().format(formatDate)).append(" ").append(getStartDateAndTime().format(formatTime));
+            else
+                sb.append(getStartDateAndTime().format(formatDate));
         }
         return sb.toString();
     }

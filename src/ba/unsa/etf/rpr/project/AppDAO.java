@@ -5,16 +5,18 @@ import java.io.FileNotFoundException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class AppDAO {
     private static Connection conn;
     private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, editUserStmt, getUserStmt, deleteUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
-            getAllTasksStmt, getAllTasksForUserStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, changeTaskUsername, deleteOneTaskStmt, deleteAllTasksFromListStmt,
+            getAllTasksStmt, getAllTasksForUserStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, changeTaskUsernameStmt,
+            changeTaskDefaultListNameStmt,deleteOneTaskStmt, deleteAllTasksFromListStmt,
             deleteAllTasksForUserStmt, deleteAllTasksStmt,
             getAllTasksNotificationRemStmt, getAllTasksEmailRemStmt,
-            getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, changeListUsername, deleteAllListsForUserStmt, deleteAllListsStmt, deleteListForUserStmt;
+            getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, changeListUsernameStmt, changeDefaultListNameStmt, deleteAllListsForUserStmt, deleteAllListsStmt, deleteListForUserStmt;
 
 
     private static AppDAO instance=null;
@@ -68,7 +70,8 @@ public class AppDAO {
             editTaskStmt=conn.prepareStatement("UPDATE tasks SET task_name=?, start_year=?, start_month=?, start_day=?, start_hour=?," +
                     "start_min=?, end_year=?, end_month=?, end_day=?, end_hour=?, end_min=?, note=?, reminder=?, reminder_digit=?," +
                     "reminder_period=?, alert_notification=?, alert_email=?, list_name=?, all_day=? WHERE id=?");
-            changeTaskUsername=conn.prepareStatement("UPDATE tasks SET username=? WHERE username=?");
+            changeTaskUsernameStmt =conn.prepareStatement("UPDATE tasks SET username=? WHERE username=?");
+            changeTaskDefaultListNameStmt=conn.prepareStatement("UPDATE tasks SET list_name=? WHERE username=? AND list_name=?");
             deleteOneTaskStmt=conn.prepareStatement("DELETE FROM tasks WHERE id=?");
             deleteAllTasksFromListStmt =conn.prepareStatement("DELETE FROM tasks WHERE username=? AND list_name=?");
             deleteAllTasksForUserStmt=conn.prepareStatement("DELETE FROM tasks WHERE username=?");
@@ -79,7 +82,8 @@ public class AppDAO {
             getAllListsStmt=conn.prepareStatement("SELECT *FROM lists");
             getAllListsForUserStmt=conn.prepareStatement("SELECT *FROM lists WHERE username=?");
             addNewListForUserStmt=conn.prepareStatement("INSERT INTO lists VALUES (?,?)");
-            changeListUsername=conn.prepareStatement("UPDATE lists SET username=? WHERE username=?");
+            changeListUsernameStmt =conn.prepareStatement("UPDATE lists SET username=? WHERE username=?");
+            changeDefaultListNameStmt =conn.prepareStatement("UPDATE lists SET list_name=? WHERE list_name=?");
             deleteAllListsForUserStmt=conn.prepareStatement("DELETE FROM lists WHERE username=?");
             deleteAllListsStmt=conn.prepareStatement("DELETE from lists");
             deleteListForUserStmt=conn.prepareStatement("DELETE from lists WHERE username=? AND list_name=?");
@@ -192,13 +196,13 @@ public class AppDAO {
             editUserStmt.setInt(6,user.getId());
             editUserStmt.executeUpdate();
 
-            changeTaskUsername.setString(1,user.getUsername());
-            changeTaskUsername.setString(2,exUsername);
-            changeTaskUsername.executeUpdate();
+            changeTaskUsernameStmt.setString(1,user.getUsername());
+            changeTaskUsernameStmt.setString(2,exUsername);
+            changeTaskUsernameStmt.executeUpdate();
 
-            changeListUsername.setString(1,user.getUsername());
-            changeListUsername.setString(2,exUsername);
-            changeListUsername.executeUpdate();
+            changeListUsernameStmt.setString(1,user.getUsername());
+            changeListUsernameStmt.setString(2,exUsername);
+            changeListUsernameStmt.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -552,6 +556,73 @@ public class AppDAO {
             exception.printStackTrace();
         }
 
+    }
+
+    public void changeDeafultListName(String listName, User user){
+        try {
+            if(Locale.getDefault().getCountry().equals("US")){
+                switch (listName) {
+                    case "My Day", "Moj dan" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "My Day");
+                        changeTaskDefaultListNameStmt.setString(1,"My Day");
+
+                    }
+                    case "Tasks", "Zadaci" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Tasks");
+                        changeTaskDefaultListNameStmt.setString(1,"Tasks");
+
+                    }
+                    case "Planned", "Planirano" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Planned");
+                        changeTaskDefaultListNameStmt.setString(1,"Planned");
+
+                    }
+                    case "Completed", "Dovršeno" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Completed");
+                        changeTaskDefaultListNameStmt.setString(1,"Completed");
+
+                    }
+                }
+            } else{
+                switch (listName) {
+                    case "My Day", "Moj dan" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Moj dan");
+                        changeTaskDefaultListNameStmt.setString(1,"Moj dan");
+
+                    }
+                    case "Tasks", "Zadaci" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Zadaci");
+                        changeTaskDefaultListNameStmt.setString(1,"Zadaci");
+
+                    }
+                    case "Planned", "Planirano" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Planirano");
+                        changeTaskDefaultListNameStmt.setString(1,"Planirano");
+
+                    }
+                    case "Completed", "Dovršeno" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Dovršeno");
+                        changeTaskDefaultListNameStmt.setString(1,"Dovršeno");
+
+                    }
+                }
+            }
+            changeTaskDefaultListNameStmt.setString(2,user.getUsername());
+            changeTaskDefaultListNameStmt.setString(3,listName);
+            changeTaskDefaultListNameStmt.executeUpdate();
+            changeDefaultListNameStmt.executeUpdate();
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void deleteAllListsForUser(User user){

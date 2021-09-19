@@ -23,6 +23,21 @@
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu mnemonicParsing="false" text="%settings">
+                    <items>
+                        <Menu mnemonicParsing="false" text="%language">
+                           <items>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#actionEnglish" text="%english">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="language" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#actionBosnian" text="%bosnian" toggleGroup="$language" />
+                           </items>
+                        </Menu>
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem fx:id="itemClose" onAction="#actionClose" text="%e_xit">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />

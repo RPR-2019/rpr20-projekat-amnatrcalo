@@ -25,9 +25,9 @@ public enum AboutText {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
-                return "Created by Amna Trčalo";
+                return "Created by Amna Trčalo, https://github.com/RPR-2019/rpr20-projekat-amnatrcalo/wiki/Intervju ";
             else
-                return "Developer: Amna Trčalo";
+                return "Developer: Amna Trčalo, https://github.com/RPR-2019/rpr20-projekat-amnatrcalo/wiki/Intervju";
         }
     }
 }

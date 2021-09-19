@@ -285,6 +285,8 @@ public class MyDayController {
             }
         }));
 
+        //when ENTER show task details
+
         tableViewTasks.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
@@ -492,6 +494,31 @@ public class MyDayController {
         editStage.getIcons().add(icon);
         editStage.setResizable(false);
         editStage.show();
+    }
+
+    public void actionEnglish(ActionEvent actionEvent){
+        Locale.setDefault(new Locale("en","US"));
+       changeLanguage();
+    }
+
+    public void actionBosnian(ActionEvent actionEvent){
+        Locale.setDefault(new Locale("bs","BA"));
+        changeLanguage();
+    }
+
+    private void changeLanguage(){
+        dao.changeDeafultListName("My Day", user);
+        dao.changeDeafultListName("Tasks", user);
+        dao.changeDeafultListName("Planned", user);
+        dao.changeDeafultListName("Completed", user);
+
+        dao.changeDeafultListName("Moj dan", user);
+        dao.changeDeafultListName("Zadaci", user);
+        dao.changeDeafultListName("Planirano", user);
+        dao.changeDeafultListName("Dovršeno", user);
+
+        Stage stage=(Stage) btnAddNewTask.getScene().getWindow();
+        stage.close();
     }
 
 
