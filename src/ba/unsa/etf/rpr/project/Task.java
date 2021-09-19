@@ -212,7 +212,11 @@ public class Task {
     }
 
     public String getReminderPeriod() {
-        return reminderPeriod;
+        if(reminderPeriod.equals("hours") || reminderPeriod.equals("sati")){
+            return Period.HOURS.toString();
+        }
+        else if(reminderPeriod.equals("minutes") || reminderPeriod.equals("minuta")) return Period.MINS.toString();
+        else return Period.DAYS.toString();
     }
 
     public void setReminderPeriod(String reminderPeriod) {

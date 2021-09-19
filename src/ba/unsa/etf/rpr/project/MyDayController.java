@@ -68,7 +68,7 @@ public class MyDayController {
     private ObservableList<Task> activeSession = FXCollections.observableArrayList();
     private final User user;
     private final AppDAO dao;
-    private final ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+    private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
 
 
@@ -90,7 +90,7 @@ public class MyDayController {
 
     private boolean shouldSendNotif(Task t){
         boolean ok=true;
-       if (t.getListName().equals("Completed")) ok=false;
+       if (t.getListName().equals(ListsName.COMPLETED.toString())) ok=false;
        else if(!t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))) ok=false;
        else if (!t.getUsername().equals(user.getUsername())) ok=false;
        return ok;
@@ -496,29 +496,34 @@ public class MyDayController {
         editStage.show();
     }
 
-    public void actionEnglish(ActionEvent actionEvent){
+    public void actionEnglish(ActionEvent actionEvent)  {
         Locale.setDefault(new Locale("en","US"));
+
        changeLanguage();
     }
 
-    public void actionBosnian(ActionEvent actionEvent){
+    public void actionBosnian(ActionEvent actionEvent)  {
         Locale.setDefault(new Locale("bs","BA"));
+
         changeLanguage();
     }
 
-    private void changeLanguage(){
-        dao.changeDeafultListName("My Day", user);
-        dao.changeDeafultListName("Tasks", user);
-        dao.changeDeafultListName("Planned", user);
-        dao.changeDeafultListName("Completed", user);
+    private void changeLanguage()  {
+        dao.changeLanguage("My Day", user);
+        dao.changeLanguage("Tasks", user);
+        dao.changeLanguage("Planned", user);
+        dao.changeLanguage("Completed", user);
 
-        dao.changeDeafultListName("Moj dan", user);
-        dao.changeDeafultListName("Zadaci", user);
-        dao.changeDeafultListName("Planirano", user);
-        dao.changeDeafultListName("Dovršeno", user);
+        dao.changeLanguage("Moj dan", user);
+        dao.changeLanguage("Zadaci", user);
+        dao.changeLanguage("Planirano", user);
+        dao.changeLanguage("Dovršeno", user);
+
 
         Stage stage=(Stage) btnAddNewTask.getScene().getWindow();
         stage.close();
+
+
     }
 
 

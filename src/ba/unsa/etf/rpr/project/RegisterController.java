@@ -72,7 +72,7 @@ public class RegisterController {
         root = loader.load();
         loginStage.setTitle(StageName.LOGIN.toString());
         loginStage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
+        Image icon=new Image(getClass().getResourceAsStream("/img/login-icon.png"));
         loginStage.getIcons().add(icon);
         loginStage.setResizable(false);
         loginStage.show();
@@ -193,7 +193,7 @@ public class RegisterController {
 
             myDayStage.setTitle("ToDo App");
             myDayStage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
-            Image icon=new Image(getClass().getResourceAsStream("/img/login-icon.png"));
+            Image icon=new Image(getClass().getResourceAsStream("/img/plan-your-day-icon.png"));
             myDayStage.getIcons().add(icon);
             myDayStage.setResizable(true);
             myDayStage.setMinHeight(650);

@@ -44,7 +44,7 @@ public enum LoginMessages {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
-                return "Please fill in this form to create an account";
+                return "Please fill in this form";
             else
                 return "Popunite ovu formu za kreiranje računa";
         }

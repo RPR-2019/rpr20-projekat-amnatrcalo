@@ -301,7 +301,6 @@ public class DateAndTimeController {
 
 
         task.setReminderDigit(comboValueBefore.getValue());
-
         task.setReminderPeriod(choicePeriodBefore.getValue());
         task.setAlertNotification(radioNotification.isSelected());
         task.setAlertEmail(radioEmail.isSelected());

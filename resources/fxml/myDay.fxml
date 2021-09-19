@@ -54,7 +54,7 @@
                         <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="mniHelp" mnemonicParsing="false" onAction="#actionHelp" text="%_help">
+                  <MenuItem fx:id="mniHelp" onAction="#actionHelp" text="%_help">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>

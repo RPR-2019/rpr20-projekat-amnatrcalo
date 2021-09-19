@@ -13,7 +13,7 @@ public class AppDAO {
     private PreparedStatement getAllUsersStmt, setNewIdStmt, addNewUserStmt, editUserStmt, getUserStmt, deleteUserStmt, deleteAllUsersStmt,
             getAllQuotesStmt, setNewIdQuoteStmt, addNewQuoteStmt, getQuoteStmt, deleteAllQuotesStmt,
             getAllTasksStmt, getAllTasksForUserStmt, setNewIdTaskStmt, addNewTaskStmt, getTaskStmt, editTaskStmt, changeTaskUsernameStmt,
-            changeTaskDefaultListNameStmt,deleteOneTaskStmt, deleteAllTasksFromListStmt,
+            changeTaskDefaultListNameStmt, deleteOneTaskStmt, deleteAllTasksFromListStmt,
             deleteAllTasksForUserStmt, deleteAllTasksStmt,
             getAllTasksNotificationRemStmt, getAllTasksEmailRemStmt,
             getAllListsStmt, getAllListsForUserStmt, addNewListForUserStmt, getListStmt, changeListUsernameStmt, changeDefaultListNameStmt, deleteAllListsForUserStmt, deleteAllListsStmt, deleteListForUserStmt;
@@ -558,72 +558,7 @@ public class AppDAO {
 
     }
 
-    public void changeDeafultListName(String listName, User user){
-        try {
-            if(Locale.getDefault().getCountry().equals("US")){
-                switch (listName) {
-                    case "My Day", "Moj dan" -> {
-                        changeDefaultListNameStmt.setString(2, listName);
-                        changeDefaultListNameStmt.setString(1, "My Day");
-                        changeTaskDefaultListNameStmt.setString(1,"My Day");
 
-                    }
-                    case "Tasks", "Zadaci" -> {
-                        changeDefaultListNameStmt.setString(2, listName);
-                        changeDefaultListNameStmt.setString(1, "Tasks");
-                        changeTaskDefaultListNameStmt.setString(1,"Tasks");
-
-                    }
-                    case "Planned", "Planirano" -> {
-                        changeDefaultListNameStmt.setString(2, listName);
-                        changeDefaultListNameStmt.setString(1, "Planned");
-                        changeTaskDefaultListNameStmt.setString(1,"Planned");
-
-                    }
-                    case "Completed", "Dovršeno" -> {
-                        changeDefaultListNameStmt.setString(2, listName);
-                        changeDefaultListNameStmt.setString(1, "Completed");
-                        changeTaskDefaultListNameStmt.setString(1,"Completed");
-
-                    }
-                }
-            } else{
-                switch (listName) {
-                    case "My Day", "Moj dan" -> {
-                        changeDefaultListNameStmt.setString(2, listName);
-                        changeDefaultListNameStmt.setString(1, "Moj dan");
-                        changeTaskDefaultListNameStmt.setString(1,"Moj dan");
-
-                    }
-                    case "Tasks", "Zadaci" -> {
-                        changeDefaultListNameStmt.setString(2, listName);
-                        changeDefaultListNameStmt.setString(1, "Zadaci");
-                        changeTaskDefaultListNameStmt.setString(1,"Zadaci");
-
-                    }
-                    case "Planned", "Planirano" -> {
-                        changeDefaultListNameStmt.setString(2, listName);
-                        changeDefaultListNameStmt.setString(1, "Planirano");
-                        changeTaskDefaultListNameStmt.setString(1,"Planirano");
-
-                    }
-                    case "Completed", "Dovršeno" -> {
-                        changeDefaultListNameStmt.setString(2, listName);
-                        changeDefaultListNameStmt.setString(1, "Dovršeno");
-                        changeTaskDefaultListNameStmt.setString(1,"Dovršeno");
-
-                    }
-                }
-            }
-            changeTaskDefaultListNameStmt.setString(2,user.getUsername());
-            changeTaskDefaultListNameStmt.setString(3,listName);
-            changeTaskDefaultListNameStmt.executeUpdate();
-            changeDefaultListNameStmt.executeUpdate();
-
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
 
     public void deleteAllListsForUser(User user){
         try {
@@ -655,6 +590,78 @@ public class AppDAO {
             exception.printStackTrace();
         }
 
+    }
+
+    public void changeLanguage(String listName, User user){
+        try {
+            if(Locale.getDefault().getCountry().equals("US")){
+                switch (listName) {
+                    case "My Day", "Moj dan" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "My Day");
+                        changeTaskDefaultListNameStmt.setString(1,"My Day");
+
+                    }
+                    case "Tasks", "Zadaci" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Tasks");
+                        changeTaskDefaultListNameStmt.setString(1,"Tasks");
+
+                    }
+                    case "Planned", "Planirano" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Planned");
+                        changeTaskDefaultListNameStmt.setString(1,"Planned");
+
+                    }
+                    case "Completed", "Dovršeno" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Completed");
+                        changeTaskDefaultListNameStmt.setString(1,"Completed");
+
+                    }
+                }
+
+
+            } else{
+                switch (listName) {
+                    case "My Day", "Moj dan" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Moj dan");
+                        changeTaskDefaultListNameStmt.setString(1,"Moj dan");
+
+                    }
+                    case "Tasks", "Zadaci" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Zadaci");
+                        changeTaskDefaultListNameStmt.setString(1,"Zadaci");
+
+                    }
+                    case "Planned", "Planirano" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Planirano");
+                        changeTaskDefaultListNameStmt.setString(1,"Planirano");
+
+                    }
+                    case "Completed", "Dovršeno" -> {
+                        changeDefaultListNameStmt.setString(2, listName);
+                        changeDefaultListNameStmt.setString(1, "Dovršeno");
+                        changeTaskDefaultListNameStmt.setString(1,"Dovršeno");
+
+                    }
+                }
+
+
+            }
+            changeTaskDefaultListNameStmt.setString(2,user.getUsername());
+            changeTaskDefaultListNameStmt.setString(3,listName);
+            changeTaskDefaultListNameStmt.executeUpdate();
+            changeDefaultListNameStmt.executeUpdate();
+
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
 }
