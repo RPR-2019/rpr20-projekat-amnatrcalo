@@ -19,6 +19,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -37,6 +38,9 @@ public class RegisterController {
     public Label errorConfirmPassword;
     public Label lblWhatToEnter=new Label();
     public Label lblHaveAccount=new Label();
+    public Label lblHeading=new Label();
+    public Button btnSignup;
+    public Hyperlink hyperLink=new Hyperlink();
     private ArrayList<User> users=new ArrayList<>();
     private User user;
     private AppDAO dao;
@@ -50,8 +54,16 @@ public class RegisterController {
 
     @FXML
     public void initialize(){
+        lblHeading.setText(LoginMessages.SIGNUP.toString().toUpperCase(Locale.ROOT));
         lblWhatToEnter.setText(LoginMessages.WHATTOENTERREGISTRATION.toString());
         lblHaveAccount.setText(LoginMessages.ALREADYHAVEACCOUNT.toString());
+        fldFirstName.setPromptText(LoginMessages.FIRST_NAME_PROMPT.toString());
+        fldLastName.setPromptText(LoginMessages.LAST_NAME_PROMPT.toString());
+        fldUsername.setPromptText(LoginMessages.USERNAME_PROMPT.toString());
+        fldPassword.setPromptText(LoginMessages.PASSWORD_PROMPT.toString());
+        fldConfirmPassword.setPromptText(LoginMessages.CONFIRM_PASSWORD_PROMPT.toString());
+        btnSignup.setText(LoginMessages.SIGN_UP.toString());
+        hyperLink.setText(LoginMessages.LOG_IN.toString());
         fldMail.setTooltip(TooltipClass.makeTooltip(TooltipContent.EMAIL.toString()));
     }
 

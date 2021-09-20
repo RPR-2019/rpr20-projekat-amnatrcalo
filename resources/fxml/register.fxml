@@ -44,46 +44,46 @@
             <children>
                 <VBox GridPane.rowIndex="2">
                     <children>
-                        <TextField fx:id="fldFirstName" alignment="CENTER" promptText="%first_name" />
-                        <Label fx:id="errorFirstName" styleClass="errorMessages"  />
+                        <TextField fx:id="fldFirstName" alignment="CENTER" />
+                        <Label fx:id="errorFirstName" styleClass="errorMessages" />
                     </children>
                 </VBox>
                 <VBox GridPane.rowIndex="3">
                     <children>
-                        <TextField fx:id="fldLastName" alignment="CENTER" promptText="%last_name" />
-                        <Label fx:id="errorLastName" styleClass="errorMessages"  />
+                        <TextField fx:id="fldLastName" alignment="CENTER" />
+                        <Label fx:id="errorLastName" styleClass="errorMessages" />
                     </children>
                 </VBox>
             <VBox GridPane.rowIndex="4">
                <children>
-                      <TextField fx:id="fldUsername" alignment="CENTER"  prefHeight="25.0" prefWidth="150.0" promptText="%username" />
-                  <Label fx:id="errorUsername" styleClass="errorMessages"  />
+                      <TextField fx:id="fldUsername" alignment="CENTER" prefHeight="25.0" prefWidth="150.0" />
+                  <Label fx:id="errorUsername" styleClass="errorMessages" />
                </children>
             </VBox>
                 <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="5">
                     <children>
                         <TextField fx:id="fldMail" alignment="CENTER" promptText="Mail" />
-                        <Label fx:id="errorMail" styleClass="errorMessages"  />
+                        <Label fx:id="errorMail" styleClass="errorMessages" />
                     </children>
                 </VBox>
                 <VBox GridPane.rowIndex="6">
                     <children>
-                        <PasswordField fx:id="fldPassword" alignment="CENTER" promptText="%password" />
-                        <Label fx:id="errorPassword" styleClass="errorMessages"  />
+                        <PasswordField fx:id="fldPassword" alignment="CENTER" />
+                        <Label fx:id="errorPassword" styleClass="errorMessages" />
                     </children>
                 </VBox>
                 <VBox GridPane.rowIndex="7">
                     <children>
-                        <PasswordField fx:id="fldConfirmPassword" alignment="CENTER" promptText="%confirm_password" />
-                        <Label fx:id="errorConfirmPassword" styleClass="errorMessages"  />
+                        <PasswordField fx:id="fldConfirmPassword" alignment="CENTER" />
+                        <Label fx:id="errorConfirmPassword" styleClass="errorMessages" />
                     </children>
                 </VBox>
                 <Label fx:id="lblWhatToEnter" styleClass="subheading" textFill="#f40b59" GridPane.rowIndex="1" />
-                <Button defaultButton="true" mnemonicParsing="false" onAction="#btnSignupAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" text="%sign_up" textFill="WHITE" GridPane.rowIndex="8">
+                <Button fx:id="btnSignup" defaultButton="true" mnemonicParsing="false" onAction="#btnSignupAction" prefHeight="25.0" prefWidth="227.0" styleClass="btn" textFill="WHITE" GridPane.rowIndex="8">
                     <font>
                         <Font name="System Italic" size="12.0" />
                     </font></Button>
-                <Label fx:id="lblSignUp" styleClass="heading" text="%signup" textFill="#f40b59">
+                <Label fx:id="lblHeading" styleClass="heading" textFill="#f40b59">
                     <font>
                         <Font name="Roboto Light" size="36.0" />
                     </font>
@@ -98,7 +98,7 @@
                     </rowConstraints>
                     <children>
                         <Label fx:id="lblHaveAccount" textFill="#f40b59" />
-                        <Hyperlink onAction="#hyperlinkAction" text="%log_in" GridPane.columnIndex="1" />
+                        <Hyperlink fx:id="hyperLink" onAction="#hyperlinkAction" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
 
