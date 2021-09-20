@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.ListsName;
+
 public class CustomList {
 
     private String username;
@@ -21,7 +23,14 @@ public class CustomList {
     }
 
     public String getListName() {
-        return listName;
+     /*  return switch (listName) {
+            case "My Day" -> ListsName.MYDAY.toString();
+            case "Tasks" -> ListsName.TASKS.toString();
+            case "Planned" -> ListsName.PLANNED.toString();
+            case "Completed" -> ListsName.COMPLETED.toString();
+            default -> listName;
+        };*/
+       return listName;
     }
 
     public void setListName(String listName) {
@@ -30,7 +39,14 @@ public class CustomList {
 
     @Override
     public String toString(){
-        return listName;
+        return switch (listName) {
+            case "My Day" -> ListsName.MYDAY.toString();
+            case "Tasks" -> ListsName.TASKS.toString();
+            case "Planned" -> ListsName.PLANNED.toString();
+            case "Completed" -> ListsName.COMPLETED.toString();
+            default -> listName;
+        };
+       // return listName;
     }
 
     @Override

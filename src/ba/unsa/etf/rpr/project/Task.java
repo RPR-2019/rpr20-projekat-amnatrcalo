@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.ListsName;
 import ba.unsa.etf.rpr.project.enums.MyDayMessages;
 import ba.unsa.etf.rpr.project.enums.Period;
 import ba.unsa.etf.rpr.project.enums.TaskMessages;
@@ -70,9 +71,15 @@ public class Task {
 
 
     public LocalDateTime getReminderDateAndTime(){
-        if(reminderPeriod.equals(Period.MINS.toString())){
+       /* if(reminderPeriod.equals(Period.MINS.toString())){
             return getStartDateAndTime().minusMinutes(reminderDigit);
         } else if(reminderPeriod.equals(Period.HOURS.toString())){
+            return getStartDateAndTime().minusHours(reminderDigit);
+        } else return getStartDateAndTime().minusDays(reminderDigit);*/
+
+        if(reminderPeriod.equals("minutes") || reminderPeriod.equals("minuta")){
+            return getStartDateAndTime().minusMinutes(reminderDigit);
+        } else if(reminderPeriod.equals("hours") || reminderPeriod.equals("sati")){
             return getStartDateAndTime().minusHours(reminderDigit);
         } else return getStartDateAndTime().minusDays(reminderDigit);
     }
@@ -240,6 +247,13 @@ public class Task {
     }
 
     public String getListName() {
+       /* return switch (listName) {
+            case "My Day" -> ListsName.MYDAY.toString();
+            case "Tasks" -> ListsName.TASKS.toString();
+            case "Completed" -> ListsName.COMPLETED.toString();
+            case "Planned" -> ListsName.PLANNED.toString();
+            default -> listName;
+        };*/
         return listName;
     }
 
@@ -283,10 +297,20 @@ public class Task {
         return t.getTaskName().equals(((Task) o).getTaskName()) && t.getUsername().equals(((Task) o).getUsername());
     }
 
+    private String writeListName(){
+        return switch (listName) {
+            case "My Day" -> ListsName.MYDAY.toString();
+            case "Tasks" -> ListsName.TASKS.toString();
+            case "Completed" -> ListsName.COMPLETED.toString();
+            case "Planned" -> ListsName.PLANNED.toString();
+            default -> listName;
+        };
+    }
+
     public String getAllDetails(){
 
         StringBuilder sb=new StringBuilder();
-        sb.append(getTaskName().toUpperCase(Locale.ROOT)).append(" (").append(getListName()).append(")\n");
+        sb.append(getTaskName().toUpperCase(Locale.ROOT)).append(" (").append(writeListName()).append(")\n");
 
         if(getStartYear()!=1){
             sb.append(TaskMessages.START_DATE.toString()).append(getStartDateAndTime().format(formatDate)).append("\n");

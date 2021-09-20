@@ -103,7 +103,7 @@ public class TaskController {
 
         //user can't choose list name from default names-only user's lists will be shown
         ObservableList<CustomList> listsForMenu=listLists.stream().filter(l->
-          !l.getListName().equals(ListsName.MYDAY.toString()) &&  !l.getListName().equals(ListsName.PLANNED.toString()) && !l.getListName().equals(ListsName.TASKS.toString()) && !l.getListName().equals(ListsName.COMPLETED.toString()))
+          !l.getListName().equals("My Day") &&  !l.getListName().equals("Planned") && !l.getListName().equals("Tasks") && !l.getListName().equals("Completed"))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
         listMenu.setItems(listsForMenu);
@@ -180,9 +180,11 @@ public class TaskController {
 
         if(listMenu.getValue()==null || isListNameDefault(listMenu.getValue().getListName())) {
             if (startDateAndTimeAreSet(task.getStartYear())) {
-                task.setListName(ListsName.PLANNED.toString());
+               // task.setListName(ListsName.PLANNED.toString());
+                task.setListName("Planned");
             } else {
-                task.setListName(ListsName.TASKS.toString());
+                //task.setListName(ListsName.TASKS.toString());
+                task.setListName("Tasks");
             }
         }else{
             task.setListName(listMenu.getValue().getListName());

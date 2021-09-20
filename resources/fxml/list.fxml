@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-
+<GridPane hgap="10.0" styleClass="gridPane" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@/css/newList.css" />
+   </stylesheets>
    <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
+      <ColumnConstraints maxWidth="1.7976931348623157E308" />
+      <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints />
@@ -17,16 +20,21 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Label text="Enter list name: " />
-      <TextField fx:id="fldListName" GridPane.columnIndex="1" />
-      <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <TextField fx:id="fldListName" prefHeight="25.0" prefWidth="190.0" />
+      <ButtonBar GridPane.rowIndex="1">
         <buttons>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#actionSave" text="Save" />
-          <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" text="Cancel" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#actionSave" styleClass="btnSave" text="%save" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></Button>
+          <Button cancelButton="true" mnemonicParsing="false" onAction="#actionCancel" styleClass="btnCancel" text="%cancel">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></Button>
         </buttons>
       </ButtonBar>
    </children>
    <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
 </GridPane>

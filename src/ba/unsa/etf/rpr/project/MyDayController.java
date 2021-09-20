@@ -85,12 +85,12 @@ public class MyDayController {
         this.user=user;
         listLists = FXCollections.observableArrayList(lists);
         dao=AppDAO.getInstance();
-
     }
 
     private boolean shouldSendNotif(Task t){
         boolean ok=true;
-       if (t.getListName().equals(ListsName.COMPLETED.toString())) ok=false;
+      // if (t.getListName().equals(ListsName.COMPLETED.toString())) ok=false;
+        if(t.getListName().equals("Completed")) ok=false;
        else if(!t.getReminderDateAndTime().isEqual((LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)))) ok=false;
        else if (!t.getUsername().equals(user.getUsername())) ok=false;
        return ok;
@@ -109,6 +109,7 @@ public class MyDayController {
 
     @FXML
     public void initialize(){
+
 
         //set greeting message
         String capitalizeUsername=user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1);
@@ -142,17 +143,20 @@ public class MyDayController {
         tableViewTasks.setItems(activeSession);
 
         listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
-
-            if(newItem.getListName().equals(ListsName.MYDAY.toString())){
-                activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
-            } else{
-                activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
+            if(newItem!=null) {
+               // if (newItem.getListName().equals(ListsName.MYDAY.toString())) {
+                if(newItem.getListName().equals("My Day")){
+                    activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
+                } else {
+                    activeSession = FXCollections.observableArrayList(dao.getAllTasksByListName(user.getUsername(), newItem.getListName()));
+                }
             }
             tableViewTasks.setItems(activeSession);
 
             //stage title is selected list-name
-            Stage stage = (Stage) btnDeleteList.getScene().getWindow();
-            stage.setTitle(newItem.getListName());
+         /*   Stage stage = (Stage) btnDeleteList.getScene().getWindow();
+            assert newItem != null;
+            stage.setTitle(newItem.getListName());*/
 
         } );
 
@@ -266,12 +270,16 @@ public class MyDayController {
                 BooleanProperty observable=new SimpleBooleanProperty();
                 observable.addListener((obs, wasSelected, isNowSelected) ->{
                     if(isNowSelected){
-                        if(!task.getListName().equals(ListsName.COMPLETED.toString())) {
-                            task.setListName(ListsName.COMPLETED.toString());
+                      //  if(!task.getListName().equals(ListsName.COMPLETED.toString())) {
+                       //     task.setListName(ListsName.COMPLETED.toString());
+                        if(!task.getListName().equals("Completed")){
+                            task.setListName("Completed");
 
                         } else{
-                            if(TaskController.startDateAndTimeAreSet(task.getStartYear())) task.setListName(ListsName.PLANNED.toString());
-                            else task.setListName(ListsName.TASKS.toString());
+                            if(TaskController.startDateAndTimeAreSet(task.getStartYear())) //task.setListName(ListsName.PLANNED.toString());
+                                task.setListName("Planned");
+                            else //task.setListName(ListsName.TASKS.toString());
+                            task.setListName("Tasks");
                         }
                         dao.editTask(task);
                         listViewLists.getSelectionModel().select(new CustomList(user.getUsername(), task.getListName()));
@@ -346,7 +354,7 @@ public class MyDayController {
             e.printStackTrace();
         }
 
-        addNewList.setTitle(StageName.YOURLIST.toString());
+        addNewList.setTitle(" ");
         addNewList.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/todolist-icon.png"));
         addNewList.getIcons().add(icon);
@@ -366,7 +374,8 @@ public class MyDayController {
     }
 
     private boolean shouldDeleteList(String listName){
-        return !listName.equals(ListsName.MYDAY.toString()) && !listName.equals(ListsName.COMPLETED.toString()) && !listName.equals(ListsName.TASKS.toString()) && !listName.equals(ListsName.PLANNED.toString());
+        return !listName.equals("My Day") && !listName.equals("Completed") && !listName.equals("Tasks") && !listName.equals("Planned");
+        //return !listName.equals(ListsName.MYDAY.toString()) && !listName.equals(ListsName.COMPLETED.toString()) && !listName.equals(ListsName.TASKS.toString()) && !listName.equals(ListsName.PLANNED.toString());
     }
 
 
@@ -498,18 +507,20 @@ public class MyDayController {
 
     public void actionEnglish(ActionEvent actionEvent)  {
         Locale.setDefault(new Locale("en","US"));
+         changeLanguage();
 
-       changeLanguage();
+
     }
 
     public void actionBosnian(ActionEvent actionEvent)  {
         Locale.setDefault(new Locale("bs","BA"));
-
         changeLanguage();
+
+
     }
 
     private void changeLanguage()  {
-        dao.changeLanguage("My Day", user);
+     /*   dao.changeLanguage("My Day", user);
         dao.changeLanguage("Tasks", user);
         dao.changeLanguage("Planned", user);
         dao.changeLanguage("Completed", user);
@@ -518,7 +529,7 @@ public class MyDayController {
         dao.changeLanguage("Zadaci", user);
         dao.changeLanguage("Planirano", user);
         dao.changeLanguage("Dovršeno", user);
-
+*/
 
         Stage stage=(Stage) btnAddNewTask.getScene().getWindow();
         stage.close();

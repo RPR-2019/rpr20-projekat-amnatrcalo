@@ -172,10 +172,14 @@ public class RegisterController {
         Stage stage = (Stage) fldUsername.getScene().getWindow();
         stage.close();
 
-        dao.addList(user.getUsername(), ListsName.MYDAY.toString());
+        /*dao.addList(user.getUsername(), ListsName.MYDAY.toString());
         dao.addList(user.getUsername(),ListsName.PLANNED.toString());
         dao.addList(user.getUsername(),ListsName.TASKS.toString());
-        dao.addList(user.getUsername(),ListsName.COMPLETED.toString());
+        dao.addList(user.getUsername(),ListsName.COMPLETED.toString());*/
+        dao.addList(user.getUsername(),"My Day");
+        dao.addList(user.getUsername(), "Planned");
+        dao.addList(user.getUsername(),"Tasks");
+        dao.addList(user.getUsername(),"Completed");
 
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000), event -> {

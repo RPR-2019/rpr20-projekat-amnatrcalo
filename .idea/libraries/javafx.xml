@@ -65,6 +65,14 @@
       <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
       <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
       <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
     </CLASSES>
     <JAVADOC />
     <NATIVE>
@@ -100,8 +108,20 @@
       <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
       <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
       <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
     </NATIVE>
     <SOURCES>
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
+      <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
       <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
       <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
       <root url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" />
@@ -230,6 +250,22 @@
     <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
     <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
     <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
     <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
     <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
     <jarDirectory url="file://$USER_HOME$/Downloads/openjfx-15.0.1_windows-x64_bin-sdk/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />

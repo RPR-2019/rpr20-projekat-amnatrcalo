@@ -43,10 +43,14 @@ public enum ListsName {
 
     public static ArrayList<String> defaultListsName(){
        ArrayList<String> res=new ArrayList<>();
-       res.add(MYDAY.toString());
+      /* res.add(MYDAY.toString());
        res.add(TASKS.toString());
        res.add(COMPLETED.toString());
-       res.add(PLANNED.toString());
+       res.add(PLANNED.toString());*/
+        res.add("My Day");
+        res.add("Tasks");
+        res.add("Completed");
+        res.add("Planned");
        return res;
     }
 

@@ -1,11 +1,15 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.enums.MyDayMessages;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ListController {
     public TextField fldListName;
+    public Label lblListName;
     private CustomList list;
     private User user;
 
@@ -13,6 +17,8 @@ public class ListController {
         this.user=user;
         this.list=list;
     }
+
+
 
     public CustomList getList() {
         return list;

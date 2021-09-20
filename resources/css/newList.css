@@ -1,0 +1,24 @@
+.btnSave{
+-fx-background-color: #19456B;
+-fx-border: none;
+-fx-cursor:hand;
+}
+
+.btnSave:hover{
+-fx-background-color:  #11698E;
+}
+
+.btnCancel{
+-fx-background-color: white;
+-fx-border: none;
+-fx-cursor:hand;
+}
+
+.btnCancel:hover{
+-fx-background-color:#ccc8c8;
+
+}
+
+.gridPane{
+-fx-background-color: #faf0f0;
+}
