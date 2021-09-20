@@ -73,10 +73,21 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 12.0 pt;
+    -fx-font-size: 13.0 pt;
     -fx-font-family: "SansSerif";
-    -fx-padding: 10.0px;
+    -fx-padding: 1.0px;
 }
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background-color: #11698E;
+     -fx-text-fill: white;
+}
+
+.menu-item .label:hover{
+    -fx-background-color: #11698E;
+     -fx-text-fill: white;
+}
+
 
 
  /***************

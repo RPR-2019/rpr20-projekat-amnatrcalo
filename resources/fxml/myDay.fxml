@@ -37,6 +37,7 @@
                         </Menu>
                     </items>
                   </Menu>
+                  <CheckMenuItem fx:id="checkMenuItem" mnemonicParsing="false" onAction="#actionCheckMenu" text="%notification_on" />
                   <SeparatorMenuItem mnemonicParsing="false" />
               <MenuItem fx:id="itemClose" onAction="#actionClose" text="%e_xit">
                      <accelerator>
