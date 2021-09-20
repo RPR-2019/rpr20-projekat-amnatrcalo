@@ -17,13 +17,17 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginController {
     public Label lblWhatToEnter =new Label();
     public Label lblDontHaveAccount =new Label();
+    public Label lblHeading=new Label();
     public TextField fldUsername;
     public PasswordField fldPassword;
+    public Button btnLogin;
+    public Hyperlink hyperLink=new Hyperlink();
     private User user;
     private ArrayList<User> users=new ArrayList<>();
     private AppDAO dao;
@@ -41,8 +45,13 @@ public class LoginController {
 
     @FXML
     public void initialize(){
+        lblHeading.setText(LoginMessages.LOGIN.toString().toUpperCase(Locale.ROOT));
         lblWhatToEnter.setText(LoginMessages.WHATTOENTERLOGIN.toString());
         lblDontHaveAccount.setText(LoginMessages.DONTHAVEACCOUNT.toString());
+        fldUsername.setPromptText(LoginMessages.USERNAME_PROMPT.toString());
+        fldPassword.setPromptText(LoginMessages.PASSWORD_PROMPT.toString());
+        hyperLink.setText(LoginMessages.SIGN_UP.toString());
+        btnLogin.setText(LoginMessages.LOG_IN.toString());
     }
 
 

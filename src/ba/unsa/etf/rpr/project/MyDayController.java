@@ -153,10 +153,7 @@ public class MyDayController {
             }
             tableViewTasks.setItems(activeSession);
 
-            //stage title is selected list-name
-         /*   Stage stage = (Stage) btnDeleteList.getScene().getWindow();
-            assert newItem != null;
-            stage.setTitle(newItem.getListName());*/
+
 
         } );
 

@@ -180,6 +180,87 @@ public enum LoginMessages {
             }
 
         }
+    },
+    USERNAME_PROMPT{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Username";
+            else
+                return "Korisničko ime";
+        }
+    },
+    PASSWORD_PROMPT{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Password";
+            else
+                return "Lozinka";
+        }
+    },
+    FIRST_NAME_PROMPT{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "First Name";
+            else
+                return "Ime";
+        }
+    },
+    LAST_NAME_PROMPT{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Last Name";
+            else
+                return "Prezime";
+        }
+    },
+    CONFIRM_PASSWORD_PROMPT{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Confirm Password";
+            else
+                return "Potvrdi lozinku";
+        }
+    },
+    LOGIN{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Login";
+            else
+                return "Prijava";
+        }
+    },
+    LOG_IN{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Log in";
+            else
+                return "Prijavite se";
+        }
+    },
+    SIGN_UP{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Sign up";
+            else
+                return "Registrujte se";
+        }
+    },
+    SIGNUP{
+        @Override
+        public String toString() {
+            if (Locale.getDefault().getCountry().equals("US"))
+                return "Sign up";
+            else
+                return "Registracija";
+        }
     }
 
 
