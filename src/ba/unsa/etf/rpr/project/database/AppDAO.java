@@ -5,6 +5,7 @@ import ba.unsa.etf.rpr.project.model.Quote;
 import ba.unsa.etf.rpr.project.model.Task;
 import ba.unsa.etf.rpr.project.model.User;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -147,6 +148,16 @@ public class AppDAO {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    //used for tests
+    public void resetDatabase() throws SQLException {
+        Statement stmt=conn.createStatement();
+        stmt.executeUpdate("DELETE FROM users");
+        stmt.executeUpdate("DELETE FROM tasks");
+        stmt.executeUpdate("DELETE FROM lists");
+        stmt.executeUpdate("DELETE FROM quotes");
+        generateDatabase();
     }
 
 
