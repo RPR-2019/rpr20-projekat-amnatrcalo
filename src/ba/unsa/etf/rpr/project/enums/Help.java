@@ -85,7 +85,7 @@ public enum Help {
                     .append("You can also receive reminder via e-mail or as notification alert.");
 
             StringBuilder bos=new StringBuilder();
-            bos.append("Za dodavanje novog zadatka pritisnite '+' dugme u lijevom ćošku ekrana" +
+            bos.append("Za dodavanje novog zadatka pritisnite '+' dugme u lijevom uglu ekrana" +
                     " ili pritiskom na dugme ENTER.")
                     .append("\n\n")
                     .append("Specificiranje imena zadatka je neophodno, dok su ostale informacije opcionalne:" +

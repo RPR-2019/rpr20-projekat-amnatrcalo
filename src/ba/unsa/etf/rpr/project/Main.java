@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.project;
 
+import ba.unsa.etf.rpr.project.controller.HomeController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +9,6 @@ import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.lang.annotation.Inherited;
 import java.util.ResourceBundle;
 
 public class Main extends Application {

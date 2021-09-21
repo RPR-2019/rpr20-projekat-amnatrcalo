@@ -78,17 +78,6 @@
     -fx-padding: 1.0px;
 }
 
-.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
-    -fx-background-color: #11698E;
-     -fx-text-fill: white;
-}
-
-.menu-item .label:hover{
-    -fx-background-color: #11698E;
-     -fx-text-fill: white;
-}
-
-
 
  /***************
   LIST STYLE
