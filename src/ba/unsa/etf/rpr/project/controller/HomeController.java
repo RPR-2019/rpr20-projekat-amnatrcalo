@@ -1,9 +1,11 @@
 package ba.unsa.etf.rpr.project.controller;
 
 import ba.unsa.etf.rpr.project.database.AppDAO;
+import ba.unsa.etf.rpr.project.enums.content.LoginMessages;
 import ba.unsa.etf.rpr.project.model.User;
 import ba.unsa.etf.rpr.project.enums.StageName;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,13 +20,19 @@ import java.util.ResourceBundle;
 
 public class HomeController {
     private AppDAO dao;
-    public static Button btnLogin=new Button();
-
+    public  Button btnLogin;
+    public Button btnSignup;
 
     private ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
     public HomeController(){
         dao=AppDAO.getInstance();
+    }
+
+    @FXML
+    public void initialize(){
+        btnLogin.setText(LoginMessages.LOG_IN.toString());
+        btnSignup.setText(LoginMessages.SIGN_UP.toString());
     }
 
 

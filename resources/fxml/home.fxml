@@ -10,12 +10,12 @@
         <URL value="@/css/home.css" />
     </stylesheets>
    <children>
-      <Button fx:id="btnLogin" layoutX="282.0" layoutY="281.0" mnemonicParsing="false" onAction="#loginAction" prefWidth="190.0" styleClass="btn" text="%log_in">
+      <Button fx:id="btnLogin" layoutX="282.0" layoutY="281.0" mnemonicParsing="false" onAction="#loginAction" prefWidth="190.0" styleClass="btn">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="282.0" layoutY="331.0" mnemonicParsing="false" onAction="#registrationAction" prefWidth="190.0" styleClass="btn" text="%sign_up">
+      <Button fx:id="btnSignup" layoutX="282.0" layoutY="331.0" mnemonicParsing="false" onAction="#registrationAction" prefWidth="190.0" styleClass="btn">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>

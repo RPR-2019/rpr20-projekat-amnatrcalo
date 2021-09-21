@@ -114,7 +114,7 @@ public class RegisterController {
         return pat.matcher(email).matches();
     }
 
-    public void btnSignupAction(ActionEvent actionEvent) throws IOException {
+    public void signupAction(ActionEvent actionEvent) throws IOException {
         boolean ok=true;
 
         if(fldFirstName.getText().trim().isEmpty()){
@@ -188,10 +188,6 @@ public class RegisterController {
         Stage stage = (Stage) fldUsername.getScene().getWindow();
         stage.close();
 
-        /*dao.addList(user.getUsername(), ListsName.MYDAY.toString());
-        dao.addList(user.getUsername(),ListsName.PLANNED.toString());
-        dao.addList(user.getUsername(),ListsName.TASKS.toString());
-        dao.addList(user.getUsername(),ListsName.COMPLETED.toString());*/
         dao.addList(user.getUsername(),"My Day");
         dao.addList(user.getUsername(), "Planned");
         dao.addList(user.getUsername(),"Tasks");

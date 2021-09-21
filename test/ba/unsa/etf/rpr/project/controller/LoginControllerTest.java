@@ -41,6 +41,7 @@ class LoginControllerTest {
         stage.getIcons().add(icon);
         stage.setResizable(false);
         stage.show();
+        stage.toFront();
 
     }
 
