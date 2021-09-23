@@ -39,11 +39,14 @@ class DateAndTimeControllerTest {
 
     Stage theStage;
     AppDAO dao= AppDAO.getInstance();
-
+    /********************
+     BEFORE THESE TESTS, SET STARTYEAR, STARTMONTH AND STARTDAY AS CURRENT DAY!!!
+     *******************/
+    private final Task task=new Task(1,"mujo","mujo's task", 2021,9,23,-1,-1,1,1,1,-1,-1," ",false,-1," ",false,false,"tasks",false);
     @Start
     public void start(Stage stage) throws Exception {
         dao.resetDatabase();
-        Task task=new Task(1,"mujo","mujo's task", 1,1,1,1,1,1,1,1,1,1," ",false,-1," ",false,false,"tasks",false);
+
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dateAndTime.fxml"),ResourceBundle.getBundle("Translation"));
         DateAndTimeController dateAndTimeController = new DateAndTimeController(task);
@@ -69,14 +72,16 @@ class DateAndTimeControllerTest {
         dao.resetDatabase();
     }
 
+
     @Test
     public void setAllday(FxRobot robot){
-        robot.clickOn("#checkBoxAllDayTask");
         robot.clickOn("#btnSave");
-        //all day task, but start date is not set
         DialogPane dialogPane= robot.lookup(".dialog-pane").queryAs(DialogPane.class);
         Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
         robot.clickOn(okButton);
+
+        robot.clickOn("#checkBoxAllDayTask");
+        assertFalse(robot.lookup(".dialog-pane").tryQuery().isPresent());
     }
 
     @Test
@@ -89,6 +94,33 @@ class DateAndTimeControllerTest {
         robot.clickOn(okButton);
 
     }
+
+    @Test
+    public void incorrectStart(FxRobot robot){
+        robot.clickOn("#startMins");
+        robot.press(KeyCode.UP).release(KeyCode.UP);
+        robot.clickOn("#startHour");
+        robot.press(KeyCode.UP).release(KeyCode.UP);
+        robot.clickOn("#btnSave");
+        //time is in the past
+        DialogPane dialogPane= robot.lookup(".dialog-pane").queryAs(DialogPane.class);
+        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
+        robot.clickOn(okButton);
+    }
+
+    @Test
+    public void incorrectEnd(FxRobot robot){
+        robot.clickOn("#endMins");
+        robot.press(KeyCode.UP).release(KeyCode.UP);
+        robot.clickOn("#endHour");
+        robot.press(KeyCode.UP).release(KeyCode.UP);
+        robot.clickOn("#btnSave");
+        //time is set, but date isn't
+        DialogPane dialogPane= robot.lookup(".dialog-pane").queryAs(DialogPane.class);
+        Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
+        robot.clickOn(okButton);
+    }
+
 
 
 }
