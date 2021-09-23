@@ -23,7 +23,7 @@
       <TextField fx:id="fldListName" prefHeight="25.0" prefWidth="190.0" />
       <ButtonBar GridPane.rowIndex="1">
         <buttons>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#actionSave" styleClass="btnSave" text="%save" textFill="WHITE">
+            <Button fx:id="btnSave" defaultButton="true" mnemonicParsing="false" onAction="#actionSave" styleClass="btnSave" text="%save" textFill="WHITE">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font></Button>

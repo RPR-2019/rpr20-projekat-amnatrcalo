@@ -121,6 +121,7 @@ public class MyDayController {
     @FXML
     public void initialize(){
 
+        //receive notification
         checkMenuItem.setSelected(true);
 
         //set greeting message
