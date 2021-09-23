@@ -96,6 +96,8 @@ public class MyDayController {
         dao=AppDAO.getInstance();
     }
 
+
+
     private boolean shouldSendNotif(Task t){
         boolean ok=true;
         if(t.getListName().equals("Completed")) ok=false;
@@ -154,7 +156,6 @@ public class MyDayController {
 
         listViewLists.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
             if(newItem!=null) {
-               // if (newItem.getListName().equals(ListsName.MYDAY.toString())) {
                 if(newItem.getListName().equals("My Day")){
                     activeSession = FXCollections.observableArrayList(dao.getTasksForToday(user.getUsername()));
                 } else {

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import ba.unsa.etf.rpr.project.Main;
 import ba.unsa.etf.rpr.project.database.AppDAO;
 import ba.unsa.etf.rpr.project.enums.StageName;
+import ba.unsa.etf.rpr.project.model.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,6 +31,7 @@ class RegisterControllerTest {
     AppDAO dao= AppDAO.getInstance();
     @Start
     public void start(Stage stage) throws Exception {
+        dao.resetDatabase();
         Parent root=null;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/register.fxml"),ResourceBundle.getBundle("Translation"));
         RegisterController registerController = new RegisterController(null, dao.users(),dao);
@@ -49,28 +51,6 @@ class RegisterControllerTest {
     @BeforeEach
     public void resetDatabase() throws SQLException {
         dao.resetDatabase();
-    }
-
-    @Test
-    public void success(FxRobot robot){
-        robot.clickOn("#fldFirstName");
-        robot.write("Mujo");
-        robot.clickOn("#fldLastName");
-        robot.write("Mujic");
-        robot.clickOn("#fldUsername");
-        robot.write("mujo");
-        robot.clickOn("#fldMail");
-        robot.write("mujo@gmail.com");
-        robot.clickOn("#fldPassword");
-        robot.write("1234");
-        robot.clickOn("#fldConfirmPassword");
-        robot.write("1234");
-        robot.clickOn("#btnSignup");
-
-        //successfully done, fldUsername isn't available anymore, Myday window is shown
-        boolean myDay=true;
-        if(robot.lookup("#fldUsername").tryQuery().isPresent()) myDay=false;
-        assertTrue(myDay);
     }
 
     @Test

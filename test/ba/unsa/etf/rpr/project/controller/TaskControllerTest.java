@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import ba.unsa.etf.rpr.project.Main;
 import ba.unsa.etf.rpr.project.database.AppDAO;
 import ba.unsa.etf.rpr.project.enums.StageName;
+import ba.unsa.etf.rpr.project.maker.NotificationReminder;
+import ba.unsa.etf.rpr.project.model.CustomList;
+import ba.unsa.etf.rpr.project.model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +18,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,28 +28,37 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 @ExtendWith(ApplicationExtension.class)
-class LoginControllerTest {
+class TaskControllerTest {
+
+    Stage theStage;
     AppDAO dao= AppDAO.getInstance();
+
+
     @Start
     public void start(Stage stage) throws Exception {
         dao.resetDatabase();
-        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        User user=dao.getUser("amna");
+        ObservableList<CustomList> listLists= FXCollections.observableArrayList(dao.lists(user));
         Parent root=null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"),bundle);
-        LoginController loginController = new LoginController(null, dao.users(),dao);
-        loader.setController(loginController);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task.fxml"),ResourceBundle.getBundle("Translation"));
+        TaskController taskController=new TaskController(null,user,listLists ,false);
+        loader.setController(taskController);
         root = loader.load();
-        stage.setTitle(StageName.LOGIN.toString());
-        stage.setScene(new Scene(root, Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE));
-        Image icon=new Image(getClass().getResourceAsStream("/img/login-icon.png"));
+
+        stage.setTitle(StageName.YOURTASK.toString());
+        stage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
+        Image icon=new Image(getClass().getResourceAsStream("/img/todolist-icon.png"));
         stage.getIcons().add(icon);
         stage.setResizable(false);
         stage.show();
         stage.toFront();
+
+        theStage=stage;
 
     }
 
@@ -52,29 +68,15 @@ class LoginControllerTest {
     }
 
     @Test
-    public void loginTest(FxRobot robot){
-        robot.clickOn("#btnLogin");
+    public void emptyTaskName(FxRobot robot) throws InterruptedException {
+
+       robot.clickOn("#fldTaskName");
+       robot.write(" ");
+       robot.clickOn("#btnCreate");
         DialogPane dialogPane= robot.lookup(".dialog-pane").queryAs(DialogPane.class);
         Button okButton = (Button) dialogPane.lookupButton(ButtonType.OK);
         robot.clickOn(okButton);
-    }
 
-    @Test
-    public void incorrectLogin(FxRobot robot){
-        robot.clickOn("#fldUsername");
-        robot.write("amna");
-        robot.clickOn("#fldPassword");
-        robot.write("amnaaaaa");
-        robot.clickOn("#btnLogin");
-        robot.lookup(".dialog-pane").tryQuery().isPresent();
-    }
-
-    @Test
-    public void register(FxRobot robot){
-        robot.clickOn("#hyperLink");
-
-        //is signup window loaded
-        robot.lookup("#fldMail").tryQuery().isPresent();
     }
 
 }
