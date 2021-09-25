@@ -21,13 +21,17 @@ public enum AboutText {
                 return "Sva prava pridržana \u00a9 2021 Elektrotehnički fakultet Sarajevo";
         }
     },
-    CREATED_BY{
+    CREATED_BY {
         @Override
         public String toString() {
-            if (Locale.getDefault().getCountry().equals("US"))
-                return "Created by Amna Trčalo\n https://github.com/RPR-2019/rpr20-projekat-amnatrcalo";
-            else
-                return "Developer: Amna Trčalo\n https://github.com/RPR-2019/rpr20-projekat-amnatrcalo";
+            if (Locale.getDefault().getCountry().equals("US")) {
+                    return "Created by Amna Trčalo\n" + "https://github.com/RPR-2019/rpr20-projekat-amnatrcalo";
+
+            } else {
+                    return "Developer: Amna Trčalo\n"+ "https://github.com/RPR-2019/rpr20-projekat-amnatrcalo";
+            }
+
         }
+
     }
 }

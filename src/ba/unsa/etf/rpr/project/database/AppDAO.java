@@ -63,12 +63,17 @@ public class AppDAO {
 
         try {
             getAllUsersStmt = conn.prepareStatement("SELECT *FROM users");
-
+            getAllQuotesStmt=conn.prepareStatement("SELECT *FROM quotes");
+            getAllTasksStmt=conn.prepareStatement("SELECT *FROM tasks");
+            getAllListsStmt=conn.prepareStatement("SELECT *FROM lists");
 
         } catch (SQLException e) {
             generateDatabase();
             try {
                 getAllUsersStmt = conn.prepareStatement("SELECT *FROM users");
+                getAllQuotesStmt=conn.prepareStatement("SELECT *FROM quotes");
+                getAllTasksStmt=conn.prepareStatement("SELECT *FROM tasks");
+                getAllListsStmt=conn.prepareStatement("SELECT *FROM lists");
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }

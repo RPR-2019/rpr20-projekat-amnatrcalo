@@ -3,20 +3,22 @@ package ba.unsa.etf.rpr.project.controller;
 import ba.unsa.etf.rpr.project.model.CustomList;
 import ba.unsa.etf.rpr.project.model.User;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ListController {
     public TextField fldListName;
-    public Label lblListName;
     private CustomList list;
-    private User user;
+    private final User user;
 
     public ListController(User user, CustomList list){
         this.user=user;
         this.list=list;
     }
+
+
 
 
 
