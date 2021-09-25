@@ -18,7 +18,7 @@ public class NotificationReminder {
 
         Notifications notification=Notifications.create()
                 .title(t.getTaskName().toUpperCase(Locale.ROOT))
-                .text(NotificationMessages.REMINDERINFORMATION.toString() +t.getReminderDigit()+" "+t.getReminderPeriod())
+                .text(NotificationMessages.REMINDER_INFORMATION.toString() +t.getReminderDigit()+" "+t.getReminderPeriod())
                 .graphic(new ImageView(reminderImage))
                 .hideAfter(Duration.seconds(7))
                 .position(Pos.BOTTOM_RIGHT);

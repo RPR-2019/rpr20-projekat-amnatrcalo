@@ -21,7 +21,7 @@ public enum StageName {
                 return "Prijava";
         }
     },
-    YOURTASK{
+    YOUR_TASK {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -30,16 +30,7 @@ public enum StageName {
                 return "Vaš zadatak";
         }
     },
-    YOURLIST{
-        @Override
-        public String toString() {
-            if (Locale.getDefault().getCountry().equals("US"))
-                return "Your List";
-            else
-                return "Vaša lista";
-        }
-    },
-    DATEANDTIME{
+    DATE_AND_TIME {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))

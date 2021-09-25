@@ -2,7 +2,8 @@ package ba.unsa.etf.rpr.project.controller;
 
 import ba.unsa.etf.rpr.project.FileException;
 import ba.unsa.etf.rpr.project.database.AppDAO;
-import ba.unsa.etf.rpr.project.enums.*;
+import ba.unsa.etf.rpr.project.enums.ListsName;
+import ba.unsa.etf.rpr.project.enums.StageName;
 import ba.unsa.etf.rpr.project.enums.alertText.TaskAlertMessages;
 import ba.unsa.etf.rpr.project.enums.content.TaskMessages;
 import ba.unsa.etf.rpr.project.enums.content.TooltipContent;
@@ -20,13 +21,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +63,7 @@ public class TaskController {
     @FXML
     public void initialize(){
 
-        listMenu.setTooltip(TooltipClass.makeTooltip(TooltipContent.CHOOSELIST.toString()));
+        listMenu.setTooltip(TooltipClass.makeTooltip(TooltipContent.CHOOSE_LIST.toString()));
 
         //set max number of chars in textArea
        areaNote.setTextFormatter(new TextFormatter<String>(change ->
@@ -80,7 +83,7 @@ public class TaskController {
         gridPane.add(btnAddDateAndTime,0,2);
 
 
-        btnAddDateAndTime.setTooltip(TooltipClass.makeTooltip(TooltipContent.SETDATEANDTIME.toString()));
+        btnAddDateAndTime.setTooltip(TooltipClass.makeTooltip(TooltipContent.SET_DATE_AND_TIME.toString()));
 
         btnAddDateAndTime.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -95,7 +98,7 @@ public class TaskController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                addDateAndTimeStage.setTitle(StageName.DATEANDTIME.toString());
+                addDateAndTimeStage.setTitle(StageName.DATE_AND_TIME.toString());
                 addDateAndTimeStage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
                 Image icon=new Image(getClass().getResourceAsStream("/img/date-and-time-icon.png"));
                 addDateAndTimeStage.getIcons().add(icon);
@@ -139,16 +142,16 @@ public class TaskController {
 
         if(fldTaskName.getText().trim().isEmpty()){
             ok=false;
-            AlertClass.alertERROR(TaskAlertMessages.TASKNAMEREQUIREDHEADER.toString(),
-                    TaskAlertMessages.TASKNAMEREQUIREDCONTENT.toString(),"/img/road-sign-icon.png");
+            AlertClass.alertERROR(TaskAlertMessages.TASK_NAME_REQUIRED_HEADER.toString(),
+                    TaskAlertMessages.TASK_NAME_REQUIRED_CONTENT.toString(),"/img/road-sign-icon.png");
         }
 
         if(!edit){
             for(Task t: dao.tasks()){
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getUsername().equals(user.getUsername())){
                     ok=false;
-                   AlertClass.alertERROR(TaskAlertMessages.NAMENOTAPPROVEDHEADER.toString(),
-                            TaskAlertMessages.NAMENOTAPPROVEDCONTENT.toString(),"/img/road-sign-icon.png");
+                   AlertClass.alertERROR(TaskAlertMessages.NAME_NOT_APPROVED_HEADER.toString(),
+                            TaskAlertMessages.NAME_NOT_APPROVED_CONTENT.toString(),"/img/road-sign-icon.png");
                 }
             }
        } else{
@@ -156,8 +159,8 @@ public class TaskController {
             for(Task t: dao.tasks()){
                 if(t.getTaskName().equals(fldTaskName.getText()) && t.getId()!=task.getId() && t.getUsername().equals(user.getUsername())){
                     ok=false;
-                    AlertClass.alertERROR(TaskAlertMessages.NAMENOTAPPROVEDHEADER.toString(),
-                            TaskAlertMessages.NAMENOTAPPROVEDCONTENT.toString(),"/img/road-sign-icon.png");
+                    AlertClass.alertERROR(TaskAlertMessages.NAME_NOT_APPROVED_HEADER.toString(),
+                            TaskAlertMessages.NAME_NOT_APPROVED_CONTENT.toString(),"/img/road-sign-icon.png");
                 }
             }
         }
@@ -191,10 +194,8 @@ public class TaskController {
 
         if(listMenu.getValue()==null || isListNameDefault(listMenu.getValue().getListName())) {
             if (startDateAndTimeAreSet(task.getStartYear())) {
-               // task.setListName(ListsName.PLANNED.toString());
                 task.setListName("Planned");
             } else {
-                //task.setListName(ListsName.TASKS.toString());
                 task.setListName("Tasks");
             }
         }else{
@@ -258,12 +259,12 @@ public class TaskController {
             String text= new String(Files.readAllBytes(file.toPath()));
             areaNote.setText(text);
             if(text.length()>100) {
-                throw new FileException(TaskAlertMessages.TEXTLENGTHERRORCONTENT.toString());
+                throw new FileException(TaskAlertMessages.TEXT_LENGTH_ERROR_CONTENT.toString());
 
             }
         } catch (IOException | FileException e) {
             System.out.println(e.getMessage());
-            AlertClass.alertERROR(TaskAlertMessages.TEXTLENGTHERRORHEADER.toString(),TaskAlertMessages.TEXTLENGTHERRORCONTENT.toString(),"/img/road-sign-icon.png");
+            AlertClass.alertERROR(TaskAlertMessages.TEXT_LENGTH_ERROR_HEADER.toString(),TaskAlertMessages.TEXT_LENGTH_ERROR_CONTENT.toString(),"/img/road-sign-icon.png");
 
         }
 

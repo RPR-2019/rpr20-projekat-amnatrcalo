@@ -1,8 +1,5 @@
 package ba.unsa.etf.rpr.project.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import ba.unsa.etf.rpr.project.Main;
 import ba.unsa.etf.rpr.project.database.AppDAO;
 import ba.unsa.etf.rpr.project.enums.StageName;
 import javafx.fxml.FXMLLoader;

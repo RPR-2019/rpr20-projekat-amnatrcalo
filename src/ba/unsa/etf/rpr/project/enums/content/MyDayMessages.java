@@ -6,7 +6,7 @@ public enum MyDayMessages {
 
 
 
-    GOODMORNING{
+    GOOD_MORNING {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -15,7 +15,7 @@ public enum MyDayMessages {
                 return "Dobro jutro, ";
         }
     },
-    GOODAFTERNOON{
+    GOOD_AFTERNOON {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -24,7 +24,7 @@ public enum MyDayMessages {
                 return "Dobar dan, ";
         }
     },
-    GOODEVENING{
+    GOOD_EVENING {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))

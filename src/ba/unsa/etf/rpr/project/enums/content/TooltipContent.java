@@ -12,7 +12,7 @@ public enum TooltipContent {
                 return "Potrebna nam je Vaša email adresa ukoliko odlučite da želite dobiti podsjetnik email-om.";
         }
     },
-    EDITTASK{
+    EDIT_TASK {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -21,7 +21,7 @@ public enum TooltipContent {
                 return "Uredi zadatak";
         }
     },
-    DELETETASK{
+    DELETE_TASK {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -30,7 +30,7 @@ public enum TooltipContent {
                 return "Obriši zadatak";
         }
     },
-    COLLAPSEDETAILS{
+    COLLAPSE_DETAILS {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -39,7 +39,7 @@ public enum TooltipContent {
                 return "Sakrij detalje";
         }
     },
-    ADDNEWTASK{
+    ADD_NEW_TASK {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -48,7 +48,7 @@ public enum TooltipContent {
                 return "Dodaj novi zadatak";
         }
     },
-    ADDNEWLIST{
+    ADD_NEW_LIST {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -57,7 +57,7 @@ public enum TooltipContent {
                 return "Dodaj novu listu";
         }
     },
-    DELETELIST{
+    DELETE_LIST {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -66,7 +66,7 @@ public enum TooltipContent {
                 return "Obriši listu";
         }
     },
-    CHOOSELIST{
+    CHOOSE_LIST {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -75,7 +75,7 @@ public enum TooltipContent {
                 return "Izaberite jednu od svojih listi";
         }
     },
-    SETDATEANDTIME{
+    SET_DATE_AND_TIME {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))

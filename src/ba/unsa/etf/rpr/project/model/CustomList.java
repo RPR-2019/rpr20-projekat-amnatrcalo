@@ -40,7 +40,7 @@ public class CustomList {
     @Override
     public String toString(){
         return switch (listName) {
-            case "My Day" -> ListsName.MYDAY.toString();
+            case "My Day" -> ListsName.MY_DAY.toString();
             case "Tasks" -> ListsName.TASKS.toString();
             case "Planned" -> ListsName.PLANNED.toString();
             case "Completed" -> ListsName.COMPLETED.toString();

@@ -53,8 +53,8 @@ public class MailClass {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setSubject(NotificationMessages.EMAILSUBJECT.toString());
-            String htmlCode="<h2>"+NotificationMessages.H2MAILTEXT.toString()+t.getTaskName()+"</h2> <br/> <h3>"+NotificationMessages.REMINDERINFORMATION.toString()+t.getReminderDigit()+" "+t.getReminderPeriod()+"</h3>";
+            message.setSubject(NotificationMessages.EMAIL_SUBJECT.toString());
+            String htmlCode="<h2>"+NotificationMessages.H2_MAIL_TEXT.toString()+t.getTaskName()+"</h2> <br/> <h3>"+NotificationMessages.REMINDER_INFORMATION.toString()+t.getReminderDigit()+" "+t.getReminderPeriod()+"</h3>";
             message.setContent(htmlCode, "text/html");
             return message;
         } catch (Exception ex) {

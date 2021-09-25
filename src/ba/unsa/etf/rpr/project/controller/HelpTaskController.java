@@ -1,10 +1,10 @@
 package ba.unsa.etf.rpr.project.controller;
 
-import ba.unsa.etf.rpr.project.maker.ImageButton;
-import ba.unsa.etf.rpr.project.maker.TooltipClass;
 import ba.unsa.etf.rpr.project.enums.Help;
 import ba.unsa.etf.rpr.project.enums.StageName;
 import ba.unsa.etf.rpr.project.enums.content.TooltipContent;
+import ba.unsa.etf.rpr.project.maker.ImageButton;
+import ba.unsa.etf.rpr.project.maker.TooltipClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

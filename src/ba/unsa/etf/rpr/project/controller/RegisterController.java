@@ -1,8 +1,8 @@
 package ba.unsa.etf.rpr.project.controller;
 
 import ba.unsa.etf.rpr.project.database.AppDAO;
-import ba.unsa.etf.rpr.project.enums.content.LoginMessages;
 import ba.unsa.etf.rpr.project.enums.StageName;
+import ba.unsa.etf.rpr.project.enums.content.LoginMessages;
 import ba.unsa.etf.rpr.project.enums.content.TooltipContent;
 import ba.unsa.etf.rpr.project.maker.AlertClass;
 import ba.unsa.etf.rpr.project.maker.NotificationReminder;
@@ -59,8 +59,8 @@ public class RegisterController {
     @FXML
     public void initialize(){
         lblHeading.setText(LoginMessages.SIGNUP.toString().toUpperCase(Locale.ROOT));
-        lblWhatToEnter.setText(LoginMessages.WHATTOENTERREGISTRATION.toString());
-        lblHaveAccount.setText(LoginMessages.ALREADYHAVEACCOUNT.toString());
+        lblWhatToEnter.setText(LoginMessages.WHAT_TO_ENTER_REGISTRATION.toString());
+        lblHaveAccount.setText(LoginMessages.ALREADY_HAVE_ACCOUNT.toString());
         fldFirstName.setPromptText(LoginMessages.FIRST_NAME_PROMPT.toString());
         fldLastName.setPromptText(LoginMessages.LAST_NAME_PROMPT.toString());
         fldUsername.setPromptText(LoginMessages.USERNAME_PROMPT.toString());
@@ -118,24 +118,24 @@ public class RegisterController {
         boolean ok=true;
 
         if(fldFirstName.getText().trim().isEmpty()){
-            errorFirstName.setText(LoginMessages.FIRSTNAMEEMPTY.toString());
+            errorFirstName.setText(LoginMessages.FIRST_NAME_EMPTY.toString());
             ok=false;
         } else{
             errorFirstName.setText(" ");
         }
 
         if(fldLastName.getText().trim().isEmpty()){
-            errorLastName.setText(LoginMessages.LASTNAMEEMPTY.toString());
+            errorLastName.setText(LoginMessages.LAST_NAME_EMPTY.toString());
             ok=false;
         }else{
             errorLastName.setText(" ");
         }
 
         if(fldUsername.getText().trim().isEmpty()) {
-            errorUsername.setText(LoginMessages.USERNAMEEMPTY.toString());
+            errorUsername.setText(LoginMessages.USERNAME_EMPTY.toString());
             ok=false;
         }else if(!fldUsername.getText().trim().isEmpty() && !isUsernameFree(fldUsername.getText())) {
-            errorUsername.setText(LoginMessages.USERNAMEERROR.toString());
+            errorUsername.setText(LoginMessages.USERNAME_ERROR.toString());
             ok=false;
         }
         else{
@@ -143,10 +143,10 @@ public class RegisterController {
         }
 
         if(fldMail.getText().trim().isEmpty()) {
-            errorMail.setText(LoginMessages.MAILEMPTY.toString());
+            errorMail.setText(LoginMessages.MAIL_EMPTY.toString());
             ok = false;
         }else if(!emailValidation(fldMail.getText())){
-           errorMail.setText(LoginMessages.INVALIDMAIL.toString());
+           errorMail.setText(LoginMessages.INVALID_MAIL.toString());
            ok=false;
         } else{
             errorMail.setText(" ");
@@ -154,23 +154,23 @@ public class RegisterController {
 
 
         if(fldPassword.getText().trim().isEmpty()){
-            errorPassword.setText(LoginMessages.PASSWORDEMPTY.toString());
+            errorPassword.setText(LoginMessages.PASSWORD_EMPTY.toString());
             ok=false;
         } else if(!fldPassword.getText().isEmpty()&& fldPassword.getText().length()<4){
             ok=false;
-            errorPassword.setText(LoginMessages.PASSWORDENTRY.toString());
+            errorPassword.setText(LoginMessages.PASSWORD_ENTRY.toString());
         }else{
             errorPassword.setText(" ");
         }
 
        if(fldConfirmPassword.getText().trim().isEmpty() && !fldPassword.getText().isEmpty() ) {
-           errorConfirmPassword.setText(LoginMessages.CONFIRMPASSWORDEMPTY.toString());
+           errorConfirmPassword.setText(LoginMessages.CONFIRM_PASSWORD_EMPTY.toString());
            ok=false;
         } else if(!fldPassword.getText().isEmpty() && !fldConfirmPassword.getText().isEmpty() && !fldPassword.getText().equals(fldConfirmPassword.getText())){
-           errorConfirmPassword.setText(LoginMessages.PASSWORDMISMATCH.toString());
+           errorConfirmPassword.setText(LoginMessages.PASSWORD_MISMATCH.toString());
            ok=false;
        } else if (fldConfirmPassword.getText().trim().isEmpty() && fldPassword.getText().trim().isEmpty()){
-           errorConfirmPassword.setText(LoginMessages.CONFIRMPASSWORDEMPTY.toString());
+           errorConfirmPassword.setText(LoginMessages.CONFIRM_PASSWORD_EMPTY.toString());
            ok=false;
        } else{
            errorConfirmPassword.setText(" ");
@@ -224,7 +224,7 @@ public class RegisterController {
             });
 
             Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event2 -> {
-                AlertClass.alertINFORMATION(LoginMessages.REGISTERMESSAGETITLE.toString(), LoginMessages.REGISTERMESSAGEHEADER.toString(),  LoginMessages.REGISTERMESSAGECONTENT.toString(),"/img/salute.png" );
+                AlertClass.alertINFORMATION(LoginMessages.REGISTER_MESSAGE_TITLE.toString(), LoginMessages.REGISTER_MESSAGE_HEADER.toString(),  LoginMessages.REGISTER_MESSAGE_CONTENT.toString(),"/img/salute.png" );
             }));
             timeline2.play();
         }));

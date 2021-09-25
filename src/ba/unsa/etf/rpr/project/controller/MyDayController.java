@@ -1,7 +1,7 @@
 package ba.unsa.etf.rpr.project.controller;
 
 import ba.unsa.etf.rpr.project.database.AppDAO;
-import ba.unsa.etf.rpr.project.enums.*;
+import ba.unsa.etf.rpr.project.enums.StageName;
 import ba.unsa.etf.rpr.project.enums.alertText.MyDayAlertMessages;
 import ba.unsa.etf.rpr.project.enums.content.MyDayMessages;
 import ba.unsa.etf.rpr.project.enums.content.TooltipContent;
@@ -25,8 +25,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -108,12 +106,12 @@ public class MyDayController {
     }
 
     private void setTooltips(){
-        btnEditTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.EDITTASK.toString()));
-        btnDeleteTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETETASK.toString()));
-        btnRightArrow.setTooltip(TooltipClass.makeTooltip(TooltipContent.COLLAPSEDETAILS.toString()));
-        btnAddNewTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.ADDNEWTASK.toString()));
-        btnNewList.setTooltip(TooltipClass.makeTooltip(TooltipContent.ADDNEWLIST.toString()));
-        btnDeleteList.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETELIST.toString()));
+        btnEditTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.EDIT_TASK.toString()));
+        btnDeleteTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETE_TASK.toString()));
+        btnRightArrow.setTooltip(TooltipClass.makeTooltip(TooltipContent.COLLAPSE_DETAILS.toString()));
+        btnAddNewTask.setTooltip(TooltipClass.makeTooltip(TooltipContent.ADD_NEW_TASK.toString()));
+        btnNewList.setTooltip(TooltipClass.makeTooltip(TooltipContent.ADD_NEW_LIST.toString()));
+        btnDeleteList.setTooltip(TooltipClass.makeTooltip(TooltipContent.DELETE_LIST.toString()));
     }
 
 
@@ -126,9 +124,9 @@ public class MyDayController {
 
         //set greeting message
         String capitalizeUsername=user.getUsername().substring(0, 1).toUpperCase() + user.getUsername().substring(1);
-        if(currentHour<=11) greetingMessage.setText(MyDayMessages.GOODMORNING.toString()+capitalizeUsername+"!");
-        else if(currentHour<19) greetingMessage.setText(MyDayMessages.GOODAFTERNOON.toString()+capitalizeUsername+"!");
-        else greetingMessage.setText(MyDayMessages.GOODEVENING.toString()+capitalizeUsername+"!");
+        if(currentHour<=11) greetingMessage.setText(MyDayMessages.GOOD_MORNING.toString()+capitalizeUsername+"!");
+        else if(currentHour<19) greetingMessage.setText(MyDayMessages.GOOD_AFTERNOON.toString()+capitalizeUsername+"!");
+        else greetingMessage.setText(MyDayMessages.GOOD_EVENING.toString()+capitalizeUsername+"!");
 
 
 
@@ -191,12 +189,12 @@ public class MyDayController {
             public void handle(ActionEvent actionEvent) {
                 Task task = tableViewTasks.getSelectionModel().getSelectedItem();
                 if(task==null) {
-                    AlertClass.alertERROR(MyDayAlertMessages.NOTSELECTED.toString(), " ", "/img/todolist-icon.png");
+                    AlertClass.alertERROR(MyDayAlertMessages.NOT_SELECTED.toString(), " ", "/img/todolist-icon.png");
                     return;
                 }
                 String listName=task.getListName();
-                if(AlertClass.alertCONFIRMATION( MyDayAlertMessages.DELETETASKCONFIRMATIONHEADER.toString() +" '"+task.getTaskName()+"'?",
-                        MyDayAlertMessages.DELETETASKCONFIRMATIONCONTENT.toString(),"/img/thinking-face-icon.png")){
+                if(AlertClass.alertCONFIRMATION( MyDayAlertMessages.DELETE_TASK_CONFIRMATION_HEADER.toString() +" '"+task.getTaskName()+"'?",
+                        MyDayAlertMessages.DELETE_TASK_CONFIRMATION_CONTENT.toString(),"/img/thinking-face-icon.png")){
                     dao.deleteTask(task);
                     activeSession.setAll(dao.getAllTasksByListName(user.getUsername(),listName));
                 }
@@ -208,7 +206,7 @@ public class MyDayController {
             public void handle(ActionEvent actionEvent) {
                 Task task = tableViewTasks.getSelectionModel().getSelectedItem();
                 if(task==null){
-                    AlertClass.alertERROR(MyDayAlertMessages.NOTSELECTED.toString(), " ", "/img/road-sign-icon.png");
+                    AlertClass.alertERROR(MyDayAlertMessages.NOT_SELECTED.toString(), " ", "/img/road-sign-icon.png");
                     return;
                 }
 
@@ -279,16 +277,14 @@ public class MyDayController {
                 BooleanProperty observable=new SimpleBooleanProperty();
                 observable.addListener((obs, wasSelected, isNowSelected) ->{
                     if(isNowSelected){
-                      //  if(!task.getListName().equals(ListsName.COMPLETED.toString())) {
-                       //     task.setListName(ListsName.COMPLETED.toString());
                         if(!task.getListName().equals("Completed")){
                             task.setListName("Completed");
 
                         } else{
-                            if(TaskController.startDateAndTimeAreSet(task.getStartYear())) //task.setListName(ListsName.PLANNED.toString());
+                            if(TaskController.startDateAndTimeAreSet(task.getStartYear()))
                                 task.setListName("Planned");
-                            else //task.setListName(ListsName.TASKS.toString());
-                            task.setListName("Tasks");
+                            else
+                                task.setListName("Tasks");
                         }
                         dao.editTask(task);
                         listViewLists.getSelectionModel().select(new CustomList(user.getUsername(), task.getListName()));
@@ -331,7 +327,7 @@ public class MyDayController {
             e.printStackTrace();
         }
 
-        addNewTask.setTitle(StageName.YOURTASK.toString());
+        addNewTask.setTitle(StageName.YOUR_TASK.toString());
         addNewTask.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/todolist-icon.png"));
         addNewTask.getIcons().add(icon);
@@ -384,7 +380,7 @@ public class MyDayController {
 
     private boolean shouldDeleteList(String listName){
         return !listName.equals("My Day") && !listName.equals("Completed") && !listName.equals("Tasks") && !listName.equals("Planned");
-        //return !listName.equals(ListsName.MYDAY.toString()) && !listName.equals(ListsName.COMPLETED.toString()) && !listName.equals(ListsName.TASKS.toString()) && !listName.equals(ListsName.PLANNED.toString());
+
     }
 
 
@@ -394,11 +390,11 @@ public class MyDayController {
         if(selectedListName==null) return;
 
         if(!shouldDeleteList(selectedListName)){
-            AlertClass.alertERROR(MyDayAlertMessages.DELETELISTERRORHEADER.toString(), MyDayAlertMessages.DELETELISTERRORCONTENT.toString(),"/img/road-sign-icon.png");
+            AlertClass.alertERROR(MyDayAlertMessages.DELETE_LIST_ERROR_HEADER.toString(), MyDayAlertMessages.DELETE_LIST_ERROR_CONTENT.toString(),"/img/road-sign-icon.png");
             return;
         }
 
-        if(AlertClass.alertCONFIRMATION(MyDayAlertMessages.DELETETASKCONFIRMATIONHEADER.toString()+"'"+selectedListName+"'?", MyDayAlertMessages.DELETELISTCONFIRMATIONCONTENT.toString(),"/img/thinking-face-icon.png")){
+        if(AlertClass.alertCONFIRMATION(MyDayAlertMessages.DELETE_TASK_CONFIRMATION_HEADER.toString()+"'"+selectedListName+"'?", MyDayAlertMessages.DELETE_LIST_CONFIRMATION_CONTENT.toString(),"/img/thinking-face-icon.png")){
             dao.deleteList(user.getUsername(),selectedListName);
             listLists.remove(new CustomList(user.getUsername(), selectedListName));
         }

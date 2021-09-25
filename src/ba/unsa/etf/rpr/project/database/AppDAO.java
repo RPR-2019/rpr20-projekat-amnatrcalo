@@ -5,7 +5,6 @@ import ba.unsa.etf.rpr.project.model.Quote;
 import ba.unsa.etf.rpr.project.model.Task;
 import ba.unsa.etf.rpr.project.model.User;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;

@@ -1,8 +1,8 @@
 package ba.unsa.etf.rpr.project.controller;
 
 import ba.unsa.etf.rpr.project.database.AppDAO;
-import ba.unsa.etf.rpr.project.enums.content.LoginMessages;
 import ba.unsa.etf.rpr.project.enums.StageName;
+import ba.unsa.etf.rpr.project.enums.content.LoginMessages;
 import ba.unsa.etf.rpr.project.maker.AlertClass;
 import ba.unsa.etf.rpr.project.maker.NotificationReminder;
 import ba.unsa.etf.rpr.project.model.User;
@@ -50,8 +50,8 @@ public class LoginController {
     @FXML
     public void initialize(){
         lblHeading.setText(LoginMessages.LOGIN.toString().toUpperCase(Locale.ROOT));
-        lblWhatToEnter.setText(LoginMessages.WHATTOENTERLOGIN.toString());
-        lblDontHaveAccount.setText(LoginMessages.DONTHAVEACCOUNT.toString());
+        lblWhatToEnter.setText(LoginMessages.WHAT_TO_ENTER_LOGIN.toString());
+        lblDontHaveAccount.setText(LoginMessages.DONT_HAVE_ACCOUNT.toString());
         fldUsername.setPromptText(LoginMessages.USERNAME_PROMPT.toString());
         fldPassword.setPromptText(LoginMessages.PASSWORD_PROMPT.toString());
         hyperLink.setText(LoginMessages.SIGN_UP.toString());
@@ -106,13 +106,13 @@ public class LoginController {
 
         if(fldUsername.getText().trim().isEmpty() || fldPassword.getText().trim().isEmpty())
         {
-            AlertClass.alertERROR(LoginMessages.LOGINFAILEDHEADER.toString(),LoginMessages.LOGINFAILEDCONTENT.toString(),"/img/road-sign-icon.png");
+            AlertClass.alertERROR(LoginMessages.LOGIN_FAILED_HEADER.toString(),LoginMessages.LOGIN_FAILED_CONTENT.toString(),"/img/road-sign-icon.png");
             fldUsername.clear();
             fldPassword.clear();
             ok=false;
 
         } else if(!checkLogin(fldUsername.getText(), fldPassword.getText())){
-            AlertClass.alertERROR(LoginMessages.LOGINFAILEDHEADER.toString(),LoginMessages.LOGINFAILEDCONTENT.toString(),"/img/road-sign-icon.png");
+            AlertClass.alertERROR(LoginMessages.LOGIN_FAILED_HEADER.toString(),LoginMessages.LOGIN_FAILED_CONTENT.toString(),"/img/road-sign-icon.png");
             fldUsername.clear();
             fldPassword.clear();
             ok=false;

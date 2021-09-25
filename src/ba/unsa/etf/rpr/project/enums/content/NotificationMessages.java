@@ -3,7 +3,7 @@ package ba.unsa.etf.rpr.project.enums.content;
 import java.util.Locale;
 
 public enum NotificationMessages {
-    REMINDERINFORMATION{
+    REMINDER_INFORMATION {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -12,7 +12,7 @@ public enum NotificationMessages {
                 return "Počinje za ";
         }
     },
-    EMAILSUBJECT{
+    EMAIL_SUBJECT {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -21,7 +21,7 @@ public enum NotificationMessages {
                 return "Podsjetnik: To Do App";
         }
     },
-    H2MAILTEXT{
+    H2_MAIL_TEXT {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))

@@ -1,23 +1,13 @@
 package ba.unsa.etf.rpr.project.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import ba.unsa.etf.rpr.project.Main;
 import ba.unsa.etf.rpr.project.database.AppDAO;
 import ba.unsa.etf.rpr.project.enums.StageName;
-import ba.unsa.etf.rpr.project.maker.NotificationReminder;
-import ba.unsa.etf.rpr.project.model.CustomList;
 import ba.unsa.etf.rpr.project.model.Task;
-import ba.unsa.etf.rpr.project.model.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Control;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -33,6 +23,8 @@ import org.testfx.framework.junit5.Start;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(ApplicationExtension.class)
 class DateAndTimeControllerTest {
@@ -56,7 +48,7 @@ class DateAndTimeControllerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        stage.setTitle(StageName.DATEANDTIME.toString());
+        stage.setTitle(StageName.DATE_AND_TIME.toString());
         stage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/date-and-time-icon.png"));
         stage.getIcons().add(icon);

@@ -1,11 +1,7 @@
 package ba.unsa.etf.rpr.project.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import ba.unsa.etf.rpr.project.Main;
 import ba.unsa.etf.rpr.project.database.AppDAO;
 import ba.unsa.etf.rpr.project.enums.StageName;
-import ba.unsa.etf.rpr.project.maker.NotificationReminder;
 import ba.unsa.etf.rpr.project.model.CustomList;
 import ba.unsa.etf.rpr.project.model.User;
 import javafx.collections.FXCollections;
@@ -15,10 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Control;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +22,6 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -50,7 +43,7 @@ class TaskControllerTest {
         loader.setController(taskController);
         root = loader.load();
 
-        stage.setTitle(StageName.YOURTASK.toString());
+        stage.setTitle(StageName.YOUR_TASK.toString());
         stage.setScene(new Scene(root, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE));
         Image icon=new Image(getClass().getResourceAsStream("/img/todolist-icon.png"));
         stage.getIcons().add(icon);

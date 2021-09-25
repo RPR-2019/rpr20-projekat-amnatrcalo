@@ -1,9 +1,9 @@
 package ba.unsa.etf.rpr.project.controller;
 
 import ba.unsa.etf.rpr.project.database.AppDAO;
+import ba.unsa.etf.rpr.project.enums.StageName;
 import ba.unsa.etf.rpr.project.enums.content.LoginMessages;
 import ba.unsa.etf.rpr.project.model.User;
-import ba.unsa.etf.rpr.project.enums.StageName;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 
 import java.io.IOException;
 import java.util.ResourceBundle;

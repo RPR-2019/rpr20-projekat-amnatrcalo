@@ -1,9 +1,9 @@
 package ba.unsa.etf.rpr.project.controller;
 
+import ba.unsa.etf.rpr.project.enums.Period;
+import ba.unsa.etf.rpr.project.enums.alertText.DateAndTimeAlertMessages;
 import ba.unsa.etf.rpr.project.maker.AlertClass;
 import ba.unsa.etf.rpr.project.model.Task;
-import ba.unsa.etf.rpr.project.enums.alertText.DateAndTimeAlertMessages;
-import ba.unsa.etf.rpr.project.enums.Period;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

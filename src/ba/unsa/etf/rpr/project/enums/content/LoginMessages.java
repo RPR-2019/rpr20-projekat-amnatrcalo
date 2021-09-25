@@ -3,7 +3,7 @@ package ba.unsa.etf.rpr.project.enums.content;
 import java.util.Locale;
 
 public enum LoginMessages {
-    WHATTOENTERLOGIN {
+    WHAT_TO_ENTER_LOGIN {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -12,7 +12,7 @@ public enum LoginMessages {
                 return "Unesite svoje korisničko ime i lozinku";
         }
     },
-    DONTHAVEACCOUNT{
+    DONT_HAVE_ACCOUNT {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -21,7 +21,7 @@ public enum LoginMessages {
                 return "Nemate račun?";
         }
     },
-    LOGINFAILEDHEADER{
+    LOGIN_FAILED_HEADER {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -30,7 +30,7 @@ public enum LoginMessages {
                 return "Neuspješna prijava!";
         }
     },
-    LOGINFAILEDCONTENT{
+    LOGIN_FAILED_CONTENT {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -40,7 +40,7 @@ public enum LoginMessages {
         }
 
     },
-    WHATTOENTERREGISTRATION{
+    WHAT_TO_ENTER_REGISTRATION {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -49,7 +49,7 @@ public enum LoginMessages {
                 return "Popunite ovu formu za kreiranje računa";
         }
     },
-    ALREADYHAVEACCOUNT{
+    ALREADY_HAVE_ACCOUNT {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -58,7 +58,7 @@ public enum LoginMessages {
                 return "Već imate račun?";
         }
     },
-    FIRSTNAMEEMPTY{
+    FIRST_NAME_EMPTY {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -67,7 +67,7 @@ public enum LoginMessages {
                 return "Unos imena je obavezno.";
         }
     },
-    LASTNAMEEMPTY{
+    LAST_NAME_EMPTY {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -76,7 +76,7 @@ public enum LoginMessages {
                 return "Unos prezimena je obavezno.";
         }
     },
-    USERNAMEEMPTY{
+    USERNAME_EMPTY {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -85,7 +85,7 @@ public enum LoginMessages {
                 return "Unos korisničkog imena je obavezno.";
         }
     },
-    USERNAMEERROR{
+    USERNAME_ERROR {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -94,7 +94,7 @@ public enum LoginMessages {
                 return "Ime je zauzeto.";
         }
     },
-    MAILEMPTY{
+    MAIL_EMPTY {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -103,7 +103,7 @@ public enum LoginMessages {
                 return "Unos Mail-a je obavezno.";
         }
     },
-    INVALIDMAIL{
+    INVALID_MAIL {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -112,7 +112,7 @@ public enum LoginMessages {
                 return "Unesena email adresa nije validna.";
         }
     },
-    PASSWORDEMPTY{
+    PASSWORD_EMPTY {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -121,7 +121,7 @@ public enum LoginMessages {
                 return "Unos lozinke je obavezno.";
         }
     },
-    PASSWORDENTRY{
+    PASSWORD_ENTRY {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -130,7 +130,7 @@ public enum LoginMessages {
                 return "Lozinka mora sadržavati najmanje 4 karaktera.";
         }
     },
-    CONFIRMPASSWORDEMPTY{
+    CONFIRM_PASSWORD_EMPTY {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -139,7 +139,7 @@ public enum LoginMessages {
                 return "Potvrda lozinke je obavezna.";
         }
     },
-    PASSWORDMISMATCH{
+    PASSWORD_MISMATCH {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -148,7 +148,7 @@ public enum LoginMessages {
                 return "Unesene lozinke se ne podudaraju.";
         }
     },
-    REGISTERMESSAGETITLE{
+    REGISTER_MESSAGE_TITLE {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -157,7 +157,7 @@ public enum LoginMessages {
                 return "Počnimo!";
         }
     },
-    REGISTERMESSAGEHEADER{
+    REGISTER_MESSAGE_HEADER {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -166,7 +166,7 @@ public enum LoginMessages {
                 return "Izgleda da koristite To Do App prvi put";
         }
     },
-    REGISTERMESSAGECONTENT{
+    REGISTER_MESSAGE_CONTENT {
         @Override
         public String toString() {
             String s1="", s2="";

@@ -299,7 +299,7 @@ public class Task {
 
     private String writeListName(){
         return switch (listName) {
-            case "My Day" -> ListsName.MYDAY.toString();
+            case "My Day" -> ListsName.MY_DAY.toString();
             case "Tasks" -> ListsName.TASKS.toString();
             case "Completed" -> ListsName.COMPLETED.toString();
             case "Planned" -> ListsName.PLANNED.toString();

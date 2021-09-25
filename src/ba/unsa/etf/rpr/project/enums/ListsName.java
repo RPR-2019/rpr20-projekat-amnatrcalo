@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public enum ListsName {
-    MYDAY{
+    MY_DAY {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -43,10 +43,6 @@ public enum ListsName {
 
     public static ArrayList<String> defaultListsName(){
        ArrayList<String> res=new ArrayList<>();
-      /* res.add(MYDAY.toString());
-       res.add(TASKS.toString());
-       res.add(COMPLETED.toString());
-       res.add(PLANNED.toString());*/
         res.add("My Day");
         res.add("Tasks");
         res.add("Completed");

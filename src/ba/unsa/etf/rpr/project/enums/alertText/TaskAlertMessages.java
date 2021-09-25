@@ -3,7 +3,7 @@ package ba.unsa.etf.rpr.project.enums.alertText;
 import java.util.Locale;
 
 public enum TaskAlertMessages {
-    TASKNAMEREQUIREDHEADER{
+    TASK_NAME_REQUIRED_HEADER {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -12,7 +12,7 @@ public enum TaskAlertMessages {
                 return "Unos naziva zadatka je obavezno";
         }
     },
-    TASKNAMEREQUIREDCONTENT{
+    TASK_NAME_REQUIRED_CONTENT {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -21,7 +21,7 @@ public enum TaskAlertMessages {
                 return "Niste ukucali naziv zadatka.";
         }
     },
-    NAMENOTAPPROVEDHEADER{
+    NAME_NOT_APPROVED_HEADER {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -30,7 +30,7 @@ public enum TaskAlertMessages {
                 return "Ovo ime nije dozvoljeno";
         }
     },
-    NAMENOTAPPROVEDCONTENT{
+    NAME_NOT_APPROVED_CONTENT {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -57,7 +57,7 @@ public enum TaskAlertMessages {
                 return "Je li Vam to u redu?";
         }
     },
-    TEXTLENGTHERRORHEADER{
+    TEXT_LENGTH_ERROR_HEADER {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
@@ -66,7 +66,7 @@ public enum TaskAlertMessages {
                 return "Odabrani fajl sadrži više od 100 karaktera";
         }
     },
-    TEXTLENGTHERRORCONTENT{
+    TEXT_LENGTH_ERROR_CONTENT {
         @Override
         public String toString() {
             if (Locale.getDefault().getCountry().equals("US"))
