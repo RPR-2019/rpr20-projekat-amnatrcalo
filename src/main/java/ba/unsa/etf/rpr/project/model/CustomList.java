@@ -23,13 +23,6 @@ public class CustomList {
     }
 
     public String getListName() {
-     /*  return switch (listName) {
-            case "My Day" -> ListsName.MYDAY.toString();
-            case "Tasks" -> ListsName.TASKS.toString();
-            case "Planned" -> ListsName.PLANNED.toString();
-            case "Completed" -> ListsName.COMPLETED.toString();
-            default -> listName;
-        };*/
        return listName;
     }
 
@@ -46,7 +39,6 @@ public class CustomList {
             case "Completed" -> ListsName.COMPLETED.toString();
             default -> listName;
         };
-       // return listName;
     }
 
     @Override
